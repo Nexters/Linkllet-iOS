@@ -89,6 +89,22 @@ class FolderFormViewController: UIViewController {
         return button
     }()
     
+    private let errorAlertView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        view.layer.cornerRadius = 12
+        view.isHidden = true
+        return view
+    }()
+    
+    private let errorAlertLabel: UILabel = {
+        let label = UILabel()
+        label.text = "폴더 제목을 입력해 주세요"
+        label.textColor = .init("FFFFFF")
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
     // MARK: Life Cycle
     init(viewModel: FolderFormViewModel) {
         self.viewModel = viewModel
@@ -131,6 +147,8 @@ extension FolderFormViewController {
         view.addSubview(inputGuideLabel)
         view.addSubview(inputCountLabel)
         view.addSubview(confirmButton)
+        view.addSubview(errorAlertView)
+        errorAlertView.addSubview(errorAlertLabel)
     }
     
     private func setConstraints() {
@@ -193,6 +211,20 @@ extension FolderFormViewController {
             confirmButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             confirmButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        errorAlertView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorAlertView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            errorAlertView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            errorAlertView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            errorAlertView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        errorAlertLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorAlertLabel.centerXAnchor.constraint(equalTo: errorAlertView.centerXAnchor),
+            errorAlertLabel.centerYAnchor.constraint(equalTo: errorAlertView.centerYAnchor)
+        ])
     }
 }
 
@@ -225,7 +257,7 @@ extension FolderFormViewController {
         viewModel.isInputError
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { isError in
-                self.setInputTitleView(isError)
+                self.setErrorView(isError)
         })
             .store(in: &cancellables)
     }
@@ -244,10 +276,23 @@ extension FolderFormViewController {
         inputCountLabel.text = "\(input.count)/10"
     }
     
-    private func setInputTitleView(_ isError: Bool) {
+    private func setErrorView(_ isError: Bool) {
         if isError {
             inputTitleView.layer.borderWidth = 2
             inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
+            UIView.transition(with: view, duration: 0.2,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                self.errorAlertView.isHidden = false
+            }) { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    UIView.transition(with: self.view, duration: 0.2,
+                                      options: .transitionCrossDissolve,
+                                      animations: {
+                        self.errorAlertView.isHidden = true
+                    })
+                }
+            }
         } else {
             inputTitleView.layer.borderWidth = 0
         }
