@@ -1,17 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "ico_x.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "ico_x.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

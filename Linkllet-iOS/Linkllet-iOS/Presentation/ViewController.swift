@@ -11,6 +11,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
+            present(vc, animated: true)
+        }
+        
     }
 }
 
