@@ -11,6 +11,8 @@
 		846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC12A654D9500C0F629 /* NetworkService.swift */; };
 		846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC42A654DBB00C0F629 /* Endpoint.swift */; };
 		846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */; };
+		846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFECF2A65543100C0F629 /* FolderFormViewController.swift */; };
+		846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */; };
 		8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE252A5804AC00A5FEDF /* AppDelegate.swift */; };
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
 		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
@@ -41,6 +43,8 @@
 		846AFEC12A654D9500C0F629 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		846AFEC42A654DBB00C0F629 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEndpoint.swift; sourceTree = "<group>"; };
+		846AFECF2A65543100C0F629 /* FolderFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFormViewController.swift; sourceTree = "<group>"; };
+		846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFormViewModel.swift; sourceTree = "<group>"; };
 		8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linkllet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8479BE252A5804AC00A5FEDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +111,15 @@
 			path = Endpoints;
 			sourceTree = "<group>";
 		};
+		846AFECE2A65541800C0F629 /* FolderForm */ = {
+			isa = PBXGroup;
+			children = (
+				846AFECF2A65543100C0F629 /* FolderFormViewController.swift */,
+				846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */,
+			);
+			path = FolderForm;
+			sourceTree = "<group>";
+		};
 		8479BE192A5804AC00A5FEDF = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				B95DFF832A65512F000B7947 /* LinkForm */,
+				846AFECE2A65541800C0F629 /* FolderForm */,
 				8479BE292A5804AC00A5FEDF /* ViewController.swift */,
 			);
 			path = Presentation;
@@ -305,12 +319,14 @@
 				8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */,
 				846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */,
 				8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */,
+				846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */,
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
 				B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */,
 				B95DFF942A65614B000B7947 /* UIViewController+.swift in Sources */,
 				CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */,
+				846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */,
 				B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */,
 				B95DFF8C2A655A22000B7947 /* UIButton+Combine.swift in Sources */,
 			);
