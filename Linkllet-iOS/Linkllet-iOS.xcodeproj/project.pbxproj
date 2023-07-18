@@ -17,6 +17,9 @@
 		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
 		8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */; };
 		8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE302A5804AD00A5FEDF /* LaunchScreen.storyboard */; };
+		84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213C2A66C8D4000946A8 /* UIFont+.swift */; };
+		84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */; };
+		84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D021432A66CB03000946A8 /* Pretendard-Medium.otf */; };
 		B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF842A655155000B7947 /* LinkFormViewController.swift */; };
 		B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF862A6551BC000B7947 /* LinkForm.storyboard */; };
 		B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF892A655270000B7947 /* UIColor+.swift */; };
@@ -47,6 +50,9 @@
 		8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8479BE312A5804AD00A5FEDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8479BE332A5804AD00A5FEDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84D0213C2A66C8D4000946A8 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
 		B95DFF862A6551BC000B7947 /* LinkForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkForm.storyboard; sourceTree = "<group>"; };
 		B95DFF892A655270000B7947 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				CE3240512A66D6A100B0C90D /* Utilities */,
 				B95DFF9C2A66CACF000B7947 /* Models */,
 				846AFEBD2A654D0B00C0F629 /* Network */,
+				846AFECB2A6551FC00C0F629 /* Responses */,
 				B95DFF882A655266000B7947 /* Extension */,
 				8479BE392A58063600A5FEDF /* Application */,
 				8479BE3A2A58066400A5FEDF /* Presentation */,
@@ -145,6 +152,7 @@
 		8479BE392A58063600A5FEDF /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				84D0213E2A66C967000946A8 /* Fonts */,
 				8479BE252A5804AC00A5FEDF /* AppDelegate.swift */,
 				8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */,
 				8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */,
@@ -162,10 +170,19 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		84D0213E2A66C967000946A8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				84D021432A66CB03000946A8 /* Pretendard-Medium.otf */,
+				84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		B95DFF832A65512F000B7947 /* LinkForm */ = {
 			isa = PBXGroup;
 			children = (
-				B95DFF972A6592CD000B7947 /* Cell */,
+                B95DFF972A6592CD000B7947 /* Cell */,
 				B95DFF842A655155000B7947 /* LinkFormViewController.swift */,
 				B95DFF862A6551BC000B7947 /* LinkForm.storyboard */,
 			);
@@ -180,6 +197,7 @@
 				B95DFF8D2A655AC4000B7947 /* UIControl+Combine.swift */,
 				B95DFF932A65614B000B7947 /* UIViewController+.swift */,
 				B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */,
+				84D0213C2A66C8D4000946A8 /* UIFont+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -271,10 +289,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */,
+				84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */,
 				8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */,
 				B95DFF9B2A6592FF000B7947 /* PickFolderLinkFormCell.xib in Resources */,
 				B95DFF922A6560D4000B7947 /* LinkFormTextFieldCell.xib in Resources */,
 				8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */,
+				84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +309,7 @@
 				B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */,
 				B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */,
 				B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */,
+				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
 				846AFECD2A65522200C0F629 /* GetFoldersResponse.swift in Sources */,
