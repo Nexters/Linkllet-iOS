@@ -172,8 +172,3 @@ final class LinkFormViewModel {
         state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem()])
     }
 }
-
-struct Folder: Decodable {
-    var nameString: String
-}
-

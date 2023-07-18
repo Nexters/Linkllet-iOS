@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.overrideUserInterfaceStyle = .light
-        let navigationController = UINavigationController(rootViewController: ViewController())
+        let navigationController = UINavigationController(rootViewController: ViewController(memberInfoManager: MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()) )))
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }

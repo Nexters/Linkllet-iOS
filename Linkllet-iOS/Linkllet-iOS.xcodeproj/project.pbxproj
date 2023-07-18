@@ -28,6 +28,10 @@
 		B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */; };
 		B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF982A6592FF000B7947 /* PickFolderLinkFormCell.swift */; };
 		B95DFF9B2A6592FF000B7947 /* PickFolderLinkFormCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */; };
+		B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9D2A66CAE7000B7947 /* Folder.swift */; };
+		B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9F2A66CAF0000B7947 /* Article.swift */; };
+		B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */; };
+		CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +58,10 @@
 		B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
 		B95DFF982A6592FF000B7947 /* PickFolderLinkFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderLinkFormCell.swift; sourceTree = "<group>"; };
 		B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickFolderLinkFormCell.xib; sourceTree = "<group>"; };
+		B95DFF9D2A66CAE7000B7947 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		B95DFF9F2A66CAF0000B7947 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndpoint.swift; sourceTree = "<group>"; };
+		CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +99,7 @@
 			children = (
 				846AFEC42A654DBB00C0F629 /* Endpoint.swift */,
 				846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */,
+				B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -122,6 +131,8 @@
 		8479BE242A5804AC00A5FEDF /* Linkllet-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CE3240512A66D6A100B0C90D /* Utilities */,
+				B95DFF9C2A66CACF000B7947 /* Models */,
 				846AFEBD2A654D0B00C0F629 /* Network */,
 				B95DFF882A655266000B7947 /* Extension */,
 				8479BE392A58063600A5FEDF /* Application */,
@@ -182,6 +193,23 @@
 				B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		B95DFF9C2A66CACF000B7947 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B95DFF9D2A66CAE7000B7947 /* Folder.swift */,
+				B95DFF9F2A66CAF0000B7947 /* Article.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE3240512A66D6A100B0C90D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +286,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B95DFF912A6560D4000B7947 /* LinkFormTextFieldCell.swift in Sources */,
+				B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */,
+				B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */,
+				B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
 				846AFECD2A65522200C0F629 /* GetFoldersResponse.swift in Sources */,
@@ -271,6 +302,7 @@
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
 				B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */,
 				B95DFF942A65614B000B7947 /* UIViewController+.swift in Sources */,
+				CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */,
 				B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */,
 				B95DFF8C2A655A22000B7947 /* UIButton+Combine.swift in Sources */,
 			);
@@ -411,7 +443,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -439,7 +471,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
