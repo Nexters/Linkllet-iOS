@@ -14,29 +14,25 @@ final class MemberInfoManager {
     static var deviceId: String { UIDevice.current.identifierForVendor?.uuidString ?? "" }
     // 앱 재설치하면 초기화 https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
 
-    static var isMember: Bool {
-        return UserDefaults.standard.bool(forKey: userDefaultsKey)
-    }
-
     static private let userDefaultsKey = "isMember"
 
     private var cancellables = Set<AnyCancellable>()
     private let useCase: MemberInfoUsecase
 
-    private(set) var isMemberPublisher = CurrentValueSubject<Bool, Never>(UserDefaults.standard.bool(forKey: userDefaultsKey))
+    private(set) var isMemberPublisher = CurrentValueSubject<Bool, Never>(UserDefaults.standard.bool(forKey: MemberInfoManager.userDefaultsKey))
 
     init(useCase: MemberInfoUsecase) {
         self.useCase = useCase
     }
 
     func registerMember() {
-
         useCase.reigster()
             .retry(3)
             .receive(on: DispatchQueue.main)
-            .sink { isSuccess in
+            .sink { [weak self] isSuccess in
                 guard isSuccess else { return }
                 UserDefaults.standard.set(true, forKey: Self.userDefaultsKey)
+                self?.isMemberPublisher.send(true)
             }
             .store(in: &cancellables)
     }
@@ -54,7 +50,7 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
         return network.request(MemberEndpoint.register)
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
-                      httpResponse.statusCode != 200 else {
+                      httpResponse.statusCode == 200 else {
                     throw NetworkError.invalidResponse
                 }
                 return true

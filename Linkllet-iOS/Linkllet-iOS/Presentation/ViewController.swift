@@ -29,19 +29,21 @@ class ViewController: UIViewController {
 
         // 멤버 회원가입 예외처리, 추후 UI 수정
 
-        self.view.isUserInteractionEnabled = false
 
-        memberInfoManager.registerMember()
+        if !memberInfoManager.isMemberPublisher.value {
+            self.view.isUserInteractionEnabled = false
+            memberInfoManager.registerMember()
 
-        memberInfoManager.isMemberPublisher
-            .removeDuplicates()
-            .filter { $0 }
-            .prefix(1)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isMember in
-                self?.view.isUserInteractionEnabled = false
-            }
-            .store(in: &cancellables)
+            memberInfoManager.isMemberPublisher
+                .removeDuplicates()
+                .filter { $0 }
+                .prefix(1)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] isMember in
+                    self?.view.isUserInteractionEnabled = false
+                }
+                .store(in: &cancellables)
+        }
 
         testNetwork.request(FolderEndpoint.getFolders)
             .tryMap { (data, _) in
