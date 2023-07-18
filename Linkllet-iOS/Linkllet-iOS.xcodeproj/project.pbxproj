@@ -11,7 +11,6 @@
 		846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC12A654D9500C0F629 /* NetworkService.swift */; };
 		846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC42A654DBB00C0F629 /* Endpoint.swift */; };
 		846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */; };
-		846AFECD2A65522200C0F629 /* GetFoldersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFECC2A65522200C0F629 /* GetFoldersResponse.swift */; };
 		8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE252A5804AC00A5FEDF /* AppDelegate.swift */; };
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
 		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
@@ -42,7 +41,6 @@
 		846AFEC12A654D9500C0F629 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		846AFEC42A654DBB00C0F629 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEndpoint.swift; sourceTree = "<group>"; };
-		846AFECC2A65522200C0F629 /* GetFoldersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFoldersResponse.swift; sourceTree = "<group>"; };
 		8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linkllet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8479BE252A5804AC00A5FEDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 			children = (
 				846AFEBE2A654D7700C0F629 /* NetworkConstants.swift */,
 				846AFEC02A654D8300C0F629 /* Services */,
-				846AFECB2A6551FC00C0F629 /* Responses */,
 				846AFEC32A654DAA00C0F629 /* Endpoints */,
 			);
 			path = Network;
@@ -108,14 +105,6 @@
 				B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */,
 			);
 			path = Endpoints;
-			sourceTree = "<group>";
-		};
-		846AFECB2A6551FC00C0F629 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				846AFECC2A65522200C0F629 /* GetFoldersResponse.swift */,
-			);
-			path = Responses;
 			sourceTree = "<group>";
 		};
 		8479BE192A5804AC00A5FEDF = {
@@ -140,7 +129,6 @@
 				CE3240512A66D6A100B0C90D /* Utilities */,
 				B95DFF9C2A66CACF000B7947 /* Models */,
 				846AFEBD2A654D0B00C0F629 /* Network */,
-				846AFECB2A6551FC00C0F629 /* Responses */,
 				B95DFF882A655266000B7947 /* Extension */,
 				8479BE392A58063600A5FEDF /* Application */,
 				8479BE3A2A58066400A5FEDF /* Presentation */,
@@ -182,7 +170,7 @@
 		B95DFF832A65512F000B7947 /* LinkForm */ = {
 			isa = PBXGroup;
 			children = (
-                B95DFF972A6592CD000B7947 /* Cell */,
+				B95DFF972A6592CD000B7947 /* Cell */,
 				B95DFF842A655155000B7947 /* LinkFormViewController.swift */,
 				B95DFF862A6551BC000B7947 /* LinkForm.storyboard */,
 			);
@@ -312,7 +300,6 @@
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
-				846AFECD2A65522200C0F629 /* GetFoldersResponse.swift in Sources */,
 				846AFEBF2A654D7700C0F629 /* NetworkConstants.swift in Sources */,
 				B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */,
 				8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */,
