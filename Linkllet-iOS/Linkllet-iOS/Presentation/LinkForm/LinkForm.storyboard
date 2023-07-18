@@ -48,17 +48,33 @@
                                     <constraint firstItem="3FL-CS-FQK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bXo-FA-A8r" secondAttribute="leading" constant="16" id="shw-gf-NFb"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gz9-NP-kzp">
+                                <rect key="frame" x="0.0" y="107" width="390" height="703"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7ol-wj-C68">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="gz9-NP-kzp" firstAttribute="top" secondItem="bXo-FA-A8r" secondAttribute="bottom" id="E6s-ku-J7H"/>
                             <constraint firstItem="bXo-FA-A8r" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Nb3-HD-ntg"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="gz9-NP-kzp" secondAttribute="bottom" id="Uge-RY-d2p"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="gz9-NP-kzp" secondAttribute="trailing" id="ZZC-9Y-Zo7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="bXo-FA-A8r" secondAttribute="trailing" id="cG6-Ej-xRp"/>
                             <constraint firstItem="bXo-FA-A8r" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="oys-nD-v5e"/>
+                            <constraint firstItem="gz9-NP-kzp" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sBx-mS-FvS"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="NCS-AR-Kyc" id="Eda-Ii-fEa"/>
+                        <outlet property="collectionView" destination="gz9-NP-kzp" id="aXb-bp-O33"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

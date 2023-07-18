@@ -11,7 +11,6 @@
 		846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC12A654D9500C0F629 /* NetworkService.swift */; };
 		846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC42A654DBB00C0F629 /* Endpoint.swift */; };
 		846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */; };
-		846AFECD2A65522200C0F629 /* GetFoldersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFECC2A65522200C0F629 /* GetFoldersResponse.swift */; };
 		8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE252A5804AC00A5FEDF /* AppDelegate.swift */; };
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
 		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
@@ -25,6 +24,16 @@
 		B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF892A655270000B7947 /* UIColor+.swift */; };
 		B95DFF8C2A655A22000B7947 /* UIButton+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF8B2A655A22000B7947 /* UIButton+Combine.swift */; };
 		B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF8D2A655AC4000B7947 /* UIControl+Combine.swift */; };
+		B95DFF912A6560D4000B7947 /* LinkFormTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF8F2A6560D4000B7947 /* LinkFormTextFieldCell.swift */; };
+		B95DFF922A6560D4000B7947 /* LinkFormTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF902A6560D4000B7947 /* LinkFormTextFieldCell.xib */; };
+		B95DFF942A65614B000B7947 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF932A65614B000B7947 /* UIViewController+.swift */; };
+		B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */; };
+		B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF982A6592FF000B7947 /* PickFolderLinkFormCell.swift */; };
+		B95DFF9B2A6592FF000B7947 /* PickFolderLinkFormCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */; };
+		B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9D2A66CAE7000B7947 /* Folder.swift */; };
+		B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9F2A66CAF0000B7947 /* Article.swift */; };
+		B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */; };
+		CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +41,6 @@
 		846AFEC12A654D9500C0F629 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		846AFEC42A654DBB00C0F629 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEndpoint.swift; sourceTree = "<group>"; };
-		846AFECC2A65522200C0F629 /* GetFoldersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFoldersResponse.swift; sourceTree = "<group>"; };
 		8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linkllet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8479BE252A5804AC00A5FEDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +56,16 @@
 		B95DFF892A655270000B7947 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		B95DFF8B2A655A22000B7947 /* UIButton+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Combine.swift"; sourceTree = "<group>"; };
 		B95DFF8D2A655AC4000B7947 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
+		B95DFF8F2A6560D4000B7947 /* LinkFormTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormTextFieldCell.swift; sourceTree = "<group>"; };
+		B95DFF902A6560D4000B7947 /* LinkFormTextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkFormTextFieldCell.xib; sourceTree = "<group>"; };
+		B95DFF932A65614B000B7947 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		B95DFF982A6592FF000B7947 /* PickFolderLinkFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderLinkFormCell.swift; sourceTree = "<group>"; };
+		B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickFolderLinkFormCell.xib; sourceTree = "<group>"; };
+		B95DFF9D2A66CAE7000B7947 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		B95DFF9F2A66CAF0000B7947 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndpoint.swift; sourceTree = "<group>"; };
+		CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,16 +102,9 @@
 			children = (
 				846AFEC42A654DBB00C0F629 /* Endpoint.swift */,
 				846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */,
+				B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */,
 			);
 			path = Endpoints;
-			sourceTree = "<group>";
-		};
-		846AFECB2A6551FC00C0F629 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				846AFECC2A65522200C0F629 /* GetFoldersResponse.swift */,
-			);
-			path = Responses;
 			sourceTree = "<group>";
 		};
 		8479BE192A5804AC00A5FEDF = {
@@ -115,8 +126,9 @@
 		8479BE242A5804AC00A5FEDF /* Linkllet-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CE3240512A66D6A100B0C90D /* Utilities */,
+				B95DFF9C2A66CACF000B7947 /* Models */,
 				846AFEBD2A654D0B00C0F629 /* Network */,
-				846AFECB2A6551FC00C0F629 /* Responses */,
 				B95DFF882A655266000B7947 /* Extension */,
 				8479BE392A58063600A5FEDF /* Application */,
 				8479BE3A2A58066400A5FEDF /* Presentation */,
@@ -158,6 +170,7 @@
 		B95DFF832A65512F000B7947 /* LinkForm */ = {
 			isa = PBXGroup;
 			children = (
+				B95DFF972A6592CD000B7947 /* Cell */,
 				B95DFF842A655155000B7947 /* LinkFormViewController.swift */,
 				B95DFF862A6551BC000B7947 /* LinkForm.storyboard */,
 			);
@@ -170,9 +183,39 @@
 				B95DFF892A655270000B7947 /* UIColor+.swift */,
 				B95DFF8B2A655A22000B7947 /* UIButton+Combine.swift */,
 				B95DFF8D2A655AC4000B7947 /* UIControl+Combine.swift */,
+				B95DFF932A65614B000B7947 /* UIViewController+.swift */,
+				B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */,
 				84D0213C2A66C8D4000946A8 /* UIFont+.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B95DFF972A6592CD000B7947 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B95DFF8F2A6560D4000B7947 /* LinkFormTextFieldCell.swift */,
+				B95DFF902A6560D4000B7947 /* LinkFormTextFieldCell.xib */,
+				B95DFF982A6592FF000B7947 /* PickFolderLinkFormCell.swift */,
+				B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B95DFF9C2A66CACF000B7947 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B95DFF9D2A66CAE7000B7947 /* Folder.swift */,
+				B95DFF9F2A66CAF0000B7947 /* Article.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE3240512A66D6A100B0C90D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +279,8 @@
 				B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */,
 				84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */,
 				8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */,
+				B95DFF9B2A6592FF000B7947 /* PickFolderLinkFormCell.xib in Resources */,
+				B95DFF922A6560D4000B7947 /* LinkFormTextFieldCell.xib in Resources */,
 				8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */,
 				84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */,
 			);
@@ -248,9 +293,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B95DFF912A6560D4000B7947 /* LinkFormTextFieldCell.swift in Sources */,
+				B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */,
+				B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */,
+				B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */,
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
-				846AFECD2A65522200C0F629 /* GetFoldersResponse.swift in Sources */,
+				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
 				846AFEBF2A654D7700C0F629 /* NetworkConstants.swift in Sources */,
 				B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */,
 				8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */,
@@ -259,6 +308,9 @@
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
+				B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */,
+				B95DFF942A65614B000B7947 /* UIViewController+.swift in Sources */,
+				CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */,
 				B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */,
 				B95DFF8C2A655A22000B7947 /* UIButton+Combine.swift in Sources */,
 			);
@@ -399,7 +451,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -427,7 +479,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

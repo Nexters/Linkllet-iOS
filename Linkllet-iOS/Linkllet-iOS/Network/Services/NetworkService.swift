@@ -8,16 +8,20 @@
 import Foundation
 import Combine
 
-final class NetworkService {
+protocol NetworkProvider {
+    func request(_ endpoint: Endpoint) -> AnyPublisher<(Data, URLResponse), NetworkError>
+}
+
+final class NetworkService: NetworkProvider {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
         self.session = session
     }
     
-    func request<T: Decodable>(_ endpoint: Endpoint) -> AnyPublisher<T, NetworkError> {
+    func request(_ endpoint: Endpoint) -> AnyPublisher<(Data, URLResponse), NetworkError> {
         guard let urlRequest = endpoint.urlRequest else {
-            return Fail<T, NetworkError>(error: .invalidURL)
+            return Fail<(Data, URLResponse), NetworkError>(error: .invalidURL)
                 .eraseToAnyPublisher()
         }
         
@@ -28,9 +32,8 @@ final class NetworkService {
                       (200...299).contains(httpResponse.statusCode) else {
                     throw NetworkError.invalidResponse
                 }
-                return data
+                return (data, response)
             }
-            .decode(type: T.self, decoder: JSONDecoder())
             .mapError { error -> NetworkError in
                 if let networkError = error as? NetworkError {
                     return networkError
@@ -39,5 +42,17 @@ final class NetworkService {
                 }
             }
             .eraseToAnyPublisher()
+    }
+}
+
+public extension JSONDecoder {
+    public func decode<T: Decodable>(_ type: T.Type, from data: Data, keyPath: String) throws -> T {
+        let toplevel = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+        if let nestedJson = (toplevel as AnyObject).value(forKeyPath: keyPath) {
+            let nestedJsonData = try JSONSerialization.data(withJSONObject: nestedJson, options: .fragmentsAllowed)
+            return try decode(type, from: nestedJsonData)
+        } else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Nested json not found for key path \"\(keyPath)\""))
+        }
     }
 }
