@@ -18,7 +18,7 @@ class FolderFormViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: UI Component
-    private let navigationBar: UIView = {
+    private let topBar: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.shadowOpacity = 0.04
@@ -27,7 +27,7 @@ class FolderFormViewController: UIViewController {
         return view
     }()
     
-    private let navigationTitleLabel: UILabel = {
+    private let topBarTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "폴더 추가하기"
         label.textAlignment = .center
@@ -138,9 +138,9 @@ extension FolderFormViewController {
     
     private func setUI() {
         view.backgroundColor = .white
-        view.addSubview(navigationBar)
-        navigationBar.addSubview(navigationTitleLabel)
-        navigationBar.addSubview(closeButton)
+        view.addSubview(topBar)
+        topBar.addSubview(topBarTitleLabel)
+        topBar.addSubview(closeButton)
         view.addSubview(folderTitleLabel)
         view.addSubview(inputTitleView)
         inputTitleView.addSubview(inputTitleTextField)
@@ -152,30 +152,30 @@ extension FolderFormViewController {
     }
     
     private func setConstraints() {
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        topBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.heightAnchor.constraint(equalToConstant: 60)
+            topBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            topBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topBar.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        navigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        topBarTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            navigationTitleLabel.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor),
-            navigationTitleLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor)
+            topBarTitleLabel.centerXAnchor.constraint(equalTo: topBar.centerXAnchor),
+            topBarTitleLabel.centerYAnchor.constraint(equalTo: topBar.centerYAnchor)
         ])
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            closeButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            closeButton.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -18)
+            closeButton.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
+            closeButton.rightAnchor.constraint(equalTo: topBar.rightAnchor, constant: -18)
         ])
         
         folderTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             folderTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            folderTitleLabel.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 30)
+            folderTitleLabel.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 30)
         ])
         
         inputTitleView.translatesAutoresizingMaskIntoConstraints = false
