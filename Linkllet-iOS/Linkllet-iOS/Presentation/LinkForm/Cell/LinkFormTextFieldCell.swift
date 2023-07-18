@@ -21,9 +21,11 @@ final class LinkFormTextFieldCell: UICollectionViewCell {
     @IBOutlet private weak var countLabel: UILabel!
 
     var cancellables = Set<AnyCancellable>()
+    private var item: TextfieldLinkFormItem?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
         setView()
     }
 
@@ -31,11 +33,17 @@ final class LinkFormTextFieldCell: UICollectionViewCell {
         super.prepareForReuse()
         cancellables.removeAll()
     }
+
+    @IBAction func textFieldDidChange(_ sender: Any) {
+        guard let maxCount = item?.maxCount else { return }
+        countLabel.text = "\((textField.text ?? "").count)/\(maxCount)"
+    }
 }
 
 extension LinkFormTextFieldCell {
 
     func updateUI(with item: TextfieldLinkFormItem) {
+        self.item = item
         titleLabel.text = item.title
         textField.placeholder = item.placeholder
         countLabel.isHidden = item.maxCount == nil
@@ -50,5 +58,17 @@ private extension LinkFormTextFieldCell {
         textFieldBackgroundView.backgroundColor = .init("F4F4F4")
         textFieldBackgroundView.layer.borderWidth = 0
         textFieldBackgroundView.layer.cornerRadius = 12
+        textField.delegate = self
+    }
+}
+
+extension LinkFormTextFieldCell: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength: Int = item?.maxCount ?? .zero
+        let currentString = (textField.text ?? "") as NSString
+        let newString = currentString.replacingCharacters(in: range, with: string)
+
+        return newString.count <= maxLength
     }
 }
