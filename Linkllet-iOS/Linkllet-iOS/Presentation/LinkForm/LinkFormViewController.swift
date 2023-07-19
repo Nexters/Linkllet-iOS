@@ -10,10 +10,12 @@ import UIKit
 
 final class LinkFormViewController: UIViewController {
 
-    private var cancellables = Set<AnyCancellable>()
-    private let viewModel: LinkFormViewModel
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var closeButton: UIButton!
+    @IBOutlet private weak var actionButton: UIButton!
+
+    private var cancellables = Set<AnyCancellable>()
+    private let viewModel: LinkFormViewModel
 
     init?(coder: NSCoder, viewModel: LinkFormViewModel) {
         self.viewModel = viewModel
@@ -27,10 +29,8 @@ final class LinkFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.register(UINib(nibName: LinkFormTextFieldCell.className, bundle: Bundle(for: LinkFormTextFieldCell.self)), forCellWithReuseIdentifier: LinkFormTextFieldCell.className)
-        collectionView.register(UINib(nibName: PickFolderLinkFormCell.className, bundle: Bundle(for: PickFolderLinkFormCell.self)), forCellWithReuseIdentifier: PickFolderLinkFormCell.className)
-        setPublisher()
         setView()
+        setPublisher()
     }
 
 }
@@ -50,15 +50,42 @@ private extension LinkFormViewController {
                 self?.collectionView.reloadData()
             }
             .store(in: &cancellables)
+
+        actionButton.tapPublisher
+            .sink { _ in
+
+            }
+            .store(in: &cancellables)
     }
 
     func setView() {
+        actionButton.layer.cornerRadius = 12
+
+        collectionView.register(UINib(nibName: LinkFormTextFieldCell.className, bundle: Bundle(for: LinkFormTextFieldCell.self)), forCellWithReuseIdentifier: LinkFormTextFieldCell.className)
+        collectionView.register(UINib(nibName: PickFolderLinkFormCell.className, bundle: Bundle(for: PickFolderLinkFormCell.self)), forCellWithReuseIdentifier: PickFolderLinkFormCell.className)
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 40
         layout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 40, right: 0)
         collectionView.collectionViewLayout = layout
         collectionView.delegate = self
         collectionView.dataSource = self
+        updateActionButton(isEnabled: false)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCollectionView(_:)))
+        tapGesture.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(tapGesture)
+    }
+
+    func updateActionButton(isEnabled: Bool) {
+        actionButton.backgroundColor = isEnabled ? .black : .init("EDEDED")
+        actionButton.setTitleColor(isEnabled ? .white : .init("878787"), for: .normal)
+    
+    }
+
+    @objc
+    func didTapCollectionView(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
 }
 
@@ -90,6 +117,26 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 for: indexPath
             ) as? PickFolderLinkFormCell else { return UICollectionViewCell() }
             cell.updateUI(with: item)
+            cell.isExpandedPublisher
+                .dropFirst(1)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] isExapanded in
+                    guard let self else { return }
+                    var items = self.viewModel.state.items.value
+                    guard let pickFolderItemIndex = items.firstIndex(where: { $0 is PickFolderLinkFormItem }),
+                    var pickFolderItem = items[pickFolderItemIndex] as? PickFolderLinkFormItem else { return }
+                    pickFolderItem.isExapanded = isExapanded
+                    items[pickFolderItemIndex] = pickFolderItem
+                    self.viewModel.state.items.send(items)
+                }
+                .store(in: &cell.cancellables)
+
+            cell.didSelectItemPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] item in
+                    cell?.selectedFolderTitleLabel.text = item?.name
+                }
+                .store(in: &cell.cancellables)
             return cell
         default:
             return UICollectionViewCell()
@@ -151,8 +198,12 @@ struct TitleLinkFormItem: TextfieldLinkFormItem {
 
 
 struct PickFolderLinkFormItem: LinkFormItem {
-    var folders: [Folder] = []
-    let height : CGFloat = 106
+
+    var folders: [Folder]
+    var height : CGFloat {
+        return isExapanded ? 302 : 106
+    }
+    var isExapanded: Bool = false
 }
 
 
@@ -163,12 +214,30 @@ final class LinkFormViewModel {
     }
 
     let state = State()
+    private let network: NetworkProvider = NetworkService()
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
         setData()
     }
 
     func setData() {
-        state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem()])
+        network.request(FolderEndpoint.getFolders)
+            .tryMap { (data, _) -> [Folder] in
+                let decoder = JSONDecoder()
+                let folders = try decoder.decode([Folder].self, from: data, keyPath: "folderList")
+                return folders
+            }
+            .print()
+//          replaceError가 아니라  .catch, completion으로 핸들링하는법 고민
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] folders in
+
+                    print(folders)
+                self?.state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem(folders: folders)])
+                
+            }
+            .store(in: &cancellables)
     }
 }

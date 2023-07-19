@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="PickFolderDropDownHeader" customModule="Linkllet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4GI-Ir-NF9">
+                    <rect key="frame" x="12" y="49" width="296" height="1"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="j1D-gm-Ap9"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="503-vW-4Ge">
+                    <rect key="frame" x="20" y="16.666666666666668" width="248" height="17.000000000000004"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_arrow_up" translatesAutoresizingMaskIntoConstraints="NO" id="ixG-Dh-dbo">
+                    <rect key="frame" x="284" y="17" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Ic8-dw-9Dw"/>
+                        <constraint firstAttribute="width" constant="16" id="TfW-cW-og3"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="ixG-Dh-dbo" secondAttribute="trailing" constant="20" id="02J-E6-E2h"/>
+                <constraint firstAttribute="trailing" secondItem="4GI-Ir-NF9" secondAttribute="trailing" constant="12" id="5Ey-UG-LDb"/>
+                <constraint firstItem="ixG-Dh-dbo" firstAttribute="leading" secondItem="503-vW-4Ge" secondAttribute="trailing" constant="16" id="5Us-Fd-OeS"/>
+                <constraint firstItem="503-vW-4Ge" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="6hg-XR-4w2"/>
+                <constraint firstItem="503-vW-4Ge" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="20" id="OI6-oa-T1E"/>
+                <constraint firstItem="ixG-Dh-dbo" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Q0c-7u-hsn"/>
+                <constraint firstItem="4GI-Ir-NF9" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="12" id="eI1-AJ-DH0"/>
+                <constraint firstAttribute="bottom" secondItem="4GI-Ir-NF9" secondAttribute="bottom" id="rRV-RY-rPQ"/>
+            </constraints>
+            <connections>
+                <outlet property="arrowImageView" destination="ixG-Dh-dbo" id="UXM-VJ-htN"/>
+                <outlet property="separatorView" destination="4GI-Ir-NF9" id="oEp-rJ-D86"/>
+                <outlet property="titleLabel" destination="503-vW-4Ge" id="0gs-69-WC2"/>
+            </connections>
+            <point key="canvasLocation" x="121" y="69"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="ico_arrow_up" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

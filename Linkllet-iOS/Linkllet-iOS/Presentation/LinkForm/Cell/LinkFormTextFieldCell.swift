@@ -65,10 +65,11 @@ private extension LinkFormTextFieldCell {
 extension LinkFormTextFieldCell: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength: Int = item?.maxCount ?? .zero
+        guard let maxCount = item?.maxCount else { return true }
+
         let currentString = (textField.text ?? "") as NSString
         let newString = currentString.replacingCharacters(in: range, with: string)
 
-        return newString.count <= maxLength
+        return newString.count <= maxCount
     }
 }

@@ -47,9 +47,15 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         let vc = WalletViewController(viewModel: viewModel)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
+
+        if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true)
+        }
     }
 }
 

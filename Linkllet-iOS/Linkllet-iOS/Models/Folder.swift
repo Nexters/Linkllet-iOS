@@ -23,7 +23,7 @@ struct Folder: Codable {
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         type = try container.decodeIfPresent(FolderType.self, forKey: .type) ?? .personalized
     }
-    
+
     init(id: Int64, name: String, type: FolderType) {
         self.id = id
         self.name = name
