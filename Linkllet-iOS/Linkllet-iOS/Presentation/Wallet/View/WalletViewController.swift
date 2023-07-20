@@ -265,7 +265,9 @@ extension WalletViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            // TODO: - 폴더 추가 뷰 연결
+            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService()))
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
         } else {
             // TODO: - 폴더 내 링크 목록 뷰 연결
             print(indexPath.item - 1, viewModel.folderSubject.value[indexPath.item - 1])
