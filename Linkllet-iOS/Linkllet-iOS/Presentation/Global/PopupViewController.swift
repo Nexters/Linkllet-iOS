@@ -12,6 +12,9 @@ class PopupViewController: UIViewController {
     
     // MARK: Properties
     private var cancellables = Set<AnyCancellable>()
+
+    private var confirmAction: (() -> Void)?
+    private var cancelAction: (() -> Void)?
     
     // MARK: UI Component
     private let popupView: UIView = {
@@ -48,8 +51,10 @@ class PopupViewController: UIViewController {
     }()
 
     // MARK: Life Cycle
-    init(message: String) {
+    init(message: String, confirmAction: (() -> Void)? = nil, cancelAction: (() -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
+        self.confirmAction = confirmAction
+        self.cancelAction = cancelAction
         self.setMessage(message)
     }
     
@@ -126,12 +131,21 @@ extension PopupViewController {
     private func setPublisher() {
         closeButton.tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: false)
+                guard let self else {return }
+                let cancelAction = self.cancelAction
+                self.dismiss(animated: true) {
+                    cancelAction?()
+                }
             }
             .store(in: &cancellables)
         confirmButton.tapPublisher
             .sink { [weak self] _ in
-                self?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                guard let self else { return }
+
+                let confirmAction = self.confirmAction
+                self.dismiss(animated: true) {
+                    confirmAction?()
+                }
             }
             .store(in: &cancellables)
     }
