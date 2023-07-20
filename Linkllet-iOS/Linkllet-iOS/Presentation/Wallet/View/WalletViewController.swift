@@ -90,6 +90,8 @@ final class WalletViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getFolders()
+        setBindings()
+        resetImageOpacity()
     }
 }
 
@@ -183,6 +185,10 @@ extension WalletViewController {
                 self.folderCollectionView.reloadData()
             })
             .store(in: &cancellables)
+    }
+    
+    private func resetImageOpacity() {
+        backgroundImageView.layer.opacity = 1
     }
 }
 

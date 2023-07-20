@@ -28,7 +28,7 @@ final class NetworkService: NetworkProvider {
         return session.dataTaskPublisher(for: urlRequest)
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
-                      [200, 400].contains(httpResponse.statusCode) else {
+                      (200...400).contains(httpResponse.statusCode) else {
                     throw NetworkError.invalidResponse
                 }
                 return (data, response)
