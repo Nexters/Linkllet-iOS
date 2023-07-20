@@ -5,9 +5,6 @@
 //  Created by Juhyeon Byun on 2023/07/17.
 //
 
-// vc에서 데이터가 바뀌면 viewmodel에게 알려주지만 viewmodel은 말하지 않는다.
-// 단방향 - sink 안함
-
 import UIKit
 import Combine
 
@@ -89,22 +86,6 @@ class FolderFormViewController: UIViewController {
         return button
     }()
     
-    private let errorAlertView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.8)
-        view.layer.cornerRadius = 12
-        view.isHidden = true
-        return view
-    }()
-    
-    private let errorAlertLabel: UILabel = {
-        let label = UILabel()
-        label.text = "폴더 제목을 입력해 주세요"
-        label.textColor = .init("FFFFFF")
-        label.font = UIFont.systemFont(ofSize: 12)
-        return label
-    }()
-    
     // MARK: Life Cycle
     init(viewModel: FolderFormViewModel) {
         self.viewModel = viewModel
@@ -112,7 +93,7 @@ class FolderFormViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = FolderFormViewModel()
+        self.viewModel = FolderFormViewModel(networkService: NetworkService())
         super.init(coder: coder)
         setUI()
         setConstraints()
@@ -121,6 +102,7 @@ class FolderFormViewController: UIViewController {
         setPublisher()
         setBindings()
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,8 +129,6 @@ extension FolderFormViewController {
         view.addSubview(inputGuideLabel)
         view.addSubview(inputCountLabel)
         view.addSubview(confirmButton)
-        view.addSubview(errorAlertView)
-        errorAlertView.addSubview(errorAlertLabel)
     }
     
     private func setConstraints() {
@@ -211,20 +191,6 @@ extension FolderFormViewController {
             confirmButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             confirmButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
-        errorAlertView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            errorAlertView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            errorAlertView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            errorAlertView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            errorAlertView.heightAnchor.constraint(equalToConstant: 60)
-        ])
-        
-        errorAlertLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            errorAlertLabel.centerXAnchor.constraint(equalTo: errorAlertView.centerXAnchor),
-            errorAlertLabel.centerYAnchor.constraint(equalTo: errorAlertView.centerYAnchor)
-        ])
     }
 }
 
@@ -248,16 +214,16 @@ extension FolderFormViewController {
         
         confirmButton.tapPublisher
             .sink { [weak self] _ in
-                self?.viewModel.checkInput()
+                self?.viewModel.createFolder()
             }
             .store(in: &cancellables)
     }
     
     private func setBindings() {
-        viewModel.isInputError
+        viewModel.inputStatusSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { isError in
-                self.setErrorView(isError)
+            .sink(receiveValue: { errorStatus in
+                self.setInputView(errorStatus)
         })
             .store(in: &cancellables)
     }
@@ -276,25 +242,22 @@ extension FolderFormViewController {
         inputCountLabel.text = "\(input.count)/10"
     }
     
-    private func setErrorView(_ isError: Bool) {
-        if isError {
-            inputTitleView.layer.borderWidth = 2
-            inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
-            UIView.transition(with: view, duration: 0.2,
-                              options: .transitionCrossDissolve,
-                              animations: {
-                self.errorAlertView.isHidden = false
-            }) { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    UIView.transition(with: self.view, duration: 0.2,
-                                      options: .transitionCrossDissolve,
-                                      animations: {
-                        self.errorAlertView.isHidden = true
-                    })
-                }
-            }
-        } else {
+    private func setInputView(_ status: InputStatus) {
+        if status == .normal {
             inputTitleView.layer.borderWidth = 0
+            return
+        } else if status == .saved {
+            inputTitleView.layer.borderWidth = 0
+            dismiss(animated: true)
+            return
+        }
+        inputTitleView.layer.borderWidth = 2
+        inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
+        
+        if status == .emptyError {
+            showToast("폴더 제목을 입력해 주세요")
+        } else if status == .duplicateError {
+            showToast("폴더 제목이 중복됩니다")
         }
     }
 }

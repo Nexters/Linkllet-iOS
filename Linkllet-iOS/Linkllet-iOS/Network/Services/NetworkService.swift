@@ -25,11 +25,10 @@ final class NetworkService: NetworkProvider {
                 .eraseToAnyPublisher()
         }
         
-        // TODO: - status 분기 처리 필요
         return session.dataTaskPublisher(for: urlRequest)
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
-                      (200...299).contains(httpResponse.statusCode) else {
+                      [200, 400].contains(httpResponse.statusCode) else {
                     throw NetworkError.invalidResponse
                 }
                 return (data, response)
@@ -46,7 +45,7 @@ final class NetworkService: NetworkProvider {
 }
 
 public extension JSONDecoder {
-    public func decode<T: Decodable>(_ type: T.Type, from data: Data, keyPath: String) throws -> T {
+    func decode<T: Decodable>(_ type: T.Type, from data: Data, keyPath: String) throws -> T {
         let toplevel = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
         if let nestedJson = (toplevel as AnyObject).value(forKeyPath: keyPath) {
             let nestedJsonData = try JSONSerialization.data(withJSONObject: nestedJson, options: .fragmentsAllowed)
