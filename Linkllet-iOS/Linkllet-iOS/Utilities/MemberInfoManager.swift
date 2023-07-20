@@ -21,6 +21,8 @@ final class MemberInfoManager {
 
     private(set) var isMemberPublisher = CurrentValueSubject<Bool, Never>(UserDefaults.standard.bool(forKey: MemberInfoManager.userDefaultsKey))
 
+    static let `default` = MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))
+
     init(useCase: MemberInfoUsecase) {
         self.useCase = useCase
     }

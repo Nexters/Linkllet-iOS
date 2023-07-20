@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -49,7 +49,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gz9-NP-kzp">
-                                <rect key="frame" x="0.0" y="107" width="390" height="703"/>
+                                <rect key="frame" x="0.0" y="107" width="390" height="625"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7ol-wj-C68">
                                     <size key="itemSize" width="128" height="128"/>
@@ -59,20 +59,46 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afI-xz-4KA">
+                                <rect key="frame" x="0.0" y="732" width="390" height="78"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgY-ke-4zB">
+                                        <rect key="frame" x="24" y="14" width="342" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="저장하기">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="3hW-9D-PLT"/>
+                                    <constraint firstItem="SgY-ke-4zB" firstAttribute="leading" secondItem="afI-xz-4KA" secondAttribute="leading" constant="24" id="N0s-Te-LPP"/>
+                                    <constraint firstItem="SgY-ke-4zB" firstAttribute="top" secondItem="afI-xz-4KA" secondAttribute="top" constant="14" id="VFP-wn-kuE"/>
+                                    <constraint firstAttribute="bottom" secondItem="SgY-ke-4zB" secondAttribute="bottom" constant="14" id="vRg-kJ-ZtU"/>
+                                    <constraint firstAttribute="trailing" secondItem="SgY-ke-4zB" secondAttribute="trailing" constant="24" id="x7x-7w-kye"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gz9-NP-kzp" firstAttribute="top" secondItem="bXo-FA-A8r" secondAttribute="bottom" id="E6s-ku-J7H"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="afI-xz-4KA" secondAttribute="trailing" id="JK9-fp-rqM"/>
                             <constraint firstItem="bXo-FA-A8r" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Nb3-HD-ntg"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="gz9-NP-kzp" secondAttribute="bottom" id="Uge-RY-d2p"/>
+                            <constraint firstItem="afI-xz-4KA" firstAttribute="top" secondItem="gz9-NP-kzp" secondAttribute="bottom" id="RJm-NQ-28z"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="gz9-NP-kzp" secondAttribute="trailing" id="ZZC-9Y-Zo7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="bXo-FA-A8r" secondAttribute="trailing" id="cG6-Ej-xRp"/>
+                            <constraint firstItem="afI-xz-4KA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="daF-s9-ArS"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="afI-xz-4KA" secondAttribute="bottom" id="kL8-Iq-mJk"/>
                             <constraint firstItem="bXo-FA-A8r" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="oys-nD-v5e"/>
                             <constraint firstItem="gz9-NP-kzp" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sBx-mS-FvS"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="SgY-ke-4zB" id="ewC-E1-GwN"/>
                         <outlet property="closeButton" destination="NCS-AR-Kyc" id="Eda-Ii-fEa"/>
                         <outlet property="collectionView" destination="gz9-NP-kzp" id="aXb-bp-O33"/>
                     </connections>

@@ -15,7 +15,6 @@
 		846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */; };
 		8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE252A5804AC00A5FEDF /* AppDelegate.swift */; };
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
-		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
 		8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */; };
 		8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE302A5804AD00A5FEDF /* LaunchScreen.storyboard */; };
 		84D021392A66843C000946A8 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021382A66843C000946A8 /* WalletViewController.swift */; };
@@ -23,8 +22,8 @@
 		84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213C2A66C8D4000946A8 /* UIFont+.swift */; };
 		84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */; };
 		84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D021432A66CB03000946A8 /* Pretendard-Medium.otf */; };
-		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
 		84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021452A66D064000946A8 /* WalletViewModel.swift */; };
+		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
 		B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF842A655155000B7947 /* LinkFormViewController.swift */; };
 		B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF862A6551BC000B7947 /* LinkForm.storyboard */; };
 		B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF892A655270000B7947 /* UIColor+.swift */; };
@@ -40,6 +39,10 @@
 		B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9F2A66CAF0000B7947 /* Article.swift */; };
 		B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */; };
 		CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */; };
+		CEAA35882A682B6600261EBC /* PickFolderDropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */; };
+		CEAA35892A682B6600261EBC /* PickFolderDropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA35872A682B6600261EBC /* PickFolderDropDownCell.xib */; };
+		CEAA358C2A6845AE00261EBC /* PickFolderDropDownHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA358A2A6845AE00261EBC /* PickFolderDropDownHeader.swift */; };
+		CEAA358D2A6845AE00261EBC /* PickFolderDropDownHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA358B2A6845AE00261EBC /* PickFolderDropDownHeader.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +55,6 @@
 		8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linkllet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8479BE252A5804AC00A5FEDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8479BE292A5804AC00A5FEDF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8479BE312A5804AD00A5FEDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8479BE332A5804AD00A5FEDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,8 +63,8 @@
 		84D0213C2A66C8D4000946A8 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		84D021452A66D064000946A8 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
+		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
 		B95DFF862A6551BC000B7947 /* LinkForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkForm.storyboard; sourceTree = "<group>"; };
 		B95DFF892A655270000B7947 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -78,6 +80,10 @@
 		B95DFF9F2A66CAF0000B7947 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndpoint.swift; sourceTree = "<group>"; };
 		CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoManager.swift; sourceTree = "<group>"; };
+		CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderDropDownCell.swift; sourceTree = "<group>"; };
+		CEAA35872A682B6600261EBC /* PickFolderDropDownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickFolderDropDownCell.xib; sourceTree = "<group>"; };
+		CEAA358A2A6845AE00261EBC /* PickFolderDropDownHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderDropDownHeader.swift; sourceTree = "<group>"; };
+		CEAA358B2A6845AE00261EBC /* PickFolderDropDownHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickFolderDropDownHeader.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +183,6 @@
 				84D021372A66842E000946A8 /* Wallet */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
 				846AFECE2A65541800C0F629 /* FolderForm */,
-				8479BE292A5804AC00A5FEDF /* ViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -198,6 +203,23 @@
 				84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		84D021472A66D074000946A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84D021382A66843C000946A8 /* WalletViewController.swift */,
+				84D0213A2A66BF26000946A8 /* FolderCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84D021482A66D07D000946A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84D021452A66D064000946A8 /* WalletViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		84D0214B2A68F998000946A8 /* View */ = {
@@ -222,23 +244,6 @@
 				84D0214E2A6959F8000946A8 /* PopupViewController.swift */,
 			);
 			path = Global;
-			sourceTree = "<group>";
-		};
-		84D021472A66D074000946A8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				84D021382A66843C000946A8 /* WalletViewController.swift */,
-				84D0213A2A66BF26000946A8 /* FolderCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		84D021482A66D07D000946A8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				84D021452A66D064000946A8 /* WalletViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B95DFF832A65512F000B7947 /* LinkForm */ = {
@@ -271,6 +276,10 @@
 				B95DFF902A6560D4000B7947 /* LinkFormTextFieldCell.xib */,
 				B95DFF982A6592FF000B7947 /* PickFolderLinkFormCell.swift */,
 				B95DFF992A6592FF000B7947 /* PickFolderLinkFormCell.xib */,
+				CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */,
+				CEAA35872A682B6600261EBC /* PickFolderDropDownCell.xib */,
+				CEAA358A2A6845AE00261EBC /* PickFolderDropDownHeader.swift */,
+				CEAA358B2A6845AE00261EBC /* PickFolderDropDownHeader.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -353,6 +362,8 @@
 				B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */,
 				84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */,
 				8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */,
+				CEAA358D2A6845AE00261EBC /* PickFolderDropDownHeader.xib in Resources */,
+				CEAA35892A682B6600261EBC /* PickFolderDropDownCell.xib in Resources */,
 				B95DFF9B2A6592FF000B7947 /* PickFolderLinkFormCell.xib in Resources */,
 				B95DFF922A6560D4000B7947 /* LinkFormTextFieldCell.xib in Resources */,
 				8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */,
@@ -375,13 +386,14 @@
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
+				CEAA35882A682B6600261EBC /* PickFolderDropDownCell.swift in Sources */,
 				846AFEBF2A654D7700C0F629 /* NetworkConstants.swift in Sources */,
 				B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */,
 				84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */,
 				84D021392A66843C000946A8 /* WalletViewController.swift in Sources */,
-				8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */,
 				846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */,
 				84D0213B2A66BF26000946A8 /* FolderCell.swift in Sources */,
+				CEAA358C2A6845AE00261EBC /* PickFolderDropDownHeader.swift in Sources */,
 				8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */,
 				846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */,
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
@@ -531,7 +543,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -559,7 +571,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

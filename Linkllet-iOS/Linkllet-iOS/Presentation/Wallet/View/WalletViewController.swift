@@ -61,6 +61,15 @@ final class WalletViewController: UIViewController {
         button.setImage(UIImage(named: "btn_linksave"), for: .normal)
         return button
     }()
+
+    private lazy var indicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(frame: .init(origin: .zero, size: .init(width: 50, height: 50)))
+        view.center = view.center
+        view.color = .blue
+        view.style = .medium
+        view.startAnimating()
+        return view
+    }()
     
     // MARK: Life Cycle
     init(viewModel: WalletViewModel) {
@@ -71,15 +80,28 @@ final class WalletViewController: UIViewController {
     required init?(coder: NSCoder) {
         self.viewModel = WalletViewModel(networkService: NetworkService())
         super.init(coder: coder)
-        setUI()
-        setConstraints()
-        setDelegate()
-        setGesture()
-        setBindings()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+        if !MemberInfoManager.default.isMemberPublisher.value {
+            MemberInfoManager.default.isMemberPublisher
+                .removeDuplicates()
+                .filter { $0 }
+                .prefix(1)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] isMember in
+                    self?.indicator.stopAnimating()
+                    self?.viewModel.getFolders()
+                }
+                .store(in: &cancellables)
+        } else {
+            indicator.stopAnimating()
+            viewModel.getFolders()
+        }
+        resetImageOpacity()
         setUI()
         setConstraints()
         setDelegate()
@@ -89,9 +111,6 @@ final class WalletViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.getFolders()
-        setBindings()
-        resetImageOpacity()
     }
 }
 
@@ -176,14 +195,23 @@ extension WalletViewController {
         viewModel.folderSubject
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { folders in
-            if folders.count >= 3 {
-                self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
-            } else {
-                self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(folders.count * 75 + 180 + 60)
-            }
+                if folders.count >= 3 {
+                    self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
+                } else {
+                    self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(folders.count * 75 + 180 + 60)
+                }
                 self.collectionViewTopConstraint.constant = self.initialTopAnchorConstant
                 self.folderCollectionView.reloadData()
             })
+            .store(in: &cancellables)
+
+        floatingButton.tapPublisher
+            .sink { [weak self] _ in
+                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
+                    vc.modalPresentationStyle = .overFullScreen
+                    self?.present(vc, animated: true)
+                }
+            }
             .store(in: &cancellables)
     }
     
