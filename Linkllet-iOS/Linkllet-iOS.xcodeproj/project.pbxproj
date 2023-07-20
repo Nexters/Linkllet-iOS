@@ -15,7 +15,6 @@
 		846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */; };
 		8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE252A5804AC00A5FEDF /* AppDelegate.swift */; };
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
-		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
 		8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */; };
 		8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE302A5804AD00A5FEDF /* LaunchScreen.storyboard */; };
 		84D021392A66843C000946A8 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021382A66843C000946A8 /* WalletViewController.swift */; };
@@ -23,8 +22,8 @@
 		84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213C2A66C8D4000946A8 /* UIFont+.swift */; };
 		84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */; };
 		84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D021432A66CB03000946A8 /* Pretendard-Medium.otf */; };
-		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
 		84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021452A66D064000946A8 /* WalletViewModel.swift */; };
+		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
 		B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF842A655155000B7947 /* LinkFormViewController.swift */; };
 		B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF862A6551BC000B7947 /* LinkForm.storyboard */; };
 		B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF892A655270000B7947 /* UIColor+.swift */; };
@@ -56,7 +55,6 @@
 		8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linkllet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8479BE252A5804AC00A5FEDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8479BE292A5804AC00A5FEDF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8479BE312A5804AD00A5FEDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8479BE332A5804AD00A5FEDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,8 +63,8 @@
 		84D0213C2A66C8D4000946A8 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		84D021452A66D064000946A8 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
+		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
 		B95DFF862A6551BC000B7947 /* LinkForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkForm.storyboard; sourceTree = "<group>"; };
 		B95DFF892A655270000B7947 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 				84D021372A66842E000946A8 /* Wallet */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
 				846AFECE2A65541800C0F629 /* FolderForm */,
-				8479BE292A5804AC00A5FEDF /* ViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -206,6 +203,23 @@
 				84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		84D021472A66D074000946A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84D021382A66843C000946A8 /* WalletViewController.swift */,
+				84D0213A2A66BF26000946A8 /* FolderCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84D021482A66D07D000946A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84D021452A66D064000946A8 /* WalletViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		84D0214B2A68F998000946A8 /* View */ = {
@@ -230,23 +244,6 @@
 				84D0214E2A6959F8000946A8 /* PopupViewController.swift */,
 			);
 			path = Global;
-			sourceTree = "<group>";
-		};
-		84D021472A66D074000946A8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				84D021382A66843C000946A8 /* WalletViewController.swift */,
-				84D0213A2A66BF26000946A8 /* FolderCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		84D021482A66D07D000946A8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				84D021452A66D064000946A8 /* WalletViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B95DFF832A65512F000B7947 /* LinkForm */ = {
@@ -394,7 +391,6 @@
 				B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */,
 				84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */,
 				84D021392A66843C000946A8 /* WalletViewController.swift in Sources */,
-				8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */,
 				846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */,
 				84D0213B2A66BF26000946A8 /* FolderCell.swift in Sources */,
 				CEAA358C2A6845AE00261EBC /* PickFolderDropDownHeader.swift in Sources */,
@@ -547,7 +543,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -575,7 +571,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83B9Y749K7;
+				DEVELOPMENT_TEAM = V37X2D6JM3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
