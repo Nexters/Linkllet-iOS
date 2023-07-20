@@ -125,6 +125,15 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 }
                 .store(in: &cell.cancellables)
 
+            cell.textFieldDidEndEditingPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] in
+                    guard let nextIndex = self?.viewModel.state.items.value.firstIndex(where: { $0 is TitleLinkFormItem }),
+                    let titleLinkFormItemCell = self?.collectionView.cellForItem(at: .init(row: nextIndex, section: 0)) as? LinkFormTextFieldCell else { return }
+                    titleLinkFormItemCell.textField.becomeFirstResponder()
+                }
+                .store(in: &cell.cancellables)
+
             return cell
         case let item as TitleLinkFormItem:
             guard let cell = collectionView.dequeueReusableCell(
@@ -145,6 +154,16 @@ extension LinkFormViewController: UICollectionViewDataSource {
                     cell?.updateHighlighted(isHighlighted: isHighlighted)
                 }
                 .store(in: &cell.cancellables)
+
+            cell.textFieldDidEndEditingPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] in
+                    guard let nextIndex = self?.viewModel.state.items.value.firstIndex(where: { $0 is PickFolderLinkFormItem }),
+                    let pickFolderLinkFormCell = self?.collectionView.cellForItem(at: .init(row: nextIndex, section: 0)) as? PickFolderLinkFormCell else { return }
+                    pickFolderLinkFormCell.isExpandedPublisher.send(true)
+                }
+                .store(in: &cell.cancellables)
+
             return cell
         case let item as PickFolderLinkFormItem:
             guard let cell = collectionView.dequeueReusableCell(

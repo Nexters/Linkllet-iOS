@@ -21,6 +21,7 @@ final class LinkFormTextFieldCell: UICollectionViewCell {
     @IBOutlet private weak var countLabel: UILabel!
 
     private(set) var textFieldDidChangePublisher = CurrentValueSubject<String, Never>("")
+    private(set) var textFieldDidEndEditingPublisher = PassthroughSubject<Void, Never>()
 
     var cancellables = Set<AnyCancellable>()
     private var item: TextfieldLinkFormItem?
@@ -79,5 +80,10 @@ extension LinkFormTextFieldCell: UITextFieldDelegate {
         let newString = currentString.replacingCharacters(in: range, with: string)
 
         return newString.count <= maxCount
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldDidEndEditingPublisher.send(())
+        return true
     }
 }
