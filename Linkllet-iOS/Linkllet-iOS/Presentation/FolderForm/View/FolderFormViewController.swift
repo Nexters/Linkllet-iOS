@@ -8,11 +8,16 @@
 import UIKit
 import Combine
 
+protocol FolderFormViewControllerDelegate: NSObject {
+    func didSaveFolder(_ viewController: FolderFormViewController)
+}
+
 class FolderFormViewController: UIViewController {
     
     // MARK: Properties
     private var viewModel: FolderFormViewModel
     private var cancellables = Set<AnyCancellable>()
+    weak var delegate: FolderFormViewControllerDelegate?
     
     // MARK: UI Component
     private let topBar: UIView = {
@@ -254,6 +259,7 @@ extension FolderFormViewController {
             inputTitleView.layer.borderWidth = 0
         case .saved:
             inputTitleView.layer.borderWidth = 0
+            delegate?.didSaveFolder(self)
             dismiss(animated: true)
         case .emptyError:
             inputTitleView.layer.borderWidth = 2
