@@ -128,13 +128,11 @@ extension WalletViewController {
         ])
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let screenHeight: Int = Int(view.bounds.height)
         if viewModel.cardSubject.value.count >= 3 {
-            // TODO: - view.safeAreaLayoutGuide.layoutFrame.height 값 제대로 안들어오는 오류 수정
-//            initialTopAnchorConstant = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(60 + 3 * 75 + 180)
-            initialTopAnchorConstant = CGFloat(728 - 60 - (3 * 75 + 180))
+            initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (3 * 75 + 180))
         } else {
-//            initialTopAnchorConstant = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(60 + viewModel.cardSubject.value.count * 75 + 180)
-            initialTopAnchorConstant = CGFloat(728 - 60 - (viewModel.cardSubject.value.count * 75 + 180))
+            initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (viewModel.cardSubject.value.count * 75 + 180))
         }
         collectionViewTopConstraint = folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: initialTopAnchorConstant)
         collectionViewTopConstraint.isActive = true
@@ -241,5 +239,18 @@ extension WalletViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return -105
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension WalletViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 0 {
+            // TODO: - 폴더 추가 뷰 연결
+        } else {
+            // TODO: - 폴더 내 링크 목록 뷰 연결
+            print(indexPath.item - 1, viewModel.cardSubject.value[indexPath.item - 1])
+        }
     }
 }

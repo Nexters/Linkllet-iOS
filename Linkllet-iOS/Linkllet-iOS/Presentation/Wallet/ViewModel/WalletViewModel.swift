@@ -11,7 +11,7 @@ import Combine
 final class WalletViewModel: ObservableObject {
     
     // MARK: Properties
-    let cardSubject = CurrentValueSubject<[String], Never>(["기본", "폴더1", "폴더2", "폴더1", "폴더2", "폴더1", "폴더2", "폴더1", "폴더2", "폴더1", "폴더2"])
+    let cardSubject = CurrentValueSubject<[Folder], Never>([])
     private var cancellables = Set<AnyCancellable>()
 }
 

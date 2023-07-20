@@ -58,7 +58,6 @@ final class FolderCell: UICollectionViewCell {
         super.init(frame: frame)
         setUI()
         setConstraint()
-        setTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -141,8 +140,8 @@ extension FolderCell {
         countView.isHidden = true
     }
     
-    func setFolderCell(_ index: Int, _ data: String) {
-        titleLabel.text = data
+    func setFolderCell(_ index: Int, _ data: Folder) {
+        titleLabel.text = data.name
         switch (index - 1) % 3 {
         case 0:
             folderView.backgroundColor = .init("779CFF")
@@ -153,22 +152,5 @@ extension FolderCell {
         default:
             break
         }
-    }
-}
-
-// MARK: - Custom Methods
-extension FolderCell {
-    
-    private func setTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        touchView.addGestureRecognizer(tapGesture)
-    }
-}
-
-// MARK: - @objc Methods
-extension FolderCell {
-    
-    @objc func handleTap(sender: UITapGestureRecognizer) {
-        print("tap")
     }
 }
