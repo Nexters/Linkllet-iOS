@@ -40,7 +40,7 @@ final class PickFolderLinkFormCell: UICollectionViewCell {
 
 extension PickFolderLinkFormCell {
 
-    func updateUI(with item: PickFolderLinkFormItem) {
+    func updateUI(with item: PickFolderLinkFormItem, selectedFolder: Folder?) {
         self.linkFormItem = item
         collectionViewHeightConstraint.constant = CGFloat((item.folders.count + 1) * 49)
         collectionView.layoutIfNeeded()
@@ -48,8 +48,8 @@ extension PickFolderLinkFormCell {
         descriptionLabel.text = "※ 폴더 미선택시 기본 폴더에 저장됩니다."
         collectionView.reloadData()
         collectionView.performBatchUpdates { [weak self] in
-            guard let index = item.folders.firstIndex(where: { $0.type == .default }) else { return }
-            self?.collectionView.selectItem(at: .init(item: index, section: .zero), animated: true, scrollPosition: .bottom)
+            guard let index = item.folders.firstIndex(where: { $0 == selectedFolder }) else { return }
+            self?.collectionView.selectItem(at: .init(item: index, section: .zero), animated: false, scrollPosition: .centeredVertically)
             self?.didSelectItemPublisher.send(item.folders[index])
         }
 

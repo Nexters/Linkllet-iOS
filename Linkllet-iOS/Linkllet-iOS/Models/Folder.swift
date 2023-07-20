@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Folder: Codable {
+struct Folder: Codable, Equatable {
 
     let id: Int64
     let name: String

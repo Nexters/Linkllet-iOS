@@ -12,7 +12,7 @@ final class LinkFormTextFieldCell: UICollectionViewCell {
 
     @IBOutlet private weak var titleLabel: UILabel!
 
-    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextField!
     @IBOutlet private weak var textFieldBackgroundView: UIView!
 
     @IBOutlet private weak var descriptionLabel: UILabel!

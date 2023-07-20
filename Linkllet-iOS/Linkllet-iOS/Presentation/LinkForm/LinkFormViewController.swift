@@ -109,6 +109,7 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 withReuseIdentifier: LinkFormTextFieldCell.className,
                 for: indexPath
             ) as? LinkFormTextFieldCell else { return UICollectionViewCell() }
+            cell.textField.keyboardType = .URL
             cell.updateUI(with: item)
             return cell
         case let item as PickFolderLinkFormItem:
@@ -116,7 +117,7 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 withReuseIdentifier: PickFolderLinkFormCell.className,
                 for: indexPath
             ) as? PickFolderLinkFormCell else { return UICollectionViewCell() }
-            cell.updateUI(with: item)
+            cell.updateUI(with: item, selectedFolder: viewModel.state.selectedFolder.value)
             cell.isExpandedPublisher
                 .dropFirst(1)
                 .receive(on: DispatchQueue.main)
@@ -131,12 +132,21 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 }
                 .store(in: &cell.cancellables)
 
-            cell.didSelectItemPublisher
+            viewModel.state.selectedFolder
                 .receive(on: DispatchQueue.main)
-                .sink { [weak cell] item in
-                    cell?.selectedFolderTitleLabel.text = item?.name
+                .sink { [weak cell] folder in
+                    cell?.selectedFolderTitleLabel.text = folder?.name
                 }
                 .store(in: &cell.cancellables)
+
+            cell.didSelectItemPublisher
+                .compactMap { $0 }
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] folder in
+                    self?.viewModel.state.selectedFolder.send(folder)
+                }
+                .store(in: &cell.cancellables)
+
             return cell
         default:
             return UICollectionViewCell()
@@ -211,6 +221,7 @@ final class LinkFormViewModel {
 
     struct State {
         let items = CurrentValueSubject<[LinkFormItem], Never>([])
+        let selectedFolder = CurrentValueSubject<Folder?, Never>(nil)
     }
 
     let state = State()
@@ -234,7 +245,7 @@ final class LinkFormViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] folders in
 
-                    print(folders)
+                self?.state.selectedFolder.send(folders.first { $0.type == .default })
                 self?.state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem(folders: folders)])
                 
             }
