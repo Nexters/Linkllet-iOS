@@ -60,6 +60,11 @@ final class FolderCell: UICollectionViewCell {
         setUI()
         setConstraint()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        resetCell()
+    }
 }
 
 // MARK: - UI
@@ -134,5 +139,11 @@ extension FolderCell {
         default:
             break
         }
+    }
+    
+    private func resetCell() {
+        plusImageView.isHidden = true
+        titleLabel.text = nil
+        countView.isHidden = false
     }
 }

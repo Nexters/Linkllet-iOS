@@ -11,6 +11,8 @@
 		846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC12A654D9500C0F629 /* NetworkService.swift */; };
 		846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC42A654DBB00C0F629 /* Endpoint.swift */; };
 		846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */; };
+		846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFECF2A65543100C0F629 /* FolderFormViewController.swift */; };
+		846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */; };
 		8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE252A5804AC00A5FEDF /* AppDelegate.swift */; };
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
 		8479BE2A2A5804AC00A5FEDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE292A5804AC00A5FEDF /* ViewController.swift */; };
@@ -21,6 +23,7 @@
 		84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213C2A66C8D4000946A8 /* UIFont+.swift */; };
 		84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */; };
 		84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D021432A66CB03000946A8 /* Pretendard-Medium.otf */; };
+		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
 		84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021452A66D064000946A8 /* WalletViewModel.swift */; };
 		B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF842A655155000B7947 /* LinkFormViewController.swift */; };
 		B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF862A6551BC000B7947 /* LinkForm.storyboard */; };
@@ -44,6 +47,8 @@
 		846AFEC12A654D9500C0F629 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		846AFEC42A654DBB00C0F629 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		846AFEC62A654EFA00C0F629 /* FolderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderEndpoint.swift; sourceTree = "<group>"; };
+		846AFECF2A65543100C0F629 /* FolderFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFormViewController.swift; sourceTree = "<group>"; };
+		846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFormViewModel.swift; sourceTree = "<group>"; };
 		8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linkllet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8479BE252A5804AC00A5FEDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +61,7 @@
 		84D0213C2A66C8D4000946A8 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		84D021452A66D064000946A8 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
 		B95DFF862A6551BC000B7947 /* LinkForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkForm.storyboard; sourceTree = "<group>"; };
@@ -113,6 +119,15 @@
 			path = Endpoints;
 			sourceTree = "<group>";
 		};
+		846AFECE2A65541800C0F629 /* FolderForm */ = {
+			isa = PBXGroup;
+			children = (
+				84D0214B2A68F998000946A8 /* View */,
+				84D0214C2A68F99F000946A8 /* ViewModel */,
+			);
+			path = FolderForm;
+			sourceTree = "<group>";
+		};
 		8479BE192A5804AC00A5FEDF = {
 			isa = PBXGroup;
 			children = (
@@ -158,8 +173,10 @@
 		8479BE3A2A58066400A5FEDF /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				84D0214D2A6959C9000946A8 /* Global */,
 				84D021372A66842E000946A8 /* Wallet */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
+				846AFECE2A65541800C0F629 /* FolderForm */,
 				8479BE292A5804AC00A5FEDF /* ViewController.swift */,
 			);
 			path = Presentation;
@@ -181,6 +198,30 @@
 				84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		84D0214B2A68F998000946A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				846AFECF2A65543100C0F629 /* FolderFormViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84D0214C2A68F99F000946A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84D0214D2A6959C9000946A8 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				84D0214E2A6959F8000946A8 /* PopupViewController.swift */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		84D021472A66D074000946A8 /* View */ = {
@@ -330,6 +371,7 @@
 				B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */,
 				B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */,
 				B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */,
+				84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */,
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
@@ -341,12 +383,14 @@
 				846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */,
 				84D0213B2A66BF26000946A8 /* FolderCell.swift in Sources */,
 				8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */,
+				846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */,
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
 				B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */,
 				B95DFF942A65614B000B7947 /* UIViewController+.swift in Sources */,
 				CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */,
+				846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */,
 				B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */,
 				B95DFF8C2A655A22000B7947 /* UIButton+Combine.swift in Sources */,
 			);

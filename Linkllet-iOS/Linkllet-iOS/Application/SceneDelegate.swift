@@ -18,10 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.overrideUserInterfaceStyle = .light
-//        let navigationController = UINavigationController(rootViewController: ViewController(memberInfoManager: MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()) )))
-        
-//        let navigationController = UINavigationController(rootViewController: WalletViewController(viewModel: WalletViewModel(networkService: NetworkService())))
-        
         let navigationController = UINavigationController(rootViewController: ViewController(memberInfoManager: MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))))
         navigationController.isNavigationBarHidden = true
         window?.rootViewController = navigationController
