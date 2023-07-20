@@ -212,16 +212,7 @@ extension WalletViewController {
         
         collectionViewTopConstraint.constant = max(min(newConstant, maxAnchorConstant), minAnchorConstant)
     
-        UIView.animate(withDuration: 0.2,
-                        delay: 0.0,
-                        options: .curveEaseInOut,
-                        animations: {
-                            if self.collectionViewTopConstraint.constant == maxAnchorConstant {
-                                self.backgroundImageView.layer.opacity = 1
-                            } else {
-                                self.backgroundImageView.layer.opacity = 0.1
-                            }},
-                        completion: nil)
+        backgroundImageView.layer.opacity = Float(collectionViewTopConstraint.constant / 263 * view.bounds.height / 812)
     }
 }
 
