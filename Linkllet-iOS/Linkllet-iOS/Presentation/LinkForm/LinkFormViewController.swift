@@ -63,6 +63,13 @@ private extension LinkFormViewController {
                 self?.updateActionButton(isEnabled: isEnabled)
             }
             .store(in: &cancellables)
+
+        viewModel.action.close
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true)
+            }
+            .store(in: &cancellables)
     }
 
     func setView() {
@@ -284,6 +291,7 @@ final class LinkFormViewModel {
 
     struct Action {
         let completionAction = PassthroughSubject<Void, Never>()
+        let close = PassthroughSubject<Void, Never>()
     }
 
     let state = State()
@@ -341,9 +349,9 @@ final class LinkFormViewModel {
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
-            .sink { isSuccess in
+            .sink { [weak self] isSuccess in
                 guard isSuccess else { return }
-                print("완료")
+                self?.action.close.send(())
             }
             .store(in: &cancellables)
 
