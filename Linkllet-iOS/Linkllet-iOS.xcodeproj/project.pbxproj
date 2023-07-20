@@ -23,6 +23,7 @@
 		84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213C2A66C8D4000946A8 /* UIFont+.swift */; };
 		84D021412A66CAF5000946A8 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */; };
 		84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D021432A66CB03000946A8 /* Pretendard-Medium.otf */; };
+		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
 		84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021452A66D064000946A8 /* WalletViewModel.swift */; };
 		B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF842A655155000B7947 /* LinkFormViewController.swift */; };
 		B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF862A6551BC000B7947 /* LinkForm.storyboard */; };
@@ -60,6 +61,7 @@
 		84D0213C2A66C8D4000946A8 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		84D021452A66D064000946A8 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
 		B95DFF862A6551BC000B7947 /* LinkForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkForm.storyboard; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		8479BE3A2A58066400A5FEDF /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				84D0214D2A6959C9000946A8 /* Global */,
 				84D021372A66842E000946A8 /* Wallet */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
 				846AFECE2A65541800C0F629 /* FolderForm */,
@@ -211,6 +214,14 @@
 				846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84D0214D2A6959C9000946A8 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				84D0214E2A6959F8000946A8 /* PopupViewController.swift */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		84D021472A66D074000946A8 /* View */ = {
@@ -360,6 +371,7 @@
 				B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */,
 				B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */,
 				B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */,
+				84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */,
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
