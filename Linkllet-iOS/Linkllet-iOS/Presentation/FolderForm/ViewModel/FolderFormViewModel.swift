@@ -15,11 +15,6 @@ enum InputStatus {
     case saved
 }
 
-enum ViewType {
-    case save
-    case patch
-}
-
 final class FolderFormViewModel: ObservableObject {
     
     // MARK: Properties

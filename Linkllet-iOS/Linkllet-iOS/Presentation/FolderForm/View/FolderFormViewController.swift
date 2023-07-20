@@ -243,20 +243,19 @@ extension FolderFormViewController {
     }
     
     private func setInputView(_ status: InputStatus) {
-        if status == .normal {
+        switch status {
+        case .normal:
             inputTitleView.layer.borderWidth = 0
-            return
-        } else if status == .saved {
+        case .saved:
             inputTitleView.layer.borderWidth = 0
             dismiss(animated: true)
-            return
-        }
-        inputTitleView.layer.borderWidth = 2
-        inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
-        
-        if status == .emptyError {
+        case .emptyError:
+            inputTitleView.layer.borderWidth = 2
+            inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
             showToast("폴더 제목을 입력해 주세요")
-        } else if status == .duplicateError {
+        case .duplicateError:
+            inputTitleView.layer.borderWidth = 2
+            inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
             showToast("폴더 제목이 중복됩니다")
         }
     }
