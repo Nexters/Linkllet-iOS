@@ -28,7 +28,7 @@ class FolderFormViewController: UIViewController {
         let label = UILabel()
         label.text = "폴더 추가하기"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = .PretendardB(size: 16)
         return label
     }()
     
@@ -42,7 +42,7 @@ class FolderFormViewController: UIViewController {
         let label = UILabel()
         label.text = "폴더 제목"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = .PretendardB(size: 14)
         return label
     }()
     
@@ -55,7 +55,7 @@ class FolderFormViewController: UIViewController {
     
     private let inputTitleTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont.systemFont(ofSize: 14)
+        textField.font = .PretendardM(size: 14)
         textField.placeholder = "제목을 입력해 주세요"
         return textField
     }()
@@ -64,7 +64,7 @@ class FolderFormViewController: UIViewController {
         let label = UILabel()
         label.text = "※ 최대 10자까지 입력할 수 있어요."
         label.textColor = .init("7B7B7B")
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = .PretendardM(size: 12)
         return label
     }()
     
@@ -72,7 +72,7 @@ class FolderFormViewController: UIViewController {
         let label = UILabel()
         label.text = "0/10"
         label.textColor = .init("7B7B7B")
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = .PretendardM(size: 12)
         return label
     }()
     
@@ -80,7 +80,7 @@ class FolderFormViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .init("E9E9E9")
         button.setTitle("저장하기", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.titleLabel?.font = .PretendardM(size: 14)
         button.setTitleColor(.init("878787"), for: .normal)
         button.layer.cornerRadius = 12
         return button
@@ -149,7 +149,8 @@ extension FolderFormViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             closeButton.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
-            closeButton.rightAnchor.constraint(equalTo: topBar.rightAnchor, constant: -18)
+            closeButton.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18),
+            closeButton.heightAnchor.constraint(equalToConstant: 28)
         ])
         
         folderTitleLabel.translatesAutoresizingMaskIntoConstraints = false
