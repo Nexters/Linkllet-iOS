@@ -18,7 +18,6 @@ final class WalletViewModel: ObservableObject {
     // MARK: Life Cycle
     init(networkService: NetworkService) {
         self.network = networkService
-        getFolders()
     }
 }
 

@@ -86,6 +86,11 @@ final class WalletViewController: UIViewController {
         setGesture()
         setBindings()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getFolders()
+    }
 }
 
 // MARK: - UI
