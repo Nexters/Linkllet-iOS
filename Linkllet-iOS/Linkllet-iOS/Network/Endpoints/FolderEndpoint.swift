@@ -12,7 +12,7 @@ enum FolderEndpoint {
     case createFolder(name: String)
     case deleteFolder(id: Int64)
     case getArticlesInFolder(folderID: String)
-    case createArticleInFolder(article: Article, folderID: String)
+    case createArticleInFolder(articleName: String, articleURL: String, folderID: String)
     case deleteArticleInFolder(articleID: String, folderID: String)
 }
 
@@ -27,8 +27,8 @@ extension FolderEndpoint: Endpoint {
             return "folders/\(id)"
         case .getArticlesInFolder(let id):
             return "folders/\(id)/articles"
-        case .createArticleInFolder(_, let folderID):
-            return "folders/\(folderID)"
+        case .createArticleInFolder(_, _, let folderID):
+            return "folders/\(folderID)/articles"
         case .deleteArticleInFolder(let articleID, let folderID):
             return "folders/\(folderID)/articles/\(articleID)"
         }
@@ -49,8 +49,8 @@ extension FolderEndpoint: Endpoint {
         switch self {
         case .createFolder(let name):
             return .requestBody(["name": name])
-        case .createArticleInFolder(let article, _):
-            return .requestBody(["name": article.name, "url": article.url?.absoluteString ?? ""])
+        case .createArticleInFolder(let articleName, let articleURL, _):
+            return .requestBody(["name": articleName, "url": articleURL])
         default:
             return .requestPlain
         }

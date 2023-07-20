@@ -20,6 +20,8 @@ final class LinkFormTextFieldCell: UICollectionViewCell {
 
     @IBOutlet private weak var countLabel: UILabel!
 
+    private(set) var textFieldDidChangePublisher = CurrentValueSubject<String, Never>("")
+
     var cancellables = Set<AnyCancellable>()
     private var item: TextfieldLinkFormItem?
 
@@ -35,6 +37,7 @@ final class LinkFormTextFieldCell: UICollectionViewCell {
     }
 
     @IBAction func textFieldDidChange(_ sender: Any) {
+        textFieldDidChangePublisher.send(textField.text ?? "")
         guard let maxCount = item?.maxCount else { return }
         countLabel.text = "\((textField.text ?? "").count)/\(maxCount)"
     }
@@ -50,12 +53,17 @@ extension LinkFormTextFieldCell {
         descriptionLabel.text = item.description
         descriptionStackView.isHidden = item.description == nil
     }
+
+    func updateHighlighted(isHighlighted: Bool) {
+        textFieldBackgroundView.layer.borderWidth = isHighlighted ? 2 : 0
+    }
 }
 
 private extension LinkFormTextFieldCell {
 
     func setView() {
         textFieldBackgroundView.backgroundColor = .init("F4F4F4")
+        textFieldBackgroundView.layer.borderColor = UIColor("F34A3F").cgColor
         textFieldBackgroundView.layer.borderWidth = 0
         textFieldBackgroundView.layer.cornerRadius = 12
         textField.delegate = self

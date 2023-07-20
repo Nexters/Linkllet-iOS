@@ -52,8 +52,15 @@ private extension LinkFormViewController {
             .store(in: &cancellables)
 
         actionButton.tapPublisher
-            .sink { _ in
+            .sink { [weak self] _ in
+                self?.viewModel.action.completionAction.send(())
+            }
+            .store(in: &cancellables)
 
+        viewModel.state.isActionButtonEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEnabled in
+                self?.updateActionButton(isEnabled: isEnabled)
             }
             .store(in: &cancellables)
     }
@@ -103,14 +110,41 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 for: indexPath
             ) as? LinkFormTextFieldCell else { return UICollectionViewCell() }
             cell.updateUI(with: item)
+
+            cell.textField.keyboardType = .URL
+            cell.textFieldDidChangePublisher
+                .sink { [weak self] urlString in
+                    self?.viewModel.state.articleURLString.send(urlString)
+                }
+                .store(in: &cell.cancellables)
+
+            viewModel.state.isArticleURLStringrHighlighted
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] isHighlighted in
+                    cell?.updateHighlighted(isHighlighted: isHighlighted)
+                }
+                .store(in: &cell.cancellables)
+
             return cell
         case let item as TitleLinkFormItem:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: LinkFormTextFieldCell.className,
                 for: indexPath
             ) as? LinkFormTextFieldCell else { return UICollectionViewCell() }
-            cell.textField.keyboardType = .URL
             cell.updateUI(with: item)
+
+            cell.textFieldDidChangePublisher
+                .sink { [weak self] nameString in
+                    self?.viewModel.state.articleName.send(nameString)
+                }
+                .store(in: &cell.cancellables)
+
+            viewModel.state.isArticleNameFormHighlighted
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] isHighlighted in
+                    cell?.updateHighlighted(isHighlighted: isHighlighted)
+                }
+                .store(in: &cell.cancellables)
             return cell
         case let item as PickFolderLinkFormItem:
             guard let cell = collectionView.dequeueReusableCell(
@@ -222,17 +256,28 @@ final class LinkFormViewModel {
     struct State {
         let items = CurrentValueSubject<[LinkFormItem], Never>([])
         let selectedFolder = CurrentValueSubject<Folder?, Never>(nil)
+        let articleName = CurrentValueSubject<String, Never>("")
+        let articleURLString = CurrentValueSubject<String, Never>("")
+        let isArticleNameFormHighlighted = CurrentValueSubject<Bool, Never>(false)
+        let isArticleURLStringrHighlighted = CurrentValueSubject<Bool, Never>(false)
+        let isActionButtonEnabled = CurrentValueSubject<Bool, Never>(false)
+    }
+
+    struct Action {
+        let completionAction = PassthroughSubject<Void, Never>()
     }
 
     let state = State()
+    let action = Action()
+
     private let network: NetworkProvider = NetworkService()
     private var cancellables = Set<AnyCancellable>()
 
     init() {
-        setData()
+        setPublisher()
     }
 
-    func setData() {
+    func setPublisher() {
         network.request(FolderEndpoint.getFolders)
             .tryMap { (data, _) -> [Folder] in
                 let decoder = JSONDecoder()
@@ -250,5 +295,50 @@ final class LinkFormViewModel {
                 
             }
             .store(in: &cancellables)
+
+        action.completionAction
+            .handleEvents(receiveOutput: { [weak self] _ in
+                guard let self else { return }
+                self.state.isArticleURLStringrHighlighted.send(self.state.articleURLString.value.isEmpty)
+                self.state.isArticleNameFormHighlighted.send(self.state.articleName.value.isEmpty)
+            })
+            .filter { [weak self] _ in
+                guard let self else { return false }
+                return isValid(folder: self.state.selectedFolder.value, articleName: self.state.articleName.value, articleURLString: self.state.articleURLString.value)
+            }
+            .compactMap { [weak self] _ -> AnyPublisher<Bool ,Never> in
+                guard let self,
+                      let selectedFolder = self.state.selectedFolder.value else { return Just(false).eraseToAnyPublisher() }
+                return self.network.request(FolderEndpoint.createArticleInFolder(articleName: self.state.articleName.value, articleURL: self.state.articleURLString.value, folderID: "\(selectedFolder.id)"))
+                    .tryMap { (data, response) -> Bool in
+                        guard let httpResponse = response as? HTTPURLResponse,
+                              httpResponse.statusCode == 200 else {
+                            throw NetworkError.invalidResponse
+                        }
+                        return true
+                    }
+                    .replaceError(with: false)
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink { isSuccess in
+                guard isSuccess else { return }
+                print("완료")
+            }
+            .store(in: &cancellables)
+
+        Publishers.CombineLatest3(self.state.selectedFolder
+            .compactMap { $0 }, self.state.articleName, self.state.articleURLString)
+        .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
+        .sink { [weak self] (folder, articleName, articleURLString) in
+            guard let self else { return }
+            self.state.isActionButtonEnabled.send(self.isValid(folder: folder, articleName: articleName, articleURLString: articleURLString))
+        }
+        .store(in: &cancellables)
+    }
+
+    private func isValid(folder: Folder?, articleName: String, articleURLString: String) -> Bool {
+        return (folder != nil && !articleName.isEmpty && !articleURLString.isEmpty)
     }
 }
