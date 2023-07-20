@@ -21,14 +21,13 @@ class ViewController: UIViewController {
         fatalError("This viewController must be init with memberInfoManager")
     }
 
+    private let viewModel = WalletViewModel(networkService: NetworkService())
     private var cancellables = Set<AnyCancellable>()
-
-    private let testNetwork = NetworkService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // 멤버 회원가입 예외처리, 추후 UI 수정
-
 
         if !memberInfoManager.isMemberPublisher.value {
             self.view.isUserInteractionEnabled = false
@@ -44,28 +43,13 @@ class ViewController: UIViewController {
                 }
                 .store(in: &cancellables)
         }
-
-        testNetwork.request(FolderEndpoint.getFolders)
-            .tryMap { (data, _) in
-                let decoder = JSONDecoder()
-                let folders = try decoder.decode([Folder].self, from: data, keyPath: "folderList")
-                return folders
-            }
-//          replaceError가 아니라  .catch, completion으로 핸들링하는법 고민
-            .replaceError(with: [])
-            .sink { folders in
-                print(folders)
-            }
-            .store(in: &cancellables)
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
-            present(vc, animated: true)
-        }
-
+        let vc = WalletViewController(viewModel: viewModel)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
     }
 }
 

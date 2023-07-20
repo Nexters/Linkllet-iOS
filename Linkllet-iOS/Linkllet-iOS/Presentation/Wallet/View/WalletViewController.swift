@@ -130,13 +130,7 @@ extension WalletViewController {
         ])
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        let screenHeight: Int = Int(view.bounds.height)
-        if viewModel.folderSubject.value.count >= 3 {
-            initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (3 * 75 + 180))
-        } else {
-            initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (viewModel.folderSubject.value.count * 75 + 180))
-        }
-        collectionViewTopConstraint = folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: initialTopAnchorConstant)
+        collectionViewTopConstraint = folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor)
         collectionViewTopConstraint.isActive = true
         NSLayoutConstraint.activate([
             folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
@@ -174,9 +168,15 @@ extension WalletViewController {
     private func setBindings() {
         viewModel.folderSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { _ in
-            self.folderCollectionView.reloadData()
-        })
+            .sink(receiveValue: { folders in
+            if folders.count >= 3 {
+                self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
+            } else {
+                self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(folders.count * 75 + 180 + 60)
+            }
+                self.collectionViewTopConstraint.constant = self.initialTopAnchorConstant
+                self.folderCollectionView.reloadData()
+            })
             .store(in: &cancellables)
     }
 }
@@ -206,6 +206,17 @@ extension WalletViewController {
         let maxAnchorConstant: CGFloat = maxHeight
         
         collectionViewTopConstraint.constant = max(min(newConstant, maxAnchorConstant), minAnchorConstant)
+    
+        UIView.animate(withDuration: 0.2,
+                        delay: 0.0,
+                        options: .curveEaseInOut,
+                        animations: {
+                            if self.collectionViewTopConstraint.constant == maxAnchorConstant {
+                                self.backgroundImageView.layer.opacity = 1
+                            } else {
+                                self.backgroundImageView.layer.opacity = 0.1
+                            }},
+                        completion: nil)
     }
 }
 
