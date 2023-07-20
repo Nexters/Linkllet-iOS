@@ -69,20 +69,22 @@ final class WalletViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = WalletViewModel()
+        self.viewModel = WalletViewModel(networkService: NetworkService())
         super.init(coder: coder)
         setUI()
         setConstraints()
         setDelegate()
         setGesture()
+        setBindings()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setConstraints()
         setDelegate()
         setGesture()
+        setBindings()
     }
 }
 
@@ -129,10 +131,10 @@ extension WalletViewController {
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let screenHeight: Int = Int(view.bounds.height)
-        if viewModel.cardSubject.value.count >= 3 {
+        if viewModel.folderSubject.value.count >= 3 {
             initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (3 * 75 + 180))
         } else {
-            initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (viewModel.cardSubject.value.count * 75 + 180))
+            initialTopAnchorConstant = CGFloat(screenHeight * 728 / 812 - 60 - (viewModel.folderSubject.value.count * 75 + 180))
         }
         collectionViewTopConstraint = folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: initialTopAnchorConstant)
         collectionViewTopConstraint.isActive = true
@@ -168,6 +170,15 @@ extension WalletViewController {
         panGestureRecongnizer.delaysTouchesEnded = false
         folderCollectionView.addGestureRecognizer(panGestureRecongnizer)
     }
+    
+    private func setBindings() {
+        viewModel.folderSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+            self.folderCollectionView.reloadData()
+        })
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: - @objc Methods
@@ -185,13 +196,13 @@ extension WalletViewController {
         let newConstant = initialTopAnchorConstant + translation.y
         
         var maxHeight: CGFloat
-        if viewModel.cardSubject.value.count >= 3 {
+        if viewModel.folderSubject.value.count >= 3 {
             maxHeight = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
         } else {
-            maxHeight = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(viewModel.cardSubject.value.count * 75 + 180 + 60)
+            maxHeight = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(viewModel.folderSubject.value.count * 75 + 180 + 60)
         }
 
-        let minAnchorConstant: CGFloat = -(CGFloat(viewModel.cardSubject.value.count * 75 + 180 + 60) - view.safeAreaLayoutGuide.layoutFrame.height)
+        let minAnchorConstant: CGFloat = -(CGFloat(viewModel.folderSubject.value.count * 75 + 180 + 60) - view.safeAreaLayoutGuide.layoutFrame.height)
         let maxAnchorConstant: CGFloat = maxHeight
         
         collectionViewTopConstraint.constant = max(min(newConstant, maxAnchorConstant), minAnchorConstant)
@@ -211,7 +222,7 @@ extension WalletViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.cardSubject.value.count + 1
+        return viewModel.folderSubject.value.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -220,7 +231,7 @@ extension WalletViewController: UICollectionViewDataSource {
         if indexPath.item == 0 {
             cell.setPlusCell()
         } else {
-            cell.setFolderCell(indexPath.item, viewModel.cardSubject.value[indexPath.item - 1])
+            cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item - 1])
         }
         return cell
     }
@@ -232,7 +243,7 @@ extension WalletViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 365, height: 180)
+        return CGSize(width: view.bounds.width - 10, height: 180)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -250,7 +261,7 @@ extension WalletViewController: UICollectionViewDelegate {
             // TODO: - 폴더 추가 뷰 연결
         } else {
             // TODO: - 폴더 내 링크 목록 뷰 연결
-            print(indexPath.item - 1, viewModel.cardSubject.value[indexPath.item - 1])
+            print(indexPath.item - 1, viewModel.folderSubject.value[indexPath.item - 1])
         }
     }
 }
