@@ -120,8 +120,8 @@
 		846AFECE2A65541800C0F629 /* FolderForm */ = {
 			isa = PBXGroup;
 			children = (
-				846AFECF2A65543100C0F629 /* FolderFormViewController.swift */,
-				846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */,
+				84D0214B2A68F998000946A8 /* View */,
+				84D0214C2A68F99F000946A8 /* ViewModel */,
 			);
 			path = FolderForm;
 			sourceTree = "<group>";
@@ -195,6 +195,22 @@
 				84D0213F2A66CAF5000946A8 /* Pretendard-Bold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		84D0214B2A68F998000946A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				846AFECF2A65543100C0F629 /* FolderFormViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84D0214C2A68F99F000946A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				846AFED12A6567D100C0F629 /* FolderFormViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		84D021472A66D074000946A8 /* View */ = {
