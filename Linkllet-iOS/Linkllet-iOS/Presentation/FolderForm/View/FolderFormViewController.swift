@@ -208,7 +208,9 @@ extension FolderFormViewController {
     private func setPublisher() {
         closeButton.tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                let vc = PopupViewController(message: "작성한 내용이 삭제됩니다.\n작성을 취소할건가요?")
+                vc.modalPresentationStyle = .overCurrentContext
+                self?.present(vc, animated: false, completion: nil)
             }
             .store(in: &cancellables)
         
