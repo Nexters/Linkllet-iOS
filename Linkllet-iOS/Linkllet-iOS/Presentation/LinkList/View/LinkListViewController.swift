@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SafariServices
 
 protocol LinkListViewControllerDelegate: NSObject {
     func didDeleteFolder(_ viewController: LinkListViewController)
@@ -265,6 +266,9 @@ extension LinkListViewController: UICollectionViewDelegateFlowLayout {
 extension LinkListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: - 링크로 이동
+        if let linkUrl = viewModel.linksSubject.value[indexPath.item].url {
+            let linkSafariView: SFSafariViewController = SFSafariViewController(url: linkUrl)
+            present(linkSafariView, animated: true, completion: nil)
+        }
     }
 }
