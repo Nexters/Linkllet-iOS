@@ -123,6 +123,7 @@ extension LinkCell {
     func setLinkCell(_ data: Article) {
         titleLabel.text = data.name
         urlLabel.text = data.url?.absoluteString
+        saveDateLabel.text = "저장일 ∣ \(data.createAt.split(separator: " ")[0])"
     }
     
     private func setPublisher() {
