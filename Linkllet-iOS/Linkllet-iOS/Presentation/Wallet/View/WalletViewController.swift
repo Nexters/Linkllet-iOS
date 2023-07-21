@@ -85,7 +85,6 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         if !MemberInfoManager.default.isMemberPublisher.value {
             MemberInfoManager.default.isMemberPublisher
                 .removeDuplicates()
@@ -107,10 +106,6 @@ final class WalletViewController: UIViewController {
         setDelegate()
         setGesture()
         setBindings()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
 }
 
@@ -304,14 +299,26 @@ extension WalletViewController: UICollectionViewDelegate {
             vc.delegate = self
             present(vc, animated: true)
         } else {
-            // TODO: - 폴더 내 링크 목록 뷰 연결
-            print(indexPath.item - 1, viewModel.folderSubject.value[indexPath.item - 1])
+            let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item - 1]))
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
 
+// MARK: - FolderFormViewControllerDelegate
 extension WalletViewController: FolderFormViewControllerDelegate {
+    
     func didSaveFolder(_ viewController: FolderFormViewController) {
+        viewModel.getFolders()
+    }
+}
+
+// MARK: - LinkListViewControllerDelegate
+extension WalletViewController: LinkListViewControllerDelegate {
+    
+    func didDeleteFolder(_ viewController: LinkListViewController) {
+        print("호출")
         viewModel.getFolders()
     }
 }

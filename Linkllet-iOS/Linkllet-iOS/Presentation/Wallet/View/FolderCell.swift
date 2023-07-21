@@ -145,5 +145,6 @@ extension FolderCell {
         plusImageView.isHidden = true
         titleLabel.text = nil
         countView.isHidden = false
+        cardView.layer.opacity = 1
     }
 }
