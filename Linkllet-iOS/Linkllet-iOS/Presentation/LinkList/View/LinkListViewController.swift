@@ -244,6 +244,7 @@ extension LinkListViewController: UICollectionViewDataSource {
         cell.deleteLinkClosure = {
             let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
                 self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
+                    self.showToast("링크를 삭제했어요")
                     self.viewModel.getLinks()
                 })
             })
