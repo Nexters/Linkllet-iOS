@@ -13,7 +13,7 @@ enum FolderEndpoint {
     case deleteFolder(id: Int64)
     case getArticlesInFolder(folderID: String)
     case createArticleInFolder(articleName: String, articleURL: String, folderID: String)
-    case deleteArticleInFolder(articleID: String, folderID: String)
+    case deleteArticleInFolder(articleID: Int64, folderID: Int64)
 }
 
 extension FolderEndpoint: Endpoint {
