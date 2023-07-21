@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8422E49D2A6A1B1F0003CBF0 /* LinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */; };
+		8422E49F2A6A1B2F0003CBF0 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */; };
+		8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */; };
 		846AFEBF2A654D7700C0F629 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEBE2A654D7700C0F629 /* NetworkConstants.swift */; };
 		846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC12A654D9500C0F629 /* NetworkService.swift */; };
 		846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC42A654DBB00C0F629 /* Endpoint.swift */; };
@@ -46,6 +49,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListViewController.swift; sourceTree = "<group>"; };
+		8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
+		8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListViewModel.swift; sourceTree = "<group>"; };
 		846AFEBE2A654D7700C0F629 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		846AFEC12A654D9500C0F629 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		846AFEC42A654DBB00C0F629 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -97,6 +103,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8422E4992A6A1AC80003CBF0 /* LinkList */ = {
+			isa = PBXGroup;
+			children = (
+				8422E49A2A6A1ADA0003CBF0 /* View */,
+				8422E49B2A6A1ADE0003CBF0 /* ViewModel */,
+			);
+			path = LinkList;
+			sourceTree = "<group>";
+		};
+		8422E49A2A6A1ADA0003CBF0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */,
+				8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8422E49B2A6A1ADE0003CBF0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		846AFEBD2A654D0B00C0F629 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +213,7 @@
 			children = (
 				84D0214D2A6959C9000946A8 /* Global */,
 				84D021372A66842E000946A8 /* Wallet */,
+				8422E4992A6A1AC80003CBF0 /* LinkList */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
 				846AFECE2A65541800C0F629 /* FolderForm */,
 			);
@@ -385,17 +418,20 @@
 				84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */,
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
+				8422E49F2A6A1B2F0003CBF0 /* LinkCell.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
 				CEAA35882A682B6600261EBC /* PickFolderDropDownCell.swift in Sources */,
 				846AFEBF2A654D7700C0F629 /* NetworkConstants.swift in Sources */,
 				B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */,
 				84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */,
+				8422E49D2A6A1B1F0003CBF0 /* LinkListViewController.swift in Sources */,
 				84D021392A66843C000946A8 /* WalletViewController.swift in Sources */,
 				846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */,
 				84D0213B2A66BF26000946A8 /* FolderCell.swift in Sources */,
 				CEAA358C2A6845AE00261EBC /* PickFolderDropDownHeader.swift in Sources */,
 				8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */,
 				846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */,
+				8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */,
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
@@ -543,7 +579,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V37X2D6JM3;
+				DEVELOPMENT_TEAM = 83B9Y749K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -571,7 +607,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V37X2D6JM3;
+				DEVELOPMENT_TEAM = 83B9Y749K7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Linkllet-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
