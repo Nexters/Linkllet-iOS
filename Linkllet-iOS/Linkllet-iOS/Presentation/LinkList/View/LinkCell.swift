@@ -12,6 +12,7 @@ final class LinkCell: UICollectionViewCell {
     
     // MARK: Properties
     private var cancellables = Set<AnyCancellable>()
+    var deleteLinkClosure: (() -> ())?
     
     // MARK: UI Component
     private let backView: UIView = {
@@ -127,7 +128,9 @@ extension LinkCell {
     private func setPublisher() {
         moreButton.tapPublisher
             .sink { [weak self] _ in
-                let delete = UIAction(title: "링크 삭제하기", handler: { _ in print("링크삭제요청") })
+                let delete = UIAction(title: "링크 삭제하기", handler: { _ in
+                    self?.deleteLinkClosure?()
+                })
                 self?.moreButton.menu = UIMenu(children: [delete])
             }
             .store(in: &cancellables)

@@ -49,7 +49,7 @@ extension LinkListViewModel {
             }
             .replaceError(with: 500)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] statusCode in
+            .sink { statusCode in
                 switch statusCode {
                 case 204:
                     completion()
@@ -58,6 +58,24 @@ extension LinkListViewModel {
                 }
             }
             .store(in: &cancellables)
-        
+    }
+    
+    func deleteLink(articleID: Int64, completion: @escaping () -> Void) {
+        network.request(FolderEndpoint.deleteArticleInFolder(articleID: articleID, folderID: folder.id))
+            .tryMap { (_, response) in
+                let httpResponse = response as? HTTPURLResponse
+                return httpResponse!.statusCode
+            }
+            .replaceError(with: 500)
+            .receive(on: DispatchQueue.main)
+            .sink { statusCode in
+                switch statusCode {
+                case 204:
+                    completion()
+                default:
+                    return
+                }
+            }
+            .store(in: &cancellables)
     }
 }

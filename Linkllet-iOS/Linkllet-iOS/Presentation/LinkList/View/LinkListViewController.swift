@@ -242,6 +242,16 @@ extension LinkListViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LinkCell.className, for: indexPath) as? LinkCell else { return UICollectionViewCell() }
         cell.setLinkCell(viewModel.linksSubject.value[indexPath.item])
+        cell.deleteLinkClosure = {
+            let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
+                self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
+                    self.viewModel.getLinks()
+                })
+            })
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+        }
         return cell
     }
 }
