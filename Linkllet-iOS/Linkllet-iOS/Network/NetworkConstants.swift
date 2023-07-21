@@ -7,10 +7,24 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: LocalizedError {
     case invalidURL
-    case invalidResponse
+    case invalidResponse(message: String)
+    case invalidRequest(message: String)
     case decodingFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return localizedDescription
+        case .invalidResponse(let message):
+            return message
+        case .invalidRequest(let message):
+            return message
+        case .decodingFailed:
+            return localizedDescription
+        }
+    }
 }
 
 enum HTTPMethod: String {

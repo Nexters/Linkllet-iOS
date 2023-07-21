@@ -53,7 +53,9 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {
-                    throw NetworkError.invalidResponse
+                    let decoder = JSONDecoder()
+                    let message = try? decoder.decode(String.self, from: data, keyPath: "message")
+                    throw NetworkError.invalidResponse(message: message ?? "")
                 }
                 return true
             }

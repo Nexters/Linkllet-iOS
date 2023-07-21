@@ -70,6 +70,13 @@ private extension LinkFormViewController {
                 self?.dismiss(animated: true)
             }
             .store(in: &cancellables)
+
+        viewModel.action.showToast
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] reason in
+                self?.showToast(reason)
+            }
+            .store(in: &cancellables)
     }
 
     func setView() {
@@ -292,6 +299,7 @@ final class LinkFormViewModel {
     struct Action {
         let completionAction = PassthroughSubject<Void, Never>()
         let close = PassthroughSubject<Void, Never>()
+        let showToast = PassthroughSubject<String, Never>()
     }
 
     let state = State()
@@ -311,8 +319,6 @@ final class LinkFormViewModel {
                 let folders = try decoder.decode([Folder].self, from: data, keyPath: "folderList")
                 return folders
             }
-            .print()
-//          replaceError가 아니라  .catch, completion으로 핸들링하는법 고민
             .replaceError(with: [])
             .receive(on: DispatchQueue.main)
             .sink { [weak self] folders in
@@ -340,11 +346,18 @@ final class LinkFormViewModel {
                     .tryMap { (data, response) -> Bool in
                         guard let httpResponse = response as? HTTPURLResponse,
                               httpResponse.statusCode == 200 else {
-                            throw NetworkError.invalidResponse
+                            let decoder = JSONDecoder()
+                            let message = try? decoder.decode(String.self, from: data, keyPath: "message")
+                            throw NetworkError.invalidResponse(message: message ?? "")
                         }
                         return true
                     }
-                    .replaceError(with: false)
+                    .catch { [weak self] error in
+                        self?.action.showToast.send(error.localizedDescription)
+                        return Just(false)
+                            .eraseToAnyPublisher()
+                    }
+//                    .replaceError(with: false)
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
