@@ -12,9 +12,10 @@ struct Article: Codable {
     let id: Int64
     let name: String
     let url: URL?
+    let createAt: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name, url
+        case id, name, url, createAt
     }
 
     init(from decoder: Decoder) throws {
@@ -22,5 +23,6 @@ struct Article: Codable {
         id = try container.decodeIfPresent(Int64.self, forKey: .id) ?? -1
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         url = try container.decodeIfPresent(URL.self, forKey: .url)
+        createAt = try container.decodeIfPresent(String.self, forKey: .createAt) ?? ""
     }
 }

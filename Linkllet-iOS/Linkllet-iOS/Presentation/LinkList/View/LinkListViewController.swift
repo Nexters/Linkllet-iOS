@@ -82,7 +82,7 @@ final class LinkListViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = LinkListViewModel(networkService: NetworkService(), folder: Folder(id: 0, name: "", type: .personalized))
+        self.viewModel = LinkListViewModel(networkService: NetworkService(), folder: Folder(id: 0, name: "", type: .personalized, size: 0))
         super.init(coder: coder)
     }
 

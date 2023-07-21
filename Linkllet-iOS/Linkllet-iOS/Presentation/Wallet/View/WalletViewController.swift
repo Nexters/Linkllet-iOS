@@ -318,7 +318,6 @@ extension WalletViewController: FolderFormViewControllerDelegate {
 extension WalletViewController: LinkListViewControllerDelegate {
     
     func didDeleteFolder(_ viewController: LinkListViewController) {
-        print("호출")
         viewModel.getFolders()
     }
 }

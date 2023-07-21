@@ -12,9 +12,10 @@ struct Folder: Codable, Equatable {
     let id: Int64
     let name: String
     let type: FolderType
+    let size: Int32
 
     enum CodingKeys: String, CodingKey {
-        case id, name, type
+        case id, name, type, size
     }
 
     init(from decoder: Decoder) throws {
@@ -22,12 +23,14 @@ struct Folder: Codable, Equatable {
         id = try container.decodeIfPresent(Int64.self, forKey: .id) ?? -1
         name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         type = try container.decodeIfPresent(FolderType.self, forKey: .type) ?? .personalized
+        size = try container.decodeIfPresent(Int32.self, forKey: .size) ?? 0
     }
 
-    init(id: Int64, name: String, type: FolderType) {
+    init(id: Int64, name: String, type: FolderType, size: Int32) {
         self.id = id
         self.name = name
         self.type = type
+        self.size = size
     }
 }
 

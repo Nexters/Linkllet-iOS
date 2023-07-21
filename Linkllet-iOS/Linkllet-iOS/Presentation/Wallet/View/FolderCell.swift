@@ -129,6 +129,7 @@ extension FolderCell {
     
     func setFolderCell(_ index: Int, _ data: Folder) {
         titleLabel.text = data.name
+        countLabel.text = String(data.size)
         switch (index - 1) % 3 {
         case 0:
             cardView.backgroundColor = .init("779CFF")
@@ -144,6 +145,7 @@ extension FolderCell {
     private func resetCell() {
         plusImageView.isHidden = true
         titleLabel.text = nil
+        countLabel.text = nil
         countView.isHidden = false
         cardView.layer.opacity = 1
     }
