@@ -40,7 +40,12 @@ private extension LinkFormViewController {
     func setPublisher() {
         closeButton.tapPublisher
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                let vc = PopupViewController(message: "작성한 내용이 삭제됩니다.\n작성을 취소할건가요?", confirmAction: {
+                    self?.dismiss(animated: true)
+                })
+                vc.modalPresentationStyle = .overFullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self?.present(vc, animated: true, completion: nil)
             }
             .store(in: &cancellables)
 
@@ -357,13 +362,13 @@ final class LinkFormViewModel {
                         return Just(false)
                             .eraseToAnyPublisher()
                     }
-//                    .replaceError(with: false)
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isSuccess in
                 guard isSuccess else { return }
+                NotificationCenter.default.post(name: .didCreateLink, object: nil, userInfo: ["folderID": (self?.state.selectedFolder.value?.id ?? -1)])
                 self?.action.close.send(())
             }
             .store(in: &cancellables)
@@ -381,4 +386,9 @@ final class LinkFormViewModel {
     private func isValid(folder: Folder?, articleName: String, articleURLString: String) -> Bool {
         return (folder != nil && !articleName.isEmpty && !articleURLString.isEmpty)
     }
+}
+
+extension Notification.Name {
+
+    static let didCreateLink = Notification.Name("didCreateLink")
 }

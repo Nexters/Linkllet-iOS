@@ -12,7 +12,7 @@ struct Folder: Codable, Equatable {
     let id: Int64
     let name: String
     let type: FolderType
-    let size: Int32
+    var size: Int32
 
     enum CodingKeys: String, CodingKey {
         case id, name, type, size

@@ -78,4 +78,14 @@ extension LinkListViewModel {
             }
             .store(in: &cancellables)
     }
+
+    private func setPublisher() {
+        NotificationCenter.default.publisher(for: .didCreateLink)
+            .sink { [weak self] notification in
+                guard let self else { return }
+                self.getLinks()
+            }
+            .store(in: &cancellables)
+    }
 }
+
