@@ -203,6 +203,7 @@ extension LinkListViewController {
             .sink { [weak self] _ in
                 if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
                     vc.modalPresentationStyle = .overFullScreen
+                    self?.navigationController?.popViewController(animated: false)
                     self?.present(vc, animated: true)
                 }
             }
