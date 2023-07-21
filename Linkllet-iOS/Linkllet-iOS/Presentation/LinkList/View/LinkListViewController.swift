@@ -94,6 +94,7 @@ final class LinkListViewController: UIViewController {
         setBindings()
         setTitle()
         viewModel.getLinks()
+        setEditButton()
     }
 }
 
@@ -220,6 +221,10 @@ extension LinkListViewController {
     
     private func setTitle() {
         topBarTitleLabel.text = viewModel.folder.name
+    }
+    
+    private func setEditButton() {
+        editButton.isHidden = viewModel.folder.type == .default
     }
 }
 
