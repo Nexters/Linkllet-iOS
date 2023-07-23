@@ -342,7 +342,7 @@ final class LinkFormViewModel {
             })
             .filter { [weak self] _ in
                 guard let self else { return false }
-                return isValid(folder: self.state.selectedFolder.value, articleName: self.state.articleName.value, articleURLString: self.state.articleURLString.value)
+                return self.isValid(folder: self.state.selectedFolder.value, articleName: self.state.articleName.value, articleURLString: self.state.articleURLString.value)
             }
             .compactMap { [weak self] _ -> AnyPublisher<Bool ,Never> in
                 guard let self,
