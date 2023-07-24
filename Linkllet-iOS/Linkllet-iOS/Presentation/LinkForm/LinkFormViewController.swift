@@ -72,7 +72,21 @@ private extension LinkFormViewController {
         viewModel.action.close
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.dismiss(animated: true)
+                guard let presentingVC = self?.presentingViewController as? UINavigationController else { return }
+                let viewControllerStack = presentingVC.viewControllers
+                
+                self?.dismiss(animated: true) {
+                    for viewController in viewControllerStack {
+                        if let rootVC = viewController as? WalletViewController {
+                            presentingVC.popToViewController(rootVC, animated: true)
+                            
+                            if let selectedFolder = self?.viewModel.state.selectedFolder.value {
+                                let nextVC = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: selectedFolder))
+                                presentingVC.pushViewController(nextVC, animated: true)
+                            }
+                        }
+                    }
+                }
             }
             .store(in: &cancellables)
 
