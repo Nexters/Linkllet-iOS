@@ -100,12 +100,6 @@ class FolderFormViewController: UIViewController {
     required init?(coder: NSCoder) {
         self.viewModel = FolderFormViewModel(networkService: NetworkService())
         super.init(coder: coder)
-        setUI()
-        setConstraints()
-        addTargets()
-        setDelegate()
-        setPublisher()
-        setBindings()
     }
 
     
