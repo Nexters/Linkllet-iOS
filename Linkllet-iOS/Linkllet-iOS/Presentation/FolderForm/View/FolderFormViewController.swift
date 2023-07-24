@@ -227,8 +227,8 @@ extension FolderFormViewController {
     private func setBindings() {
         viewModel.inputStatusSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { errorStatus in
-                self.setInputView(errorStatus)
+            .sink(receiveValue: { [weak self] errorStatus in
+                self?.setInputView(errorStatus)
         })
             .store(in: &cancellables)
     }

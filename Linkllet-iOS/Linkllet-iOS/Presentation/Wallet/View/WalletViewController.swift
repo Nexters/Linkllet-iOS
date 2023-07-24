@@ -189,7 +189,8 @@ extension WalletViewController {
     private func setBindings() {
         viewModel.folderSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { folders in
+            .sink(receiveValue: { [weak self] folders in
+                guard let self = self else { return }
                 if folders.count >= 3 {
                     self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
                 } else {

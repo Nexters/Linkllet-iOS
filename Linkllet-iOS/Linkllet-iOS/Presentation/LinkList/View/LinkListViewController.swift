@@ -213,9 +213,9 @@ extension LinkListViewController {
     private func setBindings() {
         viewModel.linksSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { data in
-                self.linkCollectionView.reloadData()
-                self.emptyLabel.isHidden = data.count != 0
+            .sink(receiveValue: { [weak self] data in
+                self?.linkCollectionView.reloadData()
+                self?.emptyLabel.isHidden = data.count != 0
         })
             .store(in: &cancellables)
     }
