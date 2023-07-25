@@ -100,12 +100,6 @@ class FolderFormViewController: UIViewController {
     required init?(coder: NSCoder) {
         self.viewModel = FolderFormViewModel(networkService: NetworkService())
         super.init(coder: coder)
-        setUI()
-        setConstraints()
-        addTargets()
-        setDelegate()
-        setPublisher()
-        setBindings()
     }
 
     
@@ -233,8 +227,8 @@ extension FolderFormViewController {
     private func setBindings() {
         viewModel.inputStatusSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { errorStatus in
-                self.setInputView(errorStatus)
+            .sink(receiveValue: { [weak self] errorStatus in
+                self?.setInputView(errorStatus)
         })
             .store(in: &cancellables)
     }

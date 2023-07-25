@@ -13,9 +13,6 @@ final class WalletViewController: UIViewController {
     // MARK: Properties
     private var viewModel: WalletViewModel
     private var cancellables = Set<AnyCancellable>()
-    
-    var collectionViewTopConstraint: NSLayoutConstraint!
-    var initialTopAnchorConstant: CGFloat = 0
 
     // MARK: UI Component
     private let topBar: UIView = {
@@ -50,9 +47,7 @@ final class WalletViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
-        view.bounces = false
         view.showsVerticalScrollIndicator = false
-        view.isScrollEnabled = false
         return view
     }()
     
@@ -100,11 +95,9 @@ final class WalletViewController: UIViewController {
             indicator.stopAnimating()
             viewModel.getFolders()
         }
-        resetImageOpacity()
         setUI()
         setConstraints()
         setDelegate()
-        setGesture()
         setBindings()
     }
 }
@@ -151,9 +144,8 @@ extension WalletViewController {
         ])
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionViewTopConstraint = folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor)
-        collectionViewTopConstraint.isActive = true
         NSLayoutConstraint.activate([
+            folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
             folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             folderCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -178,24 +170,13 @@ extension WalletViewController {
         folderCollectionView.dataSource = self
     }
     
-    private func setGesture() {
-        let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler(_ :)))
-        panGestureRecongnizer.delegate = self
-        panGestureRecongnizer.delaysTouchesBegan = false
-        panGestureRecongnizer.delaysTouchesEnded = false
-        folderCollectionView.addGestureRecognizer(panGestureRecongnizer)
-    }
-    
     private func setBindings() {
         viewModel.folderSubject
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { folders in
-                if folders.count >= 3 {
-                    self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
-                } else {
-                    self.initialTopAnchorConstant = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(folders.count * 75 + 180 + 60)
-                }
-                self.collectionViewTopConstraint.constant = self.initialTopAnchorConstant
+            .sink(receiveValue: { [weak self] folders in
+                guard let self = self else { return }
+                let topInset = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(min(folders.count, 3) * 75 + 180 + 60)
+                self.folderCollectionView.contentInset.top = topInset
                 self.folderCollectionView.reloadData()
             })
             .store(in: &cancellables)
@@ -208,49 +189,15 @@ extension WalletViewController {
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    private func resetImageOpacity() {
-        backgroundImageView.layer.opacity = 1
-    }
-}
-
-// MARK: - @objc Methods
-extension WalletViewController {
-    
-    @objc func panGestureHandler(_ gestureRecognizer: UIPanGestureRecognizer) {
-        guard let collectionView = gestureRecognizer.view else { return }
-
-        let translation = gestureRecognizer.translation(in: collectionView)
-
-        if gestureRecognizer.state == .began {
-            initialTopAnchorConstant = collectionViewTopConstraint.constant
-        }
-
-        let newConstant = initialTopAnchorConstant + translation.y
         
-        var maxHeight: CGFloat
-        if viewModel.folderSubject.value.count >= 3 {
-            maxHeight = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
-        } else {
-            maxHeight = view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(viewModel.folderSubject.value.count * 75 + 180 + 60)
-        }
-
-        let minAnchorConstant: CGFloat = -(CGFloat(viewModel.folderSubject.value.count * 75 + 180 + 60) - view.safeAreaLayoutGuide.layoutFrame.height)
-        let maxAnchorConstant: CGFloat = maxHeight
-        
-        collectionViewTopConstraint.constant = max(min(newConstant, maxAnchorConstant), minAnchorConstant)
-    
-        backgroundImageView.layer.opacity = Float(collectionViewTopConstraint.constant / 263 * view.bounds.height / 812)
+        folderCollectionView.publisher(for: \.contentOffset)
+            .map { max(min(-$0.y, self.folderCollectionView.contentInset.top), 0) }
+            .removeDuplicates()
+            .sink { [weak self] offsetY in
+                self?.backgroundImageView.layer.opacity = Float(offsetY / 250)
+            }
+            .store(in: &cancellables)
     }
-}
-
-// MARK: - UIGestureRecognizerDelegate
-extension WalletViewController: UIGestureRecognizerDelegate {
- 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
-           return true
-       }
 }
 
 // MARK: - UICollectionViewDataSource
