@@ -191,9 +191,10 @@ extension WalletViewController {
             .store(in: &cancellables)
         
         folderCollectionView.publisher(for: \.contentOffset)
-            .map { $0.y }
+            .map { max(min(-$0.y, self.folderCollectionView.contentInset.top), 0) }
+            .removeDuplicates()
             .sink { [weak self] offsetY in
-                self?.backgroundImageView.layer.opacity = Float(abs(offsetY) / 200)
+                self?.backgroundImageView.layer.opacity = Float(offsetY / 250)
             }
             .store(in: &cancellables)
     }
