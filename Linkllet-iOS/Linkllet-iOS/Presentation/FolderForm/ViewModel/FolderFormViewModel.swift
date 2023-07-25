@@ -39,21 +39,23 @@ extension FolderFormViewModel {
         }
         
         network.request(FolderEndpoint.createFolder(name: titleSubject.value))
-            .tryMap { (_, response) in
-                let httpResponse = response as? HTTPURLResponse
-                return httpResponse!.statusCode
-            }
-            .replaceError(with: 500)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] statusCode in
-                switch statusCode {
-                case 200:
-                    self?.inputStatusSubject.send(.saved)
-                case 400:
-                    self?.inputStatusSubject.send(.duplicateError)
-                default:
-                    return
+            .tryMap { (data, response) in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200 else {
+                    let decoder = JSONDecoder()
+                    let message = try? decoder.decode(String.self, from: data, keyPath: "message")
+                    throw NetworkError.invalidResponse(message: message ?? "")
                 }
+                return true
+            }
+            .catch { [weak self] error in
+                self?.inputStatusSubject.send(.duplicateError)
+                return Just(false)
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isSuccess in
+                guard isSuccess else { return }
+                self?.inputStatusSubject.send(.saved)
             }
             .store(in: &cancellables)
     }
