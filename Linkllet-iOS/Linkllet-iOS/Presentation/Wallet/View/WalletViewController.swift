@@ -175,12 +175,7 @@ extension WalletViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] folders in
                 guard let self = self else { return }
-                var topInset = CGFloat()
-                if folders.count >= 3 {
-                    topInset = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(3 * 75 + 180 + 60)
-                } else {
-                    topInset = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(folders.count * 75 + 180 + 60)
-                }
+                let topInset = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(min(folders.count, 3) * 75 + 180 + 60)
                 self.folderCollectionView.contentInset.top = topInset
                 self.folderCollectionView.reloadData()
             })
