@@ -72,6 +72,7 @@ extension LinkListViewModel {
                 switch statusCode {
                 case 204:
                     completion()
+                    self.getLinks()
                 default:
                     return
                 }

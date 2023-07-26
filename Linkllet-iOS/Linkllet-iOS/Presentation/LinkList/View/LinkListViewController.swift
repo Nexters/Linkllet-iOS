@@ -11,6 +11,7 @@ import SafariServices
 
 protocol LinkListViewControllerDelegate: NSObject {
     func didDeleteFolder(_ viewController: LinkListViewController)
+    func didDeleteLink(_ viewController: LinkListViewController)
 }
 
 final class LinkListViewController: UIViewController {
@@ -245,7 +246,7 @@ extension LinkListViewController: UICollectionViewDataSource {
             let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
                 self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
                     self.showToast("링크를 삭제했어요")
-                    self.viewModel.getLinks()
+                    self.delegate?.didDeleteLink(self)
                 })
             })
             vc.modalPresentationStyle = .overFullScreen

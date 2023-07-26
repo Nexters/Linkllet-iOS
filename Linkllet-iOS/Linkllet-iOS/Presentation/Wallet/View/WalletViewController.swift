@@ -267,4 +267,8 @@ extension WalletViewController: LinkListViewControllerDelegate {
     func didDeleteFolder(_ viewController: LinkListViewController) {
         viewModel.getFolders()
     }
+    
+    func didDeleteLink(_ viewController: LinkListViewController) {
+        viewModel.getFolders()
+    }
 }
