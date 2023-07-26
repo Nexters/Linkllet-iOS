@@ -190,6 +190,13 @@ extension WalletViewController {
             }
             .store(in: &cancellables)
         
+        gearButton.tapPublisher
+            .sink { [weak self] _ in
+                let vc = SettingViewController(viewModel: SettingViewModel(networkService: NetworkService()))
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &cancellables)
+        
         folderCollectionView.publisher(for: \.contentOffset)
             .map { max(min(-$0.y, self.folderCollectionView.contentInset.top), 0) }
             .removeDuplicates()
@@ -241,9 +248,8 @@ extension WalletViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService()))
+            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
             vc.modalPresentationStyle = .fullScreen
-            vc.delegate = self
             present(vc, animated: true)
         } else {
             let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item - 1]))
@@ -251,13 +257,9 @@ extension WalletViewController: UICollectionViewDelegate {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-}
-
-// MARK: - FolderFormViewControllerDelegate
-extension WalletViewController: FolderFormViewControllerDelegate {
     
-    func didSaveFolder(_ viewController: FolderFormViewController) {
-        viewModel.getFolders()
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.bounces = scrollView.contentOffset.y < 0
     }
 }
 
@@ -265,6 +267,11 @@ extension WalletViewController: FolderFormViewControllerDelegate {
 extension WalletViewController: LinkListViewControllerDelegate {
     
     func didDeleteFolder(_ viewController: LinkListViewController) {
+        viewModel.getFolders()
+        showToast("폴더를 삭제했어요")
+    }
+    
+    func didDeleteLink(_ viewController: LinkListViewController) {
         viewModel.getFolders()
     }
 }

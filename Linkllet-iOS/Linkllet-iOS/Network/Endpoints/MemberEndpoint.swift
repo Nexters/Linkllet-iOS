@@ -9,6 +9,7 @@ import Foundation
 
 enum MemberEndpoint {
     case register
+    case createFeedback(feedback: String)
 }
 
 extension MemberEndpoint: Endpoint {
@@ -16,12 +17,14 @@ extension MemberEndpoint: Endpoint {
         switch self {
         case .register:
             return "members"
+        case .createFeedback(_):
+            return "members/feedbacks"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .register:
+        case .register, .createFeedback(_):
             return .post
         }
     }
@@ -30,12 +33,14 @@ extension MemberEndpoint: Endpoint {
         switch self {
         case .register:
             return .requestBody(["deviceId": MemberInfoManager.deviceId])
+        case .createFeedback(let feedback):
+            return .requestBody(["feedback": feedback])
         }
     }
 
     var headers: HeaderType {
         switch self {
-        case .register:
+        case .register, .createFeedback(_):
             return .auth
         }
     }

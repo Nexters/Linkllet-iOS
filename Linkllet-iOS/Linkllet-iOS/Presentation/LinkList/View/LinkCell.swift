@@ -112,7 +112,8 @@ extension LinkCell {
         NSLayoutConstraint.activate([
             moreButton.topAnchor.constraint(equalTo: backView.topAnchor, constant: 20),
             moreButton.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -18),
-            moreButton.heightAnchor.constraint(equalToConstant: 16)
+            moreButton.heightAnchor.constraint(equalToConstant: 28),
+            moreButton.widthAnchor.constraint(equalToConstant: 28),
         ])
     }
 }

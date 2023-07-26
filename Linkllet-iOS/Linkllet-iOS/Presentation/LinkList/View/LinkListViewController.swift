@@ -11,6 +11,7 @@ import SafariServices
 
 protocol LinkListViewControllerDelegate: NSObject {
     func didDeleteFolder(_ viewController: LinkListViewController)
+    func didDeleteLink(_ viewController: LinkListViewController)
 }
 
 final class LinkListViewController: UIViewController {
@@ -95,7 +96,6 @@ final class LinkListViewController: UIViewController {
         setBindings()
         setTitle()
         viewModel.getLinks()
-        setEditButton()
     }
 }
 
@@ -196,7 +196,20 @@ extension LinkListViewController {
                     vc.modalTransitionStyle = .crossDissolve
                     self?.present(vc, animated: true, completion: nil)
                 })
-                self?.editButton.menu = UIMenu(children: [delete])
+                
+                let edit = UIAction(title: "폴더 수정하기", handler: { _ in
+                    if let folder = self?.viewModel.folder {
+                        let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .edit, folder: folder))
+                        vc.modalPresentationStyle = .overFullScreen
+                        self?.present(vc, animated: true, completion: nil)
+                    }
+                })
+                
+                if self?.viewModel.folder.type == .default {
+                    self?.editButton.menu = UIMenu(children: [edit])
+                } else {
+                    self?.editButton.menu = UIMenu(children: [edit, delete])
+                }
             }
             .store(in: &cancellables)
         
@@ -205,6 +218,15 @@ extension LinkListViewController {
                 if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
                     vc.modalPresentationStyle = .overFullScreen
                     self?.present(vc, animated: true)
+                }
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: .didSaveFolder)
+            .sink { [weak self] notification in
+                guard let userInfo = notification.userInfo else { return }
+                if let name = userInfo["folderName"] as? String {
+                    self?.topBarTitleLabel.text = name
                 }
             }
             .store(in: &cancellables)
@@ -222,10 +244,6 @@ extension LinkListViewController {
     
     private func setTitle() {
         topBarTitleLabel.text = viewModel.folder.name
-    }
-    
-    private func setEditButton() {
-        editButton.isHidden = viewModel.folder.type == .default
     }
 }
 
@@ -245,7 +263,7 @@ extension LinkListViewController: UICollectionViewDataSource {
             let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
                 self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
                     self.showToast("링크를 삭제했어요")
-                    self.viewModel.getLinks()
+                    self.delegate?.didDeleteLink(self)
                 })
             })
             vc.modalPresentationStyle = .overFullScreen
@@ -276,9 +294,13 @@ extension LinkListViewController: UICollectionViewDelegateFlowLayout {
 extension LinkListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let linkUrl = viewModel.linksSubject.value[indexPath.item].url {
-            let linkSafariView: SFSafariViewController = SFSafariViewController(url: linkUrl)
-            present(linkSafariView, animated: true, completion: nil)
+        guard let linkUrl = viewModel.linksSubject.value[indexPath.item].url else { return }
+        
+        if ["http", "https"].contains(linkUrl.scheme?.lowercased() ?? "") {
+            let safariViewController = SFSafariViewController(url: linkUrl)
+            self.present(safariViewController, animated: true, completion: nil)
+        } else {
+            self.showToast("URL을 확인해주세요")
         }
     }
 }

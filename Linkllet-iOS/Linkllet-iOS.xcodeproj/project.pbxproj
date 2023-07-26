@@ -10,6 +10,10 @@
 		8422E49D2A6A1B1F0003CBF0 /* LinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */; };
 		8422E49F2A6A1B2F0003CBF0 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */; };
 		8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */; };
+		845601F42A70D98600426255 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601F32A70D98600426255 /* SettingViewController.swift */; };
+		845601F82A70DED700426255 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601F72A70DED700426255 /* MenuCell.swift */; };
+		845601FA2A70E17400426255 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601F92A70E17400426255 /* UITableViewCell+.swift */; };
+		845601FC2A70EC6E00426255 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601FB2A70EC6E00426255 /* SettingViewModel.swift */; };
 		846AFEBF2A654D7700C0F629 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEBE2A654D7700C0F629 /* NetworkConstants.swift */; };
 		846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC12A654D9500C0F629 /* NetworkService.swift */; };
 		846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846AFEC42A654DBB00C0F629 /* Endpoint.swift */; };
@@ -52,6 +56,10 @@
 		8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListViewController.swift; sourceTree = "<group>"; };
 		8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
 		8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListViewModel.swift; sourceTree = "<group>"; };
+		845601F32A70D98600426255 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		845601F72A70DED700426255 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		845601F92A70E17400426255 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		845601FB2A70EC6E00426255 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		846AFEBE2A654D7700C0F629 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		846AFEC12A654D9500C0F629 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		846AFEC42A654DBB00C0F629 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -125,6 +133,32 @@
 			isa = PBXGroup;
 			children = (
 				8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		845601F22A70D95B00426255 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				845601F52A70D98E00426255 /* View */,
+				845601F62A70D99600426255 /* ViewModel */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		845601F52A70D98E00426255 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				845601F32A70D98600426255 /* SettingViewController.swift */,
+				845601F72A70DED700426255 /* MenuCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		845601F62A70D99600426255 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				845601FB2A70EC6E00426255 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -216,6 +250,7 @@
 				8422E4992A6A1AC80003CBF0 /* LinkList */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
 				846AFECE2A65541800C0F629 /* FolderForm */,
+				845601F22A70D95B00426255 /* Setting */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -297,6 +332,7 @@
 				B95DFF8D2A655AC4000B7947 /* UIControl+Combine.swift */,
 				B95DFF932A65614B000B7947 /* UIViewController+.swift */,
 				B95DFF952A65617C000B7947 /* UICollectionViewCell+.swift */,
+				845601F92A70E17400426255 /* UITableViewCell+.swift */,
 				84D0213C2A66C8D4000946A8 /* UIFont+.swift */,
 			);
 			path = Extension;
@@ -434,12 +470,16 @@
 				8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */,
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
+				845601FC2A70EC6E00426255 /* SettingViewModel.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
+				845601FA2A70E17400426255 /* UITableViewCell+.swift in Sources */,
 				B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */,
 				B95DFF942A65614B000B7947 /* UIViewController+.swift in Sources */,
+				845601F42A70D98600426255 /* SettingViewController.swift in Sources */,
 				CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */,
 				846AFED22A6567D100C0F629 /* FolderFormViewModel.swift in Sources */,
 				B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */,
+				845601F82A70DED700426255 /* MenuCell.swift in Sources */,
 				B95DFF8C2A655A22000B7947 /* UIButton+Combine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
