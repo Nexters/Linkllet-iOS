@@ -12,7 +12,7 @@ protocol FolderFormViewControllerDelegate: NSObject {
     func didSaveFolder(_ viewController: FolderFormViewController)
 }
 
-class FolderFormViewController: UIViewController {
+final class FolderFormViewController: UIViewController {
     
     // MARK: Properties
     private var viewModel: FolderFormViewModel
