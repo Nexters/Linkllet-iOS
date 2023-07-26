@@ -5,15 +5,24 @@
 //  Created by Juhyeon Byun on 2023/07/07.
 //
 
+import Combine
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private var cancellables = Set<AnyCancellable>()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if !MemberInfoManager.default.isMemberPublisher.value {
-            MemberInfoManager.default.registerMember()
-        }
+        sleep(5)
+        ReachabliltyManager.shared.isConnectedPublisher
+            .sink { isConnected in
+                guard isConnected else { return }
+                if !MemberInfoManager.default.isMemberPublisher.value {
+                    MemberInfoManager.default.registerMember()
+                }
+            }
+            .store(in: &cancellables)
+
         return true
     }
 

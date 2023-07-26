@@ -45,6 +45,7 @@
 		B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9D2A66CAE7000B7947 /* Folder.swift */; };
 		B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF9F2A66CAF0000B7947 /* Article.swift */; };
 		B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */; };
+		CE0484D22A715CF600F51CF0 /* ReachabliltyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0484D12A715CF600F51CF0 /* ReachabliltyManager.swift */; };
 		CE3240532A66D6E400B0C90D /* MemberInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */; };
 		CEAA35882A682B6600261EBC /* PickFolderDropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */; };
 		CEAA35892A682B6600261EBC /* PickFolderDropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEAA35872A682B6600261EBC /* PickFolderDropDownCell.xib */; };
@@ -93,6 +94,7 @@
 		B95DFF9D2A66CAE7000B7947 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		B95DFF9F2A66CAF0000B7947 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndpoint.swift; sourceTree = "<group>"; };
+		CE0484D12A715CF600F51CF0 /* ReachabliltyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabliltyManager.swift; sourceTree = "<group>"; };
 		CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoManager.swift; sourceTree = "<group>"; };
 		CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderDropDownCell.swift; sourceTree = "<group>"; };
 		CEAA35872A682B6600261EBC /* PickFolderDropDownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickFolderDropDownCell.xib; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */,
+				CE0484D12A715CF600F51CF0 /* ReachabliltyManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */,
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
+				CE0484D22A715CF600F51CF0 /* ReachabliltyManager.swift in Sources */,
 				8422E49F2A6A1B2F0003CBF0 /* LinkCell.swift in Sources */,
 				B95DFF962A65617C000B7947 /* UICollectionViewCell+.swift in Sources */,
 				CEAA35882A682B6600261EBC /* PickFolderDropDownCell.swift in Sources */,

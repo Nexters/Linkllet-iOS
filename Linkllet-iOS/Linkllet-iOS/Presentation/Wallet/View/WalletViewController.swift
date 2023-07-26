@@ -65,6 +65,12 @@ final class WalletViewController: UIViewController {
         view.startAnimating()
         return view
     }()
+    private let errorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK: Life Cycle
     init(viewModel: WalletViewModel) {
@@ -80,25 +86,33 @@ final class WalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if !MemberInfoManager.default.isMemberPublisher.value {
-            MemberInfoManager.default.isMemberPublisher
-                .removeDuplicates()
-                .filter { $0 }
-                .prefix(1)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] isMember in
-                    self?.indicator.stopAnimating()
-                    self?.viewModel.getFolders()
-                }
-                .store(in: &cancellables)
-        } else {
-            indicator.stopAnimating()
-            viewModel.getFolders()
-        }
+        ReachabliltyManager.shared.isConnectedPublisher
+            .receive(on: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] isConnected in
+                guard let self else { return }
+                self.errorView.isHidden = isConnected
+                guard isConnected, MemberInfoManager.default.isMemberPublisher.value else { return }
+                self.viewModel.getFolders()
+            }
+            .store(in: &cancellables)
+
+        MemberInfoManager.default.isMemberPublisher
+            .filter { $0 }
+            .prefix(1)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isMember in
+                guard isMember else { return }
+                self?.indicator.stopAnimating()
+                self?.viewModel.getFolders()
+            }
+            .store(in: &self.cancellables)
+
         setUI()
         setConstraints()
         setDelegate()
         setBindings()
+        setErrorView()
     }
 }
 
@@ -111,8 +125,25 @@ extension WalletViewController {
         view.addSubview(folderCollectionView)
         view.addSubview(floatingButton)
         view.addSubview(topBar)
+        view.addSubview(errorView)
         topBar.addSubview(topBarTitleImage)
         topBar.addSubview(gearButton)
+    }
+
+    private func setErrorView() {
+
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .PretendardB(size: 20)
+        label.textAlignment = .center
+        label.text = "네트워크에 연결해주세요:)"
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        errorView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
     
     private func setConstraints() {
@@ -157,6 +188,14 @@ extension WalletViewController {
             floatingButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             floatingButton.heightAnchor.constraint(equalToConstant: 64),
             floatingButton.widthAnchor.constraint(equalToConstant: 64)
+        ])
+
+
+        NSLayoutConstraint.activate([
+            errorView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
