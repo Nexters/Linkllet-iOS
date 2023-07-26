@@ -190,6 +190,13 @@ extension WalletViewController {
             }
             .store(in: &cancellables)
         
+        gearButton.tapPublisher
+            .sink { [weak self] _ in
+                let vc = SettingViewController(viewModel: SettingViewModel(networkService: NetworkService()))
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &cancellables)
+        
         folderCollectionView.publisher(for: \.contentOffset)
             .map { max(min(-$0.y, self.folderCollectionView.contentInset.top), 0) }
             .removeDuplicates()
