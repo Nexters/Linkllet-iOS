@@ -257,6 +257,10 @@ extension WalletViewController: UICollectionViewDelegate {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.bounces = scrollView.contentOffset.y < 0
+    }
 }
 
 // MARK: - LinkListViewControllerDelegate
