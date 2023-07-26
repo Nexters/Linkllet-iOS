@@ -80,6 +80,7 @@ extension LinkListViewModel {
             .store(in: &cancellables)
     }
 
+    // TODO: 호출되는 곳이 없음
     private func setPublisher() {
         NotificationCenter.default.publisher(for: .didCreateLink)
             .sink { [weak self] notification in

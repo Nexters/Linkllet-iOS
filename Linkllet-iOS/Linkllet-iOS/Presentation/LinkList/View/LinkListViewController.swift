@@ -221,6 +221,15 @@ extension LinkListViewController {
                 }
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: .didSaveFolder)
+            .sink { [weak self] notification in
+                guard let userInfo = notification.userInfo else { return }
+                if let name = userInfo["folderName"] as? String {
+                    self?.topBarTitleLabel.text = name
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func setBindings() {

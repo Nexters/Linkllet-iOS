@@ -250,21 +250,12 @@ extension WalletViewController: UICollectionViewDelegate {
         if indexPath.item == 0 {
             let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
             vc.modalPresentationStyle = .fullScreen
-            vc.delegate = self
             present(vc, animated: true)
         } else {
             let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item - 1]))
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         }
-    }
-}
-
-// MARK: - FolderFormViewControllerDelegate
-extension WalletViewController: FolderFormViewControllerDelegate {
-    
-    func didSaveFolder(_ viewController: FolderFormViewController) {
-        viewModel.getFolders()
     }
 }
 

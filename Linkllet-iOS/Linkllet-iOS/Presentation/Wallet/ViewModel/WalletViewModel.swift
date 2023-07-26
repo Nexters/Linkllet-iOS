@@ -55,5 +55,12 @@ private extension WalletViewModel {
                 self.folderSubject.send(newFolders)
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: .didSaveFolder)
+            .sink { [weak self] notification in
+                guard let self else { return }
+                getFolders()
+            }
+            .store(in: &cancellables)
     }
 }
