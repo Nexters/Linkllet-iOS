@@ -42,7 +42,7 @@ extension PickFolderLinkFormCell {
 
     func updateUI(with item: PickFolderLinkFormItem, selectedFolder: Folder?) {
         self.linkFormItem = item
-        collectionViewHeightConstraint.constant = CGFloat((item.folders.count + 1) * 49)
+        collectionViewHeightConstraint.constant = CGFloat((min(item.folders.count, 4) + 1) * 49)
         collectionView.layoutIfNeeded()
         titleLabel.text = "폴더 선택"
         descriptionLabel.text = "※ 폴더 미선택시 기본 폴더에 저장됩니다."
@@ -77,6 +77,7 @@ private extension PickFolderLinkFormCell {
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = UIColor("EDEDED").cgColor
         collectionView.allowsMultipleSelection = false
+        collectionView.showsVerticalScrollIndicator = false
 
 
         collectionView.register(UINib(nibName: PickFolderDropDownCell.className, bundle: Bundle(for: PickFolderDropDownCell.self)), forCellWithReuseIdentifier: PickFolderDropDownCell.className)
