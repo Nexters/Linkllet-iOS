@@ -71,6 +71,9 @@ final class FolderCell: UICollectionViewCell {
 extension FolderCell {
     
     private func setUI() {
+//        backgroundColor = .clear
+//        contentView.backgroundColor = .clear
+
         contentView.addSubview(cardView)
         cardView.addSubview(titleLabel)
         cardView.addSubview(plusImageView)
@@ -84,7 +87,7 @@ extension FolderCell {
             cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            cardView.heightAnchor.constraint(equalToConstant: 180)
         ])
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

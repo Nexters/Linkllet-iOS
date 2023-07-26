@@ -223,6 +223,8 @@ extension WalletViewController: UICollectionViewDataSource {
         } else {
             cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item - 1])
         }
+        cell.clipsToBounds = false
+        cell.layer.zPosition = CGFloat(indexPath.item)
         return cell
     }
 }
@@ -233,13 +235,13 @@ extension WalletViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width - 10, height: 180)
+        return CGSize(width: view.bounds.width - 10, height: 75)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return -105
+        return 0
     }
 }
 
