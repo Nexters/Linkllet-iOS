@@ -277,9 +277,13 @@ extension LinkListViewController: UICollectionViewDelegateFlowLayout {
 extension LinkListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let linkUrl = viewModel.linksSubject.value[indexPath.item].url {
-            let linkSafariView: SFSafariViewController = SFSafariViewController(url: linkUrl)
-            present(linkSafariView, animated: true, completion: nil)
+        guard let linkUrl = viewModel.linksSubject.value[indexPath.item].url else { return }
+        
+        if ["http", "https"].contains(linkUrl.scheme?.lowercased() ?? "") {
+            let safariViewController = SFSafariViewController(url: linkUrl)
+            self.present(safariViewController, animated: true, completion: nil)
+        } else {
+            self.showToast("URL을 확인해주세요")
         }
     }
 }
