@@ -145,10 +145,23 @@ extension SettingViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = PopupViewController(message: "해당 기능은 준비중입니다 :)")
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        self.present(vc, animated: true, completion: nil)
+        if viewModel.menus[indexPath.section][indexPath.item] == "서비스 의견 보내기" {
+            let alert = UIAlertController(title: nil, message: "서비스 의견을 남겨주세요", preferredStyle: .alert)
+            alert.addTextField()
+            let okAction = UIAlertAction(title: "완료", style: .default) { _ in
+                if let feedback = alert.textFields?[0].text {
+                    self.viewModel.createFeedback(feedback: feedback)
+                }
+            }
+            alert.addAction(okAction)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            present(alert, animated: true, completion: nil)
+        } else {
+            let vc = PopupViewController(message: "해당 기능은 준비중입니다 :)")
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+        }
     }
 }
 
