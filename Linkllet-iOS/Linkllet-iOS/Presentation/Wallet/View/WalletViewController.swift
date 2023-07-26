@@ -44,7 +44,7 @@ final class WalletViewController: UIViewController {
     
     private let folderCollectionView:  UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 105, right: 0)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
         view.showsVerticalScrollIndicator = false

@@ -78,6 +78,7 @@ private extension PickFolderLinkFormCell {
         collectionView.layer.borderColor = UIColor("EDEDED").cgColor
         collectionView.allowsMultipleSelection = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.bounces = false
 
 
         collectionView.register(UINib(nibName: PickFolderDropDownCell.className, bundle: Bundle(for: PickFolderDropDownCell.self)), forCellWithReuseIdentifier: PickFolderDropDownCell.className)
