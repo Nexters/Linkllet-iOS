@@ -248,7 +248,7 @@ extension WalletViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService()))
+            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
             vc.modalPresentationStyle = .fullScreen
             vc.delegate = self
             present(vc, animated: true)

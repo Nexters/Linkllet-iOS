@@ -31,7 +31,6 @@ final class FolderFormViewController: UIViewController {
     
     private let topBarTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "폴더 추가하기"
         label.textAlignment = .center
         label.font = .PretendardB(size: 16)
         return label
@@ -98,7 +97,7 @@ final class FolderFormViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = FolderFormViewModel(networkService: NetworkService())
+        self.viewModel = FolderFormViewModel(networkService: NetworkService(), formType: .create)
         super.init(coder: coder)
     }
 
@@ -219,7 +218,14 @@ extension FolderFormViewController {
         
         confirmButton.tapPublisher
             .sink { [weak self] _ in
-                self?.viewModel.createFolder()
+                switch self?.viewModel.formType.value {
+                case .create:
+                    self?.viewModel.createFolder()
+                case .edit:
+                    self?.viewModel.editFolder()
+                case .none:
+                    self?.showToast("잠시후 다시 시도해주세요")
+                }
             }
             .store(in: &cancellables)
     }
@@ -229,6 +235,24 @@ extension FolderFormViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] errorStatus in
                 self?.setInputView(errorStatus)
+        })
+            .store(in: &cancellables)
+        
+        viewModel.formType
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] formType in
+                switch formType {
+                case .create:
+                    self?.topBarTitleLabel.text = "폴더 추가하기"
+                case .edit:
+                    self?.topBarTitleLabel.text = "폴더 수정하기"
+                    if let name = self?.viewModel.folder.name {
+                        self?.inputTitleTextField.text = name
+                        self?.inputCountLabel(name)
+                        self?.setConfirmButton(name)
+                        self?.viewModel.titleSubject.send(name)
+                    }
+                }
         })
             .store(in: &cancellables)
     }

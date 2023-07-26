@@ -10,6 +10,7 @@ import Foundation
 enum FolderEndpoint {
     case getFolders
     case createFolder(name: String)
+    case editFolder(id: Int64, name: String)
     case deleteFolder(id: Int64)
     case getArticlesInFolder(folderID: String)
     case createArticleInFolder(articleName: String, articleURL: String, folderID: String)
@@ -23,6 +24,8 @@ extension FolderEndpoint: Endpoint {
             return "folders"
         case .createFolder:
             return "folders"
+        case .editFolder(let id, _):
+            return "folders/\(id)"
         case .deleteFolder(let id):
             return "folders/\(id)"
         case .getArticlesInFolder(let id):
@@ -40,6 +43,8 @@ extension FolderEndpoint: Endpoint {
             return .get
         case .createFolder, .createArticleInFolder:
             return .post
+        case .editFolder:
+            return .put
         case .deleteFolder, .deleteArticleInFolder:
             return .delete
         }
@@ -49,6 +54,8 @@ extension FolderEndpoint: Endpoint {
         switch self {
         case .createFolder(let name):
             return .requestBody(["name": name])
+        case .editFolder(_, let name):
+            return .requestBody(["updateName": name])
         case .createArticleInFolder(let articleName, let articleURL, _):
             return .requestBody(["name": articleName, "url": articleURL])
         default:

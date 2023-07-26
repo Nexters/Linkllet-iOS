@@ -96,7 +96,6 @@ final class LinkListViewController: UIViewController {
         setBindings()
         setTitle()
         viewModel.getLinks()
-        setEditButton()
     }
 }
 
@@ -197,7 +196,20 @@ extension LinkListViewController {
                     vc.modalTransitionStyle = .crossDissolve
                     self?.present(vc, animated: true, completion: nil)
                 })
-                self?.editButton.menu = UIMenu(children: [delete])
+                
+                let edit = UIAction(title: "폴더 수정하기", handler: { _ in
+                    if let folder = self?.viewModel.folder {
+                        let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .edit, folder: folder))
+                        vc.modalPresentationStyle = .overFullScreen
+                        self?.present(vc, animated: true, completion: nil)
+                    }
+                })
+                
+                if self?.viewModel.folder.type == .default {
+                    self?.editButton.menu = UIMenu(children: [edit])
+                } else {
+                    self?.editButton.menu = UIMenu(children: [edit, delete])
+                }
             }
             .store(in: &cancellables)
         
@@ -223,10 +235,6 @@ extension LinkListViewController {
     
     private func setTitle() {
         topBarTitleLabel.text = viewModel.folder.name
-    }
-    
-    private func setEditButton() {
-        editButton.isHidden = viewModel.folder.type == .default
     }
 }
 
