@@ -59,7 +59,7 @@ private extension WalletViewModel {
         NotificationCenter.default.publisher(for: .didSaveFolder)
             .sink { [weak self] notification in
                 guard let self else { return }
-                getFolders()
+                self.getFolders()
             }
             .store(in: &cancellables)
     }

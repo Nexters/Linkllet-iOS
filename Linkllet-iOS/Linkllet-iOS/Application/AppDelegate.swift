@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private var cancellables = Set<AnyCancellable>()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        sleep(5)
         ReachabliltyManager.shared.isConnectedPublisher
             .sink { isConnected in
                 guard isConnected else { return }
