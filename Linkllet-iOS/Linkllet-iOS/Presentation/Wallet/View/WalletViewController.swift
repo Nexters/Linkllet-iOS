@@ -273,6 +273,7 @@ extension WalletViewController: LinkListViewControllerDelegate {
     
     func didDeleteFolder(_ viewController: LinkListViewController) {
         viewModel.getFolders()
+        showToast("폴더를 삭제했어요")
     }
     
     func didDeleteLink(_ viewController: LinkListViewController) {
