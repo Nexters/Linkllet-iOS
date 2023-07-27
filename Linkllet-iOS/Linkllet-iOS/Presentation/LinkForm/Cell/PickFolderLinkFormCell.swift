@@ -59,9 +59,9 @@ extension PickFolderLinkFormCell {
 private extension PickFolderLinkFormCell {
 
     func setView() {
-        dropDownBackgroundView.backgroundColor = .init("F4F4F4")
+        dropDownBackgroundView.backgroundColor = .gray_01
         dropDownBackgroundView.layer.borderWidth = 1
-        dropDownBackgroundView.layer.borderColor = UIColor("EDEDED").cgColor
+        dropDownBackgroundView.layer.borderColor = UIColor.gray_02.cgColor
         dropDownBackgroundView.layer.cornerRadius = 12
 
         collectionView.isHidden = true
@@ -72,10 +72,10 @@ private extension PickFolderLinkFormCell {
         collectionView.collectionViewLayout = layout
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .init("F4F4F4")
+        collectionView.backgroundColor = .gray_01
         collectionView.layer.cornerRadius = 12
         collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor("EDEDED").cgColor
+        collectionView.layer.borderColor = UIColor.gray_02.cgColor
         collectionView.allowsMultipleSelection = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.bounces = false

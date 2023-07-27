@@ -56,7 +56,7 @@ final class LinkListViewController: UIViewController {
         let label = UILabel()
         label.text = "링크를 저장해 주세요"
         label.font = .PretendardM(size: 14)
-        label.textColor = .init("878787")
+        label.textColor = .gray_04
         return label
     }()
     

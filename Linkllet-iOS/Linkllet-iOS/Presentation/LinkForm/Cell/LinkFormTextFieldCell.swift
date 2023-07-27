@@ -63,8 +63,8 @@ extension LinkFormTextFieldCell {
 private extension LinkFormTextFieldCell {
 
     func setView() {
-        textFieldBackgroundView.backgroundColor = .init("F4F4F4")
-        textFieldBackgroundView.layer.borderColor = UIColor("F34A3F").cgColor
+        textFieldBackgroundView.backgroundColor = .gray_01
+        textFieldBackgroundView.layer.borderColor = UIColor.red.cgColor
         textFieldBackgroundView.layer.borderWidth = 0
         textFieldBackgroundView.layer.cornerRadius = 12
         textField.delegate = self

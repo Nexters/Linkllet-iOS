@@ -36,7 +36,7 @@ final class FolderCell: UICollectionViewCell {
         view.backgroundColor = .white.withAlphaComponent(0.2)
         view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-        view.layer.borderColor = .init(red: 255, green: 255, blue: 255, alpha: 0.3)
+        view.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
         return view
     }()
     
@@ -124,7 +124,7 @@ extension FolderCell {
 extension FolderCell {
     
     func setPlusCell() {
-        cardView.backgroundColor = .init("DAE3FB")
+        cardView.backgroundColor = .blue_01
         cardView.layer.opacity = 0.8
         plusImageView.isHidden = false
         countView.isHidden = true
@@ -135,11 +135,11 @@ extension FolderCell {
         countLabel.text = String(data.size)
         switch (index - 1) % 3 {
         case 0:
-            cardView.backgroundColor = .init("779CFF")
+            cardView.backgroundColor = .blue_02
         case 1:
-            cardView.backgroundColor = .init("4F7EFE")
+            cardView.backgroundColor = .blue_03
         case 2:
-            cardView.backgroundColor = .init("3467F0")
+            cardView.backgroundColor = .blue_04
         default:
             break
         }

@@ -17,7 +17,7 @@ extension UIViewController {
         
         let toastView: UIView = {
             let view = UIView()
-            view.backgroundColor = UIColor(white: 0, alpha: 0.8)
+            view.backgroundColor = .black.withAlphaComponent(0.8)
             view.layer.cornerRadius = 12
             return view
         }()
@@ -25,7 +25,7 @@ extension UIViewController {
         let toastLabel: UILabel = {
             let label = UILabel()
             label.text = message
-            label.textColor = .init("FFFFFF")
+            label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 12)
             return label
         }()

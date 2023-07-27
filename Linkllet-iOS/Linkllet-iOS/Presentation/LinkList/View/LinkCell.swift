@@ -20,7 +20,7 @@ final class LinkCell: UICollectionViewCell {
         view.layer.cornerRadius = 12
         view.backgroundColor = .white
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.init("EDEDED").cgColor
+        view.layer.borderColor = UIColor.gray_02.cgColor
         return view
     }()
     
@@ -36,7 +36,7 @@ final class LinkCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .PretendardM(size: 12)
         label.text = "https://brunch.co.kr/@plus.."
-        label.textColor = .init("878787")
+        label.textColor = .gray_04
         return label
     }()
     

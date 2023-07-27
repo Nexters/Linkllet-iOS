@@ -30,4 +30,40 @@ extension UIColor {
             alpha: CGFloat(1.0)
         )
     }
+    
+    @nonobjc class var blue_01: UIColor {
+        return .init("#DAE3FB")
+    }
+    
+    @nonobjc class var blue_02: UIColor {
+        return .init("#779CFF")
+    }
+    
+    @nonobjc class var blue_03: UIColor {
+        return .init("#4F7EFE")
+    }
+    
+    @nonobjc class var blue_04: UIColor {
+        return .init("#3467F0")
+    }
+    
+    @nonobjc class var red: UIColor {
+        return .init("#F34A3F")
+    }
+    
+    @nonobjc class var gray_01: UIColor {
+        return .init("#F4F4F4")
+    }
+    
+    @nonobjc class var gray_02: UIColor {
+        return .init("#EDEDED")
+    }
+    
+    @nonobjc class var gray_03: UIColor {
+        return .init("#BCBCBC")
+    }
+    
+    @nonobjc class var gray_04: UIColor {
+        return .init("#878787")
+    }
 }

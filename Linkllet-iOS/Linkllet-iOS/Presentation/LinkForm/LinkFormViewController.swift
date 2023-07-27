@@ -118,8 +118,8 @@ private extension LinkFormViewController {
     }
 
     func updateActionButton(isEnabled: Bool) {
-        actionButton.backgroundColor = isEnabled ? .black : .init("EDEDED")
-        actionButton.setTitleColor(isEnabled ? .white : .init("878787"), for: .normal)
+        actionButton.backgroundColor = isEnabled ? .black : .gray_02
+        actionButton.setTitleColor(isEnabled ? .white : .gray_04, for: .normal)
     
     }
 
