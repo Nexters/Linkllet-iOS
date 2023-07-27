@@ -71,9 +71,6 @@ final class FolderCell: UICollectionViewCell {
 extension FolderCell {
     
     private func setUI() {
-//        backgroundColor = .clear
-//        contentView.backgroundColor = .clear
-
         contentView.addSubview(cardView)
         cardView.addSubview(titleLabel)
         cardView.addSubview(plusImageView)
