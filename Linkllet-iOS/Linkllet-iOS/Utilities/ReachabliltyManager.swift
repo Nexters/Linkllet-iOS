@@ -11,7 +11,7 @@ import Combine
 
 final class ReachabliltyManager {
 
-    let monitor = NWPathMonitor(requiredInterfaceType: .wifi)
+    let monitor = NWPathMonitor()
     private(set) var isConnectedPublisher = CurrentValueSubject<Bool, Never>(false)
 
     static let shared = ReachabliltyManager()
@@ -19,7 +19,7 @@ final class ReachabliltyManager {
     private init() {
         monitor.start(queue: DispatchQueue.global())
         monitor.pathUpdateHandler = { [weak self] path in
-                self?.isConnectedPublisher.send(path.status == .satisfied)
+            self?.isConnectedPublisher.send(path.status == .satisfied)
         }
     }
 }
