@@ -24,6 +24,7 @@
 		8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */; };
 		8479BE2F2A5804AD00A5FEDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */; };
 		8479BE322A5804AD00A5FEDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8479BE302A5804AD00A5FEDF /* LaunchScreen.storyboard */; };
+		84CCCFFB2A73A883001F395B /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCCFFA2A73A883001F395B /* CarouselLayout.swift */; };
 		84D021392A66843C000946A8 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021382A66843C000946A8 /* WalletViewController.swift */; };
 		84D0213B2A66BF26000946A8 /* FolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213A2A66BF26000946A8 /* FolderCell.swift */; };
 		84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0213C2A66C8D4000946A8 /* UIFont+.swift */; };
@@ -73,6 +74,7 @@
 		8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8479BE312A5804AD00A5FEDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8479BE332A5804AD00A5FEDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84CCCFFA2A73A883001F395B /* CarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
 		84D021382A66843C000946A8 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		84D0213A2A66BF26000946A8 /* FolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCell.swift; sourceTree = "<group>"; };
 		84D0213C2A66C8D4000946A8 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			children = (
 				84D021382A66843C000946A8 /* WalletViewController.swift */,
 				84D0213A2A66BF26000946A8 /* FolderCell.swift */,
+				84CCCFFA2A73A883001F395B /* CarouselLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				846AFEC72A654EFA00C0F629 /* FolderEndpoint.swift in Sources */,
 				84D0213B2A66BF26000946A8 /* FolderCell.swift in Sources */,
 				CEAA358C2A6845AE00261EBC /* PickFolderDropDownHeader.swift in Sources */,
+				84CCCFFB2A73A883001F395B /* CarouselLayout.swift in Sources */,
 				8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */,
 				846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */,
 				8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */,

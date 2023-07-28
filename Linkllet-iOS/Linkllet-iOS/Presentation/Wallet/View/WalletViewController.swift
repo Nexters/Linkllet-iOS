@@ -43,11 +43,16 @@ final class WalletViewController: UIViewController {
     }()
     
     private let folderCollectionView:  UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 105, right: 0)
+        let layout = CarouselLayout()
+        
+        layout.itemSize = CGSize(width: 280, height: 350)
+        layout.sideItemScale = 0.6
+        layout.spacing = 30
+        layout.isPagingEnabled = true
+        layout.sideItemAlpha = 0.4
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = .clear
         view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
         return view
     }()
     
@@ -191,7 +196,7 @@ extension WalletViewController {
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
+            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor),
             folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             folderCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -300,13 +305,13 @@ extension WalletViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension WalletViewController: UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width - 10, height: 75)
+        return CGSize(width: 280, height: 350)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -327,10 +332,6 @@ extension WalletViewController: UICollectionViewDelegate {
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.bounces = scrollView.contentOffset.y < 0
     }
 }
 

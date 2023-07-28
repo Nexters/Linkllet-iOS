@@ -13,7 +13,6 @@ final class FolderCell: UICollectionViewCell {
     private let cardView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 40
-        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         return view
     }()
     
