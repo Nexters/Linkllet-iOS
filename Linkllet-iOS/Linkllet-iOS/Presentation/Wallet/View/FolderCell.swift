@@ -13,7 +13,6 @@ final class FolderCell: UICollectionViewCell {
     private let cardView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 40
-        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         return view
     }()
     
@@ -71,9 +70,6 @@ final class FolderCell: UICollectionViewCell {
 extension FolderCell {
     
     private func setUI() {
-//        backgroundColor = .clear
-//        contentView.backgroundColor = .clear
-
         contentView.addSubview(cardView)
         cardView.addSubview(titleLabel)
         cardView.addSubview(plusImageView)
@@ -87,7 +83,7 @@ extension FolderCell {
             cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cardView.heightAnchor.constraint(equalToConstant: 180)
+            cardView.heightAnchor.constraint(equalToConstant: 350)
         ])
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
