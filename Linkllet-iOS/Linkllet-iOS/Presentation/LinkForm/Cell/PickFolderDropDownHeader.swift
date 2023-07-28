@@ -18,7 +18,7 @@ final class PickFolderDropDownHeader: UICollectionReusableView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .init("F4F4F4")
-        separatorView.backgroundColor = .init("#EDEDED")
+        backgroundColor = .gray_01
+        separatorView.backgroundColor = .gray_02
     }
 }

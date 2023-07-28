@@ -52,7 +52,7 @@ final class FolderFormViewController: UIViewController {
     
     private let inputTitleView: UIView = {
         let view = UIView()
-        view.backgroundColor = .init("F4F4F4")
+        view.backgroundColor = .gray_01
         view.layer.cornerRadius = 12
         return view
     }()
@@ -67,7 +67,7 @@ final class FolderFormViewController: UIViewController {
     private let inputGuideLabel: UILabel = {
         let label = UILabel()
         label.text = "※ 최대 10자까지 입력할 수 있어요."
-        label.textColor = .init("7B7B7B")
+        label.textColor = .gray_04
         label.font = .PretendardM(size: 12)
         return label
     }()
@@ -75,17 +75,17 @@ final class FolderFormViewController: UIViewController {
     private let inputCountLabel: UILabel = {
         let label = UILabel()
         label.text = "0/10"
-        label.textColor = .init("7B7B7B")
+        label.textColor = .gray_04
         label.font = .PretendardM(size: 12)
         return label
     }()
     
     private let confirmButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .init("E9E9E9")
+        button.backgroundColor = .gray_02
         button.setTitle("저장하기", for: .normal)
         button.titleLabel?.font = .PretendardM(size: 14)
-        button.setTitleColor(.init("878787"), for: .normal)
+        button.setTitleColor(.gray_04, for: .normal)
         button.layer.cornerRadius = 12
         return button
     }()
@@ -259,11 +259,11 @@ extension FolderFormViewController {
     
     private func setConfirmButton(_ input: String) {
         if input.count > 0 {
-            confirmButton.backgroundColor = .init("000000")
-            confirmButton.setTitleColor(.init("ffffff"), for: .normal)
+            confirmButton.backgroundColor = .black
+            confirmButton.setTitleColor(.white, for: .normal)
         } else {
-            confirmButton.backgroundColor = .init("E9E9E9")
-            confirmButton.setTitleColor(.init("878787"), for: .normal)
+            confirmButton.backgroundColor = .gray_02
+            confirmButton.setTitleColor(.gray_04, for: .normal)
         }
     }
     
@@ -281,11 +281,11 @@ extension FolderFormViewController {
             dismiss(animated: true)
         case .emptyError:
             inputTitleView.layer.borderWidth = 2
-            inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
+            inputTitleView.layer.borderColor = UIColor.red.cgColor
             showToast("폴더 제목을 입력해 주세요")
         case .duplicateError:
             inputTitleView.layer.borderWidth = 2
-            inputTitleView.layer.borderColor = UIColor.init("F34A3F").cgColor
+            inputTitleView.layer.borderColor = UIColor.red.cgColor
             showToast("폴더 제목이 중복됩니다")
         }
     }

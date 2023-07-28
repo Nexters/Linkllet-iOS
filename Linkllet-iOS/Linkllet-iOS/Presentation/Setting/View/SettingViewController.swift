@@ -136,7 +136,7 @@ extension SettingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .init("EDEDED")
+        view.backgroundColor = .gray_02
         return view
     }
     

@@ -19,7 +19,7 @@ class PopupViewController: UIViewController {
     // MARK: UI Component
     private let popupView: UIView = {
         let view = UIView()
-        view.backgroundColor = .init("FFFFFF")
+        view.backgroundColor = .white
         view.layer.cornerRadius = 12
         return view
     }()
@@ -34,7 +34,7 @@ class PopupViewController: UIViewController {
     
     private let lineView: UIView = {
         let line = UIView()
-        line.backgroundColor = .init("EDEDED")
+        line.backgroundColor = .gray_02
         return line
     }()
     
@@ -75,7 +75,7 @@ class PopupViewController: UIViewController {
 extension PopupViewController {
     
     private func setUI() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        view.backgroundColor = .black.withAlphaComponent(0.8)
         view.addSubview(popupView)
         popupView.addSubview(messageLabel)
         popupView.addSubview(lineView)
