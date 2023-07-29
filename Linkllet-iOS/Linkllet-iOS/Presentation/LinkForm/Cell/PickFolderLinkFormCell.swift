@@ -80,6 +80,8 @@ private extension PickFolderLinkFormCell {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.bounces = false
 
+        descriptionLabel.textColor = .gray_04
+        descriptionLabel.font = .PretendardM(size: 12)
 
         collectionView.register(UINib(nibName: PickFolderDropDownCell.className, bundle: Bundle(for: PickFolderDropDownCell.self)), forCellWithReuseIdentifier: PickFolderDropDownCell.className)
         collectionView.register(UINib(nibName: PickFolderDropDownHeader.className, bundle: Bundle(for: PickFolderDropDownHeader.self)), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PickFolderDropDownHeader.className)

@@ -61,6 +61,7 @@ final class FolderFormViewController: UIViewController {
         let textField = UITextField()
         textField.font = .PretendardM(size: 14)
         textField.placeholder = "제목을 입력해 주세요"
+        textField.clearButtonMode = .whileEditing
         return textField
     }()
     
@@ -168,7 +169,8 @@ extension FolderFormViewController {
         inputTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             inputTitleTextField.leadingAnchor.constraint(equalTo: inputTitleView.leadingAnchor, constant: 20),
-            inputTitleTextField.centerYAnchor.constraint(equalTo: inputTitleView.centerYAnchor)
+            inputTitleTextField.centerYAnchor.constraint(equalTo: inputTitleView.centerYAnchor),
+            inputTitleTextField.trailingAnchor.constraint(equalTo: inputTitleView.trailingAnchor, constant: -10),
         ])
         
         inputGuideLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -224,7 +226,7 @@ extension FolderFormViewController {
                 case .edit:
                     self?.viewModel.editFolder()
                 case .none:
-                    self?.showToast("잠시후 다시 시도해주세요")
+                    UIViewController.showToast("잠시후 다시 시도해주세요")
                 }
             }
             .store(in: &cancellables)
@@ -278,15 +280,16 @@ extension FolderFormViewController {
         case .saved:
             inputTitleView.layer.borderWidth = 0
             NotificationCenter.default.post(name: .didSaveFolder, object: nil, userInfo: ["folderName": viewModel.titleSubject.value])
+            UIViewController.showToast("폴더가 생성되었습니다")
             dismiss(animated: true)
         case .emptyError:
             inputTitleView.layer.borderWidth = 2
             inputTitleView.layer.borderColor = UIColor.red.cgColor
-            showToast("폴더 제목을 입력해 주세요")
+            UIViewController.showToast("폴더 제목을 입력해 주세요")
         case .duplicateError:
             inputTitleView.layer.borderWidth = 2
             inputTitleView.layer.borderColor = UIColor.red.cgColor
-            showToast("폴더 제목이 중복됩니다")
+            UIViewController.showToast("폴더 제목이 중복됩니다")
         }
     }
 }

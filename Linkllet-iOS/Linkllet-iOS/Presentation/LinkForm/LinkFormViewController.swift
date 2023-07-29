@@ -92,8 +92,8 @@ private extension LinkFormViewController {
 
         viewModel.action.showToast
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] reason in
-                self?.showToast(reason)
+            .sink { reason in
+                UIViewController.showToast(reason)
             }
             .store(in: &cancellables)
     }
@@ -323,11 +323,13 @@ final class LinkFormViewModel {
 
     let state = State()
     let action = Action()
+    let initialFolder: Folder?
 
     private let network: NetworkProvider = NetworkService()
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    init(initialFolder: Folder? = nil) {
+        self.initialFolder = initialFolder
         setPublisher()
     }
 
@@ -341,10 +343,13 @@ final class LinkFormViewModel {
             .replaceError(with: [])
             .receive(on: DispatchQueue.main)
             .sink { [weak self] folders in
-
-                self?.state.selectedFolder.send(folders.first { $0.type == .default })
                 self?.state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem(folders: folders)])
-                
+                guard let initialFolder = self?.initialFolder else {
+
+                    self?.state.selectedFolder.send(folders.first { $0.type == .default })
+                    return
+                }
+                self?.state.selectedFolder.send(folders.first { $0.id == initialFolder.id })
             }
             .store(in: &cancellables)
 

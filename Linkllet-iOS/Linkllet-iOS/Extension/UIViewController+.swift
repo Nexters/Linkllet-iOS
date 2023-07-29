@@ -7,14 +7,19 @@
 
 import UIKit
 
+
 extension UIViewController {
 
     static var className: String {
         return String(describing: Self.self)
     }
 
-    func showToast(_ message : String) {
-        
+    static func showToast(_ message : String) {
+
+        guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {
+            return
+        }
+
         let toastView: UIView = {
             let view = UIView()
             view.backgroundColor = .black.withAlphaComponent(0.8)
@@ -30,14 +35,14 @@ extension UIViewController {
             return label
         }()
             
-        view.addSubview(toastView)
+        keyWindow.addSubview(toastView)
         toastView.addSubview(toastLabel)
         
         toastView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toastView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            toastView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            toastView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            toastView.topAnchor.constraint(equalTo: keyWindow.safeAreaLayoutGuide.topAnchor, constant: 20),
+            toastView.leadingAnchor.constraint(equalTo: keyWindow.leadingAnchor, constant: 24),
+            toastView.trailingAnchor.constraint(equalTo: keyWindow.trailingAnchor, constant: -24),
             toastView.heightAnchor.constraint(equalToConstant: 60)
         ])
 

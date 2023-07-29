@@ -59,7 +59,7 @@ final class WalletViewController: UIViewController {
 
     private lazy var indicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(frame: .init(origin: .zero, size: .init(width: 50, height: 50)))
-        view.center = view.center
+        view.center = self.view.center
         view.color = .blue
         view.style = .medium
         view.startAnimating()
@@ -128,6 +128,7 @@ extension WalletViewController {
         view.addSubview(errorView)
         topBar.addSubview(topBarTitleImage)
         topBar.addSubview(gearButton)
+        view.addSubview(indicator)
     }
 
     private func setErrorView() {
@@ -243,6 +244,21 @@ extension WalletViewController {
                 self?.backgroundImageView.layer.opacity = Float(offsetY / 250)
             }
             .store(in: &cancellables)
+
+        viewModel.showIndicator
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.indicator.startAnimating()
+            }
+            .store(in: &cancellables)
+
+        viewModel.hideIndicator
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.indicator.stopAnimating()
+            }
+            .store(in: &cancellables)
+
     }
 }
 
@@ -309,7 +325,7 @@ extension WalletViewController: LinkListViewControllerDelegate {
     
     func didDeleteFolder(_ viewController: LinkListViewController) {
         viewModel.getFolders()
-        showToast("폴더를 삭제했어요")
+        UIViewController.showToast("폴더를 삭제했어요")
     }
     
     func didDeleteLink(_ viewController: LinkListViewController) {

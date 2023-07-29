@@ -68,6 +68,12 @@ private extension LinkFormTextFieldCell {
         textFieldBackgroundView.layer.borderWidth = 0
         textFieldBackgroundView.layer.cornerRadius = 12
         textField.delegate = self
+
+        descriptionLabel.textColor = .gray_04
+        descriptionLabel.font = .PretendardM(size: 12)
+
+        countLabel.textColor = .gray_04
+        countLabel.font = .PretendardM(size: 12)
     }
 }
 

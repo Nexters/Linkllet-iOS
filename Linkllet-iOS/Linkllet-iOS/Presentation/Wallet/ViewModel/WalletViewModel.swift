@@ -12,6 +12,8 @@ final class WalletViewModel: ObservableObject {
     
     // MARK: Properties
     let folderSubject = CurrentValueSubject<[Folder], Never>([])
+    let showIndicator = PassthroughSubject<Void, Never>()
+    let hideIndicator = PassthroughSubject<Void, Never>()
     private let network: NetworkService
     private var cancellables = Set<AnyCancellable>()
     
@@ -26,6 +28,7 @@ final class WalletViewModel: ObservableObject {
 extension WalletViewModel {
     
     func getFolders() {
+        showIndicator.send(())
         network.request(FolderEndpoint.getFolders)
             .tryMap { (data, _) -> [Folder] in
                 let decoder = JSONDecoder()
@@ -36,6 +39,7 @@ extension WalletViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] folders in
                 self?.folderSubject.send(folders)
+                self?.hideIndicator.send(())
             }
             .store(in: &cancellables)
     }

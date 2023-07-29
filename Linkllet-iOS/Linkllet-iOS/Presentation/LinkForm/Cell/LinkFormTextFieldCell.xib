@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,14 +24,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Igc-KD-Fdi">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Igc-KD-Fdi">
                         <rect key="frame" x="16" y="36.333333333333336" width="308" height="73.333333333333314"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Et-ff-GQu">
                                 <rect key="frame" x="0.0" y="0.0" width="308" height="49"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="siP-5v-We6">
-                                        <rect key="frame" x="20" y="15.33333333333333" width="268" height="18.666666666666671"/>
+                                        <rect key="frame" x="20" y="15.33333333333333" width="278" height="18.666666666666671"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -46,20 +46,20 @@
                                     <constraint firstAttribute="height" constant="49" id="1lA-Cw-JYi"/>
                                     <constraint firstItem="siP-5v-We6" firstAttribute="centerY" secondItem="1Et-ff-GQu" secondAttribute="centerY" id="Fr5-Xq-G1Y"/>
                                     <constraint firstItem="siP-5v-We6" firstAttribute="leading" secondItem="1Et-ff-GQu" secondAttribute="leading" constant="20" id="Xov-5C-aN3"/>
-                                    <constraint firstAttribute="trailing" secondItem="siP-5v-We6" secondAttribute="trailing" constant="20" id="o3D-9e-Oa3"/>
+                                    <constraint firstAttribute="trailing" secondItem="siP-5v-We6" secondAttribute="trailing" constant="10" id="o3D-9e-Oa3"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MWf-Zl-WaD">
-                                <rect key="frame" x="0.0" y="58.999999999999993" width="308" height="14.333333333333336"/>
+                                <rect key="frame" x="8" y="58.999999999999993" width="292" height="14.333333333333336"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b8M-6X-X8O">
-                                        <rect key="frame" x="0.0" y="0.0" width="278.33333333333331" height="14.333333333333334"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="262.33333333333331" height="14.333333333333334"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="0/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoF-E3-NEW">
-                                        <rect key="frame" x="283.33333333333331" y="0.0" width="24.666666666666686" height="14.333333333333334"/>
+                                        <rect key="frame" x="267.33333333333331" y="0.0" width="24.666666666666686" height="14.333333333333334"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -67,6 +67,12 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="MWf-Zl-WaD" firstAttribute="leading" secondItem="Igc-KD-Fdi" secondAttribute="leading" constant="8" id="4dL-ur-Ebx"/>
+                            <constraint firstItem="1Et-ff-GQu" firstAttribute="leading" secondItem="Igc-KD-Fdi" secondAttribute="leading" id="7pm-5c-5lV"/>
+                            <constraint firstAttribute="trailing" secondItem="1Et-ff-GQu" secondAttribute="trailing" id="mWz-dT-U7d"/>
+                            <constraint firstAttribute="trailing" secondItem="MWf-Zl-WaD" secondAttribute="trailing" constant="8" id="tNK-8L-OnM"/>
+                        </constraints>
                     </stackView>
                 </subviews>
             </view>

@@ -215,10 +215,19 @@ extension LinkListViewController {
         
         floatingButton.tapPublisher
             .sink { [weak self] _ in
-                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
+                guard let folder = self?.viewModel.folder else {
+                    if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel()) {
+                        vc.modalPresentationStyle = .overFullScreen
+                        self?.present(vc, animated: true)
+                    }
+                    return
+                }
+                let viewModel = LinkFormViewModel(initialFolder: folder)
+                if let vc = LinkFormViewController.create(viewModel: viewModel) {
                     vc.modalPresentationStyle = .overFullScreen
                     self?.present(vc, animated: true)
                 }
+
             }
             .store(in: &cancellables)
         
@@ -262,7 +271,7 @@ extension LinkListViewController: UICollectionViewDataSource {
         cell.deleteLinkClosure = {
             let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
                 self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
-                    self.showToast("링크를 삭제했어요")
+                    UIViewController.showToast("링크를 삭제했어요")
                     self.delegate?.didDeleteLink(self)
                 })
             })
@@ -300,7 +309,7 @@ extension LinkListViewController: UICollectionViewDelegate {
             let safariViewController = SFSafariViewController(url: linkUrl)
             self.present(safariViewController, animated: true, completion: nil)
         } else {
-            self.showToast("URL을 확인해주세요")
+            UIViewController.showToast("URL을 확인해주세요")
         }
     }
 }
