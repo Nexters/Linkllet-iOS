@@ -45,7 +45,7 @@ final class WalletViewController: UIViewController {
     private let folderCollectionView:  UICollectionView = {
         let layout = CarouselLayout()
         
-        layout.itemSize = CGSize(width: 280, height: 350)
+        layout.itemSize = CGSize(width: 280, height: 50)
         layout.sideItemScale = 0.6
         layout.spacing = 30
         layout.isPagingEnabled = true
@@ -298,7 +298,7 @@ extension WalletViewController: UICollectionViewDataSource {
             cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item - 1])
         }
         cell.clipsToBounds = false
-        cell.layer.zPosition = CGFloat(indexPath.item)
+//        cell.layer.zPosition = CGFloat(indexPath.item)
         return cell
     }
 }
@@ -306,11 +306,11 @@ extension WalletViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension WalletViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 280, height: 350)
-    }
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: 280, height: 350)
+//    }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
