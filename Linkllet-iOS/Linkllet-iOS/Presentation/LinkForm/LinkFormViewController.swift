@@ -145,6 +145,7 @@ extension LinkFormViewController: UICollectionViewDataSource {
             cell.updateUI(with: item)
 
             cell.textField.keyboardType = .URL
+            cell.textField.text = viewModel.pastedUrl?.absoluteString
             cell.textFieldDidChangePublisher
                 .sink { [weak self] urlString in
                     self?.viewModel.state.articleURLString.send(urlString)
@@ -324,12 +325,14 @@ final class LinkFormViewModel {
     let state = State()
     let action = Action()
     let initialFolder: Folder?
+    let pastedUrl: URL?
 
     private let network: NetworkProvider = NetworkService()
     private var cancellables = Set<AnyCancellable>()
 
-    init(initialFolder: Folder? = nil) {
+    init(initialFolder: Folder? = nil, pastedUrl: URL? = nil) {
         self.initialFolder = initialFolder
+        self.pastedUrl = pastedUrl
         setPublisher()
     }
 

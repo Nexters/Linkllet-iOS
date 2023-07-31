@@ -113,6 +113,20 @@ final class WalletViewController: UIViewController {
         setDelegate()
         setBindings()
         setErrorView()
+        
+        if let storedString = UIPasteboard.general.string {
+            guard let urlString = URL(string: storedString) else { return }
+            let alert = UIAlertController(title: nil, message: "복사한 링크 저장하기", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "저장", style: .default) { _ in
+                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: urlString)) {
+                    vc.modalPresentationStyle = .overFullScreen
+                    self.present(vc, animated: true)
+                }
+            }
+            alert.addAction(okAction)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
 
