@@ -280,7 +280,12 @@ extension FolderFormViewController {
         case .saved:
             inputTitleView.layer.borderWidth = 0
             NotificationCenter.default.post(name: .didSaveFolder, object: nil, userInfo: ["folderName": viewModel.titleSubject.value])
-            UIViewController.showToast("폴더가 생성되었습니다")
+            switch viewModel.formType.value {
+            case .create:
+                UIViewController.showToast("폴더가 생성되었습니다")
+            case .edit:
+                UIViewController.showToast("폴더가 수정되었습니다")
+            }
             dismiss(animated: true)
         case .emptyError:
             inputTitleView.layer.borderWidth = 2
