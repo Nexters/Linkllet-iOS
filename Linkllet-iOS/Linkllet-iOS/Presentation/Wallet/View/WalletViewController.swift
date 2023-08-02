@@ -92,17 +92,17 @@ final class WalletViewController: UIViewController {
             .sink { [weak self] isConnected in
                 guard let self else { return }
                 self.errorView.isHidden = isConnected
-                guard isConnected, MemberInfoManager.default.isMemberPublisher.value else { return }
+                guard isConnected, !MemberInfoManager.default.deviceIdPublisher.value.isEmpty else { return }
                 self.viewModel.getFolders()
             }
             .store(in: &cancellables)
 
-        MemberInfoManager.default.isMemberPublisher
-            .filter { $0 }
+        MemberInfoManager.default.deviceIdPublisher
+            .filter { !$0.isEmpty }
             .prefix(1)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isMember in
-                guard isMember else { return }
+            .sink { [weak self] deviceId in
+                guard !deviceId.isEmpty else { return }
                 self?.indicator.stopAnimating()
                 self?.viewModel.getFolders()
             }

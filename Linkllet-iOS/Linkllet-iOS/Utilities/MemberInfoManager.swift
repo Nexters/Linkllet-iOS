@@ -14,12 +14,12 @@ final class MemberInfoManager {
     static var deviceId: String { UIDevice.current.identifierForVendor?.uuidString ?? "" }
     // 앱 재설치하면 초기화 https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
 
-    static private let userDefaultsKey = "isMember"
+    static private let userDefaultsKey = "deviceId"
 
     private var cancellables = Set<AnyCancellable>()
     private let useCase: MemberInfoUsecase
 
-    private(set) var isMemberPublisher = CurrentValueSubject<Bool, Never>(UserDefaults.standard.bool(forKey: MemberInfoManager.userDefaultsKey))
+    private(set) var deviceIdPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
 
     static let `default` = MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))
 
@@ -33,8 +33,8 @@ final class MemberInfoManager {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isSuccess in
                 guard isSuccess else { return }
-                UserDefaults.standard.set(true, forKey: Self.userDefaultsKey)
-                self?.isMemberPublisher.send(true)
+                UserDefaults.standard.set(Self.deviceId, forKey: Self.userDefaultsKey)
+                self?.deviceIdPublisher.send(Self.deviceId)
             }
             .store(in: &cancellables)
     }
