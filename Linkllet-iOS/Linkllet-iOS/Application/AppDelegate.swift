@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ReachabliltyManager.shared.isConnectedPublisher
             .sink { isConnected in
                 guard isConnected else { return }
-                if !MemberInfoManager.default.deviceIdPublisher.value.isEmpty {
+                if MemberInfoManager.default.deviceIdPublisher.value.isEmpty {
                     MemberInfoManager.default.registerMember()
                 }
             }

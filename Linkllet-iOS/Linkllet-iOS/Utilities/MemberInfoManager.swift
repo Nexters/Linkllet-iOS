@@ -31,8 +31,7 @@ final class MemberInfoManager {
         useCase.reigster()
             .retry(3)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isSuccess in
-                guard isSuccess else { return }
+            .sink { [weak self] _ in
                 UserDefaults.standard.set(Self.deviceId, forKey: Self.userDefaultsKey)
                 self?.deviceIdPublisher.send(Self.deviceId)
             }
