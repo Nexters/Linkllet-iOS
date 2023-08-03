@@ -36,6 +36,12 @@ final class WalletViewController: UIViewController {
         return button
     }()
     
+    private let folderButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ico_folder"), for: .normal)
+        return button
+    }()
+    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "img_mainbg")
@@ -145,6 +151,7 @@ extension WalletViewController {
         view.addSubview(errorView)
         topBar.addSubview(topBarTitleImage)
         topBar.addSubview(gearButton)
+        topBar.addSubview(folderButton)
         view.addSubview(indicator)
     }
 
@@ -182,7 +189,13 @@ extension WalletViewController {
         gearButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             gearButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
-            gearButton.rightAnchor.constraint(equalTo: topBar.rightAnchor, constant: -18)
+            gearButton.leadingAnchor.constraint(equalTo: topBar.leadingAnchor, constant: 18)
+        ])
+        
+        folderButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            folderButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
+            folderButton.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18)
         ])
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -231,10 +244,7 @@ extension WalletViewController {
         viewModel.folderSubject
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] folders in
-                guard let self = self else { return }
-                let topInset = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(min(folders.count, 3) * 75 + 60) - 160 * view.frame.height / 812
-                self.folderCollectionView.contentInset.top = topInset
-                self.folderCollectionView.reloadData()
+                self?.folderCollectionView.reloadData()
             })
             .store(in: &cancellables)
 
@@ -254,11 +264,11 @@ extension WalletViewController {
             }
             .store(in: &cancellables)
         
-        folderCollectionView.publisher(for: \.contentOffset)
-            .map { max(min(-$0.y, self.folderCollectionView.contentInset.top), 0) }
-            .removeDuplicates()
-            .sink { [weak self] offsetY in
-                self?.backgroundImageView.layer.opacity = Float(offsetY / 250)
+        folderButton.tapPublisher
+            .sink { [weak self] _ in
+                let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true)
             }
             .store(in: &cancellables)
 
@@ -275,7 +285,6 @@ extension WalletViewController {
                 self?.indicator.stopAnimating()
             }
             .store(in: &cancellables)
-
     }
 }
 
@@ -305,7 +314,6 @@ extension WalletViewController: UICollectionViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-
 
 // MARK: - LinkListViewControllerDelegate
 extension WalletViewController: LinkListViewControllerDelegate {
