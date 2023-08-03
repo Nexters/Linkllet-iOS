@@ -8,14 +8,14 @@
 import Foundation
 
 enum MemberEndpoint {
-    case register
+    case register(deviceId: String)
     case createFeedback(feedback: String)
 }
 
 extension MemberEndpoint: Endpoint {
     var path: String {
         switch self {
-        case .register:
+        case .register(_):
             return "members"
         case .createFeedback(_):
             return "members/feedbacks"
@@ -24,15 +24,15 @@ extension MemberEndpoint: Endpoint {
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .register, .createFeedback(_):
+        case .register(_), .createFeedback(_):
             return .post
         }
     }
 
     var parameters: RequestParams {
         switch self {
-        case .register:
-            return .requestBody(["deviceId": MemberInfoManager.deviceId])
+        case .register(let deviceId):
+            return .requestBody(["deviceId": deviceId])
         case .createFeedback(let feedback):
             return .requestBody(["feedback": feedback])
         }

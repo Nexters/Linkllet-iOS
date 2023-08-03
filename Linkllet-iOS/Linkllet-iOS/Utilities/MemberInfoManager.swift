@@ -11,15 +11,12 @@ import UIKit
 
 final class MemberInfoManager {
 
-    static var deviceId: String { UIDevice.current.identifierForVendor?.uuidString ?? "" }
-    // 앱 재설치하면 초기화 https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
-
-    static private let userDefaultsKey = "isMember"
+    static private let userDefaultsKey = "deviceId"
 
     private var cancellables = Set<AnyCancellable>()
     private let useCase: MemberInfoUsecase
 
-    private(set) var isMemberPublisher = CurrentValueSubject<Bool, Never>(UserDefaults.standard.bool(forKey: MemberInfoManager.userDefaultsKey))
+    private(set) var deviceIdPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
 
     static let `default` = MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))
 
@@ -28,13 +25,13 @@ final class MemberInfoManager {
     }
 
     func registerMember() {
-        useCase.reigster()
+        guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else { return }
+        useCase.reigster(deviceId)
             .retry(3)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isSuccess in
-                guard isSuccess else { return }
-                UserDefaults.standard.set(true, forKey: Self.userDefaultsKey)
-                self?.isMemberPublisher.send(true)
+            .sink { [weak self] _ in
+                UserDefaults.standard.set(deviceId, forKey: Self.userDefaultsKey)
+                self?.deviceIdPublisher.send(deviceId)
             }
             .store(in: &cancellables)
     }
@@ -48,8 +45,8 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
         self.network = network
     }
 
-    func reigster() -> AnyPublisher<Bool, Never> {
-        return network.request(MemberEndpoint.register)
+    func reigster(_ deviceId: String) -> AnyPublisher<Bool, Never> {
+        return network.request(MemberEndpoint.register(deviceId: deviceId))
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {
@@ -65,5 +62,5 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
 }
 
 protocol MemberInfoUsecase {
-    func reigster() -> AnyPublisher<Bool, Never>
+    func reigster(_ deviceId: String) -> AnyPublisher<Bool, Never>
 }

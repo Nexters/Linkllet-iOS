@@ -40,7 +40,7 @@ extension Endpoint {
             request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
 
         case .auth:
-            request.setValue(MemberInfoManager.deviceId, forHTTPHeaderField: HTTPHeaderField.deviceID.rawValue)
+            request.setValue(MemberInfoManager.default.deviceIdPublisher.value, forHTTPHeaderField: HTTPHeaderField.deviceID.rawValue)
             request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         }
 
