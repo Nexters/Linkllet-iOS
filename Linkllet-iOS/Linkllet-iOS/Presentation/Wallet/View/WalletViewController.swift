@@ -50,11 +50,8 @@ final class WalletViewController: UIViewController {
     
     private let folderCollectionView:  UICollectionView = {
         let layout = CarouselLayout()
-        
-        layout.itemSize = CGSize(width: 280, height: 180)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
-        view.showsHorizontalScrollIndicator = false
         return view
     }()
     

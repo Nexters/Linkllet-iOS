@@ -9,10 +9,8 @@ import UIKit
 
 class CarouselLayout: UICollectionViewFlowLayout {
     
-    public var sideItemScale: CGFloat = 0.5
-    public var spacing: CGFloat = -100
-
-    public var isPagingEnabled: Bool = true
+    private var sideItemScale: CGFloat = 0.5
+    private var spacing: CGFloat = -100
     
     private var isSetup: Bool = false
     
@@ -28,6 +26,8 @@ class CarouselLayout: UICollectionViewFlowLayout {
         guard let collectionView = self.collectionView else {return}
                 
         let collectionViewSize = collectionView.bounds.size
+
+        self.itemSize = CGSize(width: collectionViewSize.width - 40, height: 180)
         
         let xInset = (collectionViewSize.width - self.itemSize.width) / 2
         let yInset = (collectionViewSize.height - self.itemSize.height) / 2
@@ -36,7 +36,7 @@ class CarouselLayout: UICollectionViewFlowLayout {
         
         let itemHeight = self.itemSize.height
         
-        let scaledItemOffset =  (itemHeight - (itemHeight*(self.sideItemScale + (1 - self.sideItemScale)/2))) / 2
+        let scaledItemOffset =  (itemHeight - (itemHeight * (self.sideItemScale + (1 - self.sideItemScale) / 2))) / 2
         self.minimumLineSpacing = spacing - scaledItemOffset
 
         self.scrollDirection = .vertical
@@ -56,7 +56,7 @@ class CarouselLayout: UICollectionViewFlowLayout {
     
     private func transformLayoutAttributes(attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         
-        guard let collectionView = self.collectionView else {return attributes}
+        guard let collectionView = self.collectionView else { return attributes }
         
         let collectionCenter = collectionView.frame.size.height / 2
         let contentOffset = collectionView.contentOffset.y
