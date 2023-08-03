@@ -106,7 +106,7 @@ extension FolderCell {
     func setFolderCell(_ index: Int, _ data: Folder) {
         titleLabel.text = data.name
         countLabel.text = String(data.size)
-        switch (index - 1) % 3 {
+        switch (index) % 3 {
         case 0:
             cardView.backgroundColor = .blue_02
         case 1:
