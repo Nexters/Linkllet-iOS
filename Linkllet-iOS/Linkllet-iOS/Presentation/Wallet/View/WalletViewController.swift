@@ -45,11 +45,7 @@ final class WalletViewController: UIViewController {
     private let folderCollectionView:  UICollectionView = {
         let layout = CarouselLayout()
         
-        layout.itemSize = CGSize(width: 280, height: 50)
-        layout.sideItemScale = 0.6
-        layout.spacing = 30
-        layout.isPagingEnabled = true
-        layout.sideItemAlpha = 0.4
+        layout.itemSize = CGSize(width: 280, height: 180)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
@@ -245,36 +241,15 @@ extension WalletViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.folderSubject.value.count + 1
+        return viewModel.folderSubject.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCell.className, for: indexPath) as? FolderCell else { return UICollectionViewCell() }
-        if indexPath.item == 0 {
-            cell.setPlusCell()
-        } else {
-            cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item - 1])
-        }
+        cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item])
         cell.clipsToBounds = false
-//        cell.layer.zPosition = CGFloat(indexPath.item)
         return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension WalletViewController: UICollectionViewDelegateFlowLayout {
-
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 280, height: 350)
-//    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 }
 
@@ -282,17 +257,12 @@ extension WalletViewController: UICollectionViewDelegateFlowLayout {
 extension WalletViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
-            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true)
-        } else {
-            let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item - 1]))
-            vc.delegate = self
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item]))
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
+
 
 // MARK: - LinkListViewControllerDelegate
 extension WalletViewController: LinkListViewControllerDelegate {

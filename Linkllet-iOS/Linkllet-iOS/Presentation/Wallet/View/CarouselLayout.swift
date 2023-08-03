@@ -10,10 +10,9 @@ import UIKit
 class CarouselLayout: UICollectionViewFlowLayout {
     
     public var sideItemScale: CGFloat = 0.5
-    public var sideItemAlpha: CGFloat = 0.5
-    public var spacing: CGFloat = -210
+    public var spacing: CGFloat = -80
 
-    public var isPagingEnabled: Bool = false
+    public var isPagingEnabled: Bool = true
     
     private var isSetup: Bool = false
     
@@ -63,15 +62,11 @@ class CarouselLayout: UICollectionViewFlowLayout {
         let contentOffset = collectionView.contentOffset.y
         let center = attributes.center.y - contentOffset
 
-        let maxDistance = 2*(self.itemSize.height + self.minimumLineSpacing)
+        let maxDistance = 2 * (self.itemSize.height + self.minimumLineSpacing)
         let distance = min(abs(collectionCenter - center), maxDistance)
 
         let ratio = (maxDistance - distance)/maxDistance
-
-//        let alpha = ratio * (1 - self.sideItemAlpha) + self.sideItemAlpha
         let scale = ratio * (1 - self.sideItemScale) + self.sideItemScale
-
-//        attributes.alpha = alpha
 
         if abs(collectionCenter - center) > maxDistance + 1 {
             attributes.alpha = 0
@@ -82,31 +77,31 @@ class CarouselLayout: UICollectionViewFlowLayout {
         var transform = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
         transform = CATransform3DTranslate(transform, 0, 0, -abs(dist/1000))
         attributes.transform3D = transform
-        attributes.zIndex = Int(scale * 100)
+        attributes.zIndex = Int(-abs(dist/1000) * 100)
         
         return attributes
     }
-//    
-//    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-//
-//        guard let collectionView = self.collectionView else {
-//            let latestOffset = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-//            return latestOffset
-//        }
-//
-//        let targetRect = CGRect(x: 0, y: proposedContentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
-//        guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else { return .zero }
-//
-//        var offsetAdjustment = CGFloat.greatestFiniteMagnitude
-//        let horizontalCenter = proposedContentOffset.y + collectionView.frame.height / 2
-//
-//        for layoutAttributes in rectAttributes {
-//            let itemHorizontalCenter = layoutAttributes.center.y
-//            if (itemHorizontalCenter - horizontalCenter).magnitude < offsetAdjustment.magnitude {
-//                offsetAdjustment = itemHorizontalCenter - horizontalCenter
-//            }
-//        }
-//
-//        return CGPoint(x: proposedContentOffset.x, y: proposedContentOffset.y + offsetAdjustment)
-//    }
+
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+
+        guard let collectionView = self.collectionView else {
+            let latestOffset = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
+            return latestOffset
+        }
+
+        let targetRect = CGRect(x: 0, y: proposedContentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
+        guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else { return .zero }
+
+        var offsetAdjustment = CGFloat.greatestFiniteMagnitude
+        let verticalCenter = proposedContentOffset.y + collectionView.frame.height / 2
+
+        for layoutAttributes in rectAttributes {
+            let itemVerticalCenter = layoutAttributes.center.y
+            if (itemVerticalCenter - verticalCenter).magnitude < offsetAdjustment.magnitude {
+                offsetAdjustment = itemVerticalCenter - verticalCenter
+            }
+        }
+
+        return CGPoint(x: proposedContentOffset.x, y: proposedContentOffset.y + offsetAdjustment)
+    }
 }
