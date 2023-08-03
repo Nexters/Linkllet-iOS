@@ -315,6 +315,7 @@ extension WalletViewController: UICollectionViewDelegate {
     }
 }
 
+
 // MARK: - LinkListViewControllerDelegate
 extension WalletViewController: LinkListViewControllerDelegate {
     

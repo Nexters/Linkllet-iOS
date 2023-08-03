@@ -10,7 +10,7 @@ import UIKit
 class CarouselLayout: UICollectionViewFlowLayout {
     
     public var sideItemScale: CGFloat = 0.5
-    public var spacing: CGFloat = -100
+    public var spacing: CGFloat = -80
 
     public var isPagingEnabled: Bool = true
     
