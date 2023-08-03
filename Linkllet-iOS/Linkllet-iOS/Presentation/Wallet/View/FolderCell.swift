@@ -13,15 +13,7 @@ final class FolderCell: UICollectionViewCell {
     private let cardView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 40
-        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         return view
-    }()
-    
-    private let plusImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "ico_plus")
-        imageView.isHidden = true
-        return imageView
     }()
     
     private let titleLabel: UILabel = {
@@ -73,7 +65,6 @@ extension FolderCell {
     private func setUI() {
         contentView.addSubview(cardView)
         cardView.addSubview(titleLabel)
-        cardView.addSubview(plusImageView)
         cardView.addSubview(countView)
         countView.addSubview(countLabel)
     }
@@ -91,14 +82,6 @@ extension FolderCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 28),
             titleLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 26)
-        ])
-        
-        plusImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            plusImageView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
-            plusImageView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 19),
-            plusImageView.widthAnchor.constraint(equalToConstant: 28),
-            plusImageView.heightAnchor.constraint(equalToConstant: 28)
         ])
         
         countView.translatesAutoresizingMaskIntoConstraints = false
@@ -120,17 +103,10 @@ extension FolderCell {
 // MARK: - UI
 extension FolderCell {
     
-    func setPlusCell() {
-        cardView.backgroundColor = .blue_01
-        cardView.layer.opacity = 0.8
-        plusImageView.isHidden = false
-        countView.isHidden = true
-    }
-    
     func setFolderCell(_ index: Int, _ data: Folder) {
         titleLabel.text = data.name
         countLabel.text = String(data.size)
-        switch (index - 1) % 3 {
+        switch (index) % 3 {
         case 0:
             cardView.backgroundColor = .blue_02
         case 1:
@@ -143,10 +119,7 @@ extension FolderCell {
     }
     
     private func resetCell() {
-        plusImageView.isHidden = true
         titleLabel.text = nil
         countLabel.text = nil
-        countView.isHidden = false
-        cardView.layer.opacity = 1
     }
 }

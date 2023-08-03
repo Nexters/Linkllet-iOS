@@ -36,6 +36,12 @@ final class WalletViewController: UIViewController {
         return button
     }()
     
+    private let folderButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ico_folder"), for: .normal)
+        return button
+    }()
+    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "img_mainbg")
@@ -43,10 +49,8 @@ final class WalletViewController: UIViewController {
     }()
     
     private let folderCollectionView:  UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 105, right: 0)
+        let layout = CarouselLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = .clear
         view.showsVerticalScrollIndicator = false
         return view
     }()
@@ -115,17 +119,19 @@ final class WalletViewController: UIViewController {
         setErrorView()
         
         if let storedString = UIPasteboard.general.string {
-            guard let urlString = URL(string: storedString) else { return }
-            let alert = UIAlertController(title: nil, message: "복사한 링크 저장하기", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "저장", style: .default) { _ in
-                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: urlString)) {
-                    vc.modalPresentationStyle = .overFullScreen
-                    self.present(vc, animated: true)
+            guard let url = URL(string: storedString) else { return }
+            if UIApplication.shared.canOpenURL(url) {
+                let alert = UIAlertController(title: nil, message: "복사한 링크 저장하기", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "저장", style: .default) { _ in
+                    if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
+                        vc.modalPresentationStyle = .overFullScreen
+                        self.present(vc, animated: true)
+                    }
                 }
+                alert.addAction(okAction)
+                alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+                present(alert, animated: true, completion: nil)
             }
-            alert.addAction(okAction)
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -142,6 +148,7 @@ extension WalletViewController {
         view.addSubview(errorView)
         topBar.addSubview(topBarTitleImage)
         topBar.addSubview(gearButton)
+        topBar.addSubview(folderButton)
         view.addSubview(indicator)
     }
 
@@ -179,7 +186,13 @@ extension WalletViewController {
         gearButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             gearButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
-            gearButton.rightAnchor.constraint(equalTo: topBar.rightAnchor, constant: -18)
+            gearButton.leadingAnchor.constraint(equalTo: topBar.leadingAnchor, constant: 18)
+        ])
+        
+        folderButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            folderButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
+            folderButton.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18)
         ])
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -191,7 +204,7 @@ extension WalletViewController {
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
+            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor),
             folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             folderCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -228,10 +241,7 @@ extension WalletViewController {
         viewModel.folderSubject
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] folders in
-                guard let self = self else { return }
-                let topInset = self.view.safeAreaLayoutGuide.layoutFrame.height - CGFloat(min(folders.count, 3) * 75 + 60) - 160 * view.frame.height / 812
-                self.folderCollectionView.contentInset.top = topInset
-                self.folderCollectionView.reloadData()
+                self?.folderCollectionView.reloadData()
             })
             .store(in: &cancellables)
 
@@ -251,11 +261,11 @@ extension WalletViewController {
             }
             .store(in: &cancellables)
         
-        folderCollectionView.publisher(for: \.contentOffset)
-            .map { max(min(-$0.y, self.folderCollectionView.contentInset.top), 0) }
-            .removeDuplicates()
-            .sink { [weak self] offsetY in
-                self?.backgroundImageView.layer.opacity = Float(offsetY / 250)
+        folderButton.tapPublisher
+            .sink { [weak self] _ in
+                let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true)
             }
             .store(in: &cancellables)
 
@@ -272,7 +282,6 @@ extension WalletViewController {
                 self?.indicator.stopAnimating()
             }
             .store(in: &cancellables)
-
     }
 }
 
@@ -281,36 +290,15 @@ extension WalletViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.folderSubject.value.count + 1
+        return viewModel.folderSubject.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCell.className, for: indexPath) as? FolderCell else { return UICollectionViewCell() }
-        if indexPath.item == 0 {
-            cell.setPlusCell()
-        } else {
-            cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item - 1])
-        }
+        cell.setFolderCell(indexPath.item, viewModel.folderSubject.value[indexPath.item])
         cell.clipsToBounds = false
-        cell.layer.zPosition = CGFloat(indexPath.item)
         return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension WalletViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width - 10, height: 75)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 }
 
@@ -318,21 +306,12 @@ extension WalletViewController: UICollectionViewDelegateFlowLayout {
 extension WalletViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 {
-            let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true)
-        } else {
-            let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item - 1]))
-            vc.delegate = self
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.bounces = scrollView.contentOffset.y < 0
+        let vc = LinkListViewController(viewModel: LinkListViewModel(networkService: NetworkService(), folder: viewModel.folderSubject.value[indexPath.item]))
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
+
 
 // MARK: - LinkListViewControllerDelegate
 extension WalletViewController: LinkListViewControllerDelegate {
