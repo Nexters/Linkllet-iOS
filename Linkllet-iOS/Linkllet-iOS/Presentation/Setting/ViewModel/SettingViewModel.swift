@@ -11,7 +11,8 @@ import Combine
 final class SettingViewModel: ObservableObject {
     
     // MARK: Properties
-    let menus = [["알림 설정", "사용 방법", "서비스 의견 보내기"], ["링크 휴지통"], ["제작자 소개", "현재 버전"]]
+//    let menus = [["알림 설정", "사용 방법", "서비스 의견 보내기"], ["링크 휴지통"], ["제작자 소개", "현재 버전"]]
+    let menus = [["서비스 의견 보내기"]]
     private let network: NetworkService
     private var cancellables = Set<AnyCancellable>()
     

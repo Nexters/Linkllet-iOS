@@ -81,11 +81,21 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3Q-xm-xK6">
+                        <rect key="frame" x="232" y="0.0" width="80" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="Cp1-Oh-rFB"/>
+                            <constraint firstAttribute="height" constant="28" id="ol3-z7-xe3"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="btn_foldeadd"/>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="bOB-SM-0al"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Otf-ww-fOE" secondAttribute="bottom" id="0Ck-eb-pB8"/>
+                <constraint firstItem="o3Q-xm-xK6" firstAttribute="top" secondItem="wnJ-Ve-XP4" secondAttribute="top" id="2BL-5t-RUU"/>
                 <constraint firstItem="olb-Fd-RDq" firstAttribute="leading" secondItem="wnJ-Ve-XP4" secondAttribute="leading" constant="24" id="6kb-rp-5hQ"/>
                 <constraint firstAttribute="trailing" secondItem="om3-T9-GKy" secondAttribute="trailing" constant="16" id="EH9-vb-kj9"/>
                 <constraint firstAttribute="trailing" secondItem="Otf-ww-fOE" secondAttribute="trailing" constant="16" id="Ik5-Uo-ihu"/>
@@ -94,10 +104,12 @@
                 <constraint firstItem="olb-Fd-RDq" firstAttribute="top" secondItem="wnJ-Ve-XP4" secondAttribute="top" id="Z5S-0C-2AW"/>
                 <constraint firstAttribute="trailing" secondItem="olb-Fd-RDq" secondAttribute="trailing" constant="24" id="fVZ-dE-0eX"/>
                 <constraint firstItem="om3-T9-GKy" firstAttribute="leading" secondItem="wnJ-Ve-XP4" secondAttribute="leading" constant="16" id="gRC-20-wpi"/>
+                <constraint firstAttribute="trailing" secondItem="o3Q-xm-xK6" secondAttribute="trailing" constant="28" id="tip-qq-M8G"/>
                 <constraint firstItem="Otf-ww-fOE" firstAttribute="top" secondItem="olb-Fd-RDq" secondAttribute="bottom" constant="16" id="wlw-NY-MFT"/>
             </constraints>
             <size key="customSize" width="340" height="114"/>
             <connections>
+                <outlet property="addFolderButton" destination="o3Q-xm-xK6" id="dFI-2f-JTl"/>
                 <outlet property="collectionView" destination="om3-T9-GKy" id="cTn-lb-sK4"/>
                 <outlet property="collectionViewHeightConstraint" destination="f1k-wK-5UB" id="Kh0-qM-mCr"/>
                 <outlet property="descriptionLabel" destination="Tdi-Ev-SYg" id="vFJ-Rh-JPw"/>
@@ -109,6 +121,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="btn_foldeadd" width="80" height="28"/>
         <image name="ico_arrow_down " width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
