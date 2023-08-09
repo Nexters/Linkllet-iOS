@@ -14,7 +14,8 @@ final class PickFolderLinkFormCell: UICollectionViewCell {
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var dropDownBackgroundView: UIView!
-
+    @IBOutlet weak var addFolderButton: UIButton!
+    
     @IBOutlet private weak var descriptionLabel: UILabel!
 
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -24,6 +25,7 @@ final class PickFolderLinkFormCell: UICollectionViewCell {
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     private(set) var isExpandedPublisher = CurrentValueSubject<Bool, Never>(false)
     private(set) var didSelectItemPublisher = CurrentValueSubject<Folder?, Never>(nil)
+    private(set) var addFolderPublisher = PassthroughSubject<Void, Never>()
 
     private var linkFormItem: PickFolderLinkFormItem?
 
@@ -120,6 +122,13 @@ extension PickFolderLinkFormCell: UICollectionViewDataSource {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     self?.isExpandedPublisher.send(true)
+                }
+                .store(in: &headerView.cancellables)
+            
+            addFolderButton.tapPublisher
+                .sink { [weak self] _ in
+                    self?.isExpandedPublisher.send(false)
+                    self?.addFolderPublisher.send()
                 }
                 .store(in: &headerView.cancellables)
 

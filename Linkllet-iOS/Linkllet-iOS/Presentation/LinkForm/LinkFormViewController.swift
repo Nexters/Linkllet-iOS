@@ -218,6 +218,14 @@ extension LinkFormViewController: UICollectionViewDataSource {
                     self.viewModel.state.items.send(items)
                 }
                 .store(in: &cell.cancellables)
+            
+            cell.addFolderPublisher
+                .sink { [weak self] _ in
+                    let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
+                    vc.modalPresentationStyle = .fullScreen
+                    self?.present(vc, animated: true)
+                }
+                .store(in: &cell.cancellables)
 
             viewModel.state.selectedFolder
                 .receive(on: DispatchQueue.main)
@@ -334,28 +342,10 @@ final class LinkFormViewModel {
         self.initialFolder = initialFolder
         self.pastedUrl = pastedUrl
         setPublisher()
+        getFolders()
     }
 
     func setPublisher() {
-        network.request(FolderEndpoint.getFolders)
-            .tryMap { (data, _) -> [Folder] in
-                let decoder = JSONDecoder()
-                let folders = try decoder.decode([Folder].self, from: data, keyPath: "folderList")
-                return folders
-            }
-            .replaceError(with: [])
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] folders in
-                self?.state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem(folders: folders)])
-                guard let initialFolder = self?.initialFolder else {
-
-                    self?.state.selectedFolder.send(folders.first { $0.type == .default })
-                    return
-                }
-                self?.state.selectedFolder.send(folders.first { $0.id == initialFolder.id })
-            }
-            .store(in: &cancellables)
-
         action.completionAction
             .handleEvents(receiveOutput: { [weak self] _ in
                 guard let self else { return }
@@ -403,6 +393,33 @@ final class LinkFormViewModel {
             self.state.isActionButtonEnabled.send(self.isValid(folder: folder, articleName: articleName, articleURLString: articleURLString))
         }
         .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: .didSaveFolder)
+            .sink { [weak self] _ in
+                self?.getFolders()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func getFolders() {
+        network.request(FolderEndpoint.getFolders)
+            .tryMap { (data, _) -> [Folder] in
+                let decoder = JSONDecoder()
+                let folders = try decoder.decode([Folder].self, from: data, keyPath: "folderList")
+                return folders
+            }
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] folders in
+                self?.state.items.send([CopiedLinkFormItem(), TitleLinkFormItem(), PickFolderLinkFormItem(folders: folders)])
+                guard let initialFolder = self?.initialFolder else {
+
+                    self?.state.selectedFolder.send(folders.first { $0.type == .default })
+                    return
+                }
+                self?.state.selectedFolder.send(folders.first { $0.id == initialFolder.id })
+            }
+            .store(in: &cancellables)
     }
 
     private func isValid(folder: Folder?, articleName: String, articleURLString: String) -> Bool {
