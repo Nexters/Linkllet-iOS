@@ -65,6 +65,10 @@ private extension PickFolderLinkFormCell {
         dropDownBackgroundView.layer.borderWidth = 1
         dropDownBackgroundView.layer.borderColor = UIColor.gray_02.cgColor
         dropDownBackgroundView.layer.cornerRadius = 12
+        
+        addFolderButton.layer.borderWidth = 1
+        addFolderButton.layer.borderColor = UIColor.gray_02.cgColor
+        addFolderButton.layer.cornerRadius = 14
 
         collectionView.isHidden = true
 
