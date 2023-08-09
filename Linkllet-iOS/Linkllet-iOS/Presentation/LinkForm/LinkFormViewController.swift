@@ -220,6 +220,7 @@ extension LinkFormViewController: UICollectionViewDataSource {
                 .store(in: &cell.cancellables)
             
             cell.addFolderPublisher
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     let vc = FolderFormViewController(viewModel: FolderFormViewModel(networkService: NetworkService(), formType: .create))
                     vc.modalPresentationStyle = .fullScreen

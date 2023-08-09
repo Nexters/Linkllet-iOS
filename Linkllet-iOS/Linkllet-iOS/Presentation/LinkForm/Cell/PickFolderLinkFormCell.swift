@@ -14,7 +14,7 @@ final class PickFolderLinkFormCell: UICollectionViewCell {
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var dropDownBackgroundView: UIView!
-    @IBOutlet weak var addFolderButton: UIButton!
+    @IBOutlet private weak var addFolderButton: UIButton!
     
     @IBOutlet private weak var descriptionLabel: UILabel!
 
