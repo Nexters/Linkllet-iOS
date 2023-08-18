@@ -65,7 +65,6 @@ final class LinkListViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 80, right: 0)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
-        view.bounces = false
         view.showsVerticalScrollIndicator = false
         return view
     }()

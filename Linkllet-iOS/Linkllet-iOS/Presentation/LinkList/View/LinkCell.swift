@@ -43,7 +43,7 @@ final class LinkCell: UICollectionViewCell {
     private let saveDateLabel: UILabel = {
         let label = UILabel()
         label.font = .PretendardM(size: 12)
-        label.text = "저장일 ∣ 2023.7.8"
+        label.text = "저장일  ∣  2023.7.8"
         label.textColor = .black
         return label
     }()
@@ -121,10 +121,11 @@ extension LinkCell {
 // MARK: - Custom Methods
 extension LinkCell {
     
-    func setLinkCell(_ data: Article) {
+    func setLinkCell(_ data: Article, isHiddenMoreButton: Bool = false) {
         titleLabel.text = data.name
         urlLabel.text = data.url?.absoluteString
-        saveDateLabel.text = "저장일 ∣ \(data.createAt.split(separator: " ")[0])"
+        saveDateLabel.text = "저장일  ∣  \(data.createAt.split(separator: " ")[0])"
+        moreButton.isHidden = isHiddenMoreButton
     }
     
     private func setPublisher() {
