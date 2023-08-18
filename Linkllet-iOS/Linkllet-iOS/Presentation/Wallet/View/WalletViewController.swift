@@ -42,9 +42,9 @@ final class WalletViewController: UIViewController {
         return button
     }()
     
-    private let stackView: UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         stackView.spacing = 4
         return stackView
     }()
@@ -76,6 +76,7 @@ final class WalletViewController: UIViewController {
         view.startAnimating()
         return view
     }()
+    
     private let errorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -138,10 +139,10 @@ extension WalletViewController {
         view.addSubview(floatingButton)
         view.addSubview(topBar)
         view.addSubview(errorView)
-        stackView.addArrangedSubview(gearButton)
-        stackView.addArrangedSubview(searchButton)
-        stackView.addArrangedSubview(folderButton)
-        topBar.addSubview(stackView)
+        buttonStackView.addArrangedSubview(gearButton)
+        buttonStackView.addArrangedSubview(searchButton)
+        buttonStackView.addArrangedSubview(folderButton)
+        topBar.addSubview(buttonStackView)
         view.addSubview(indicator)
     }
 
@@ -170,10 +171,12 @@ extension WalletViewController {
             topBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60)
         ])
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
-            stackView.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18),
+            buttonStackView.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
+            buttonStackView.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18),
+            buttonStackView.widthAnchor.constraint(equalToConstant: 128),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -198,7 +201,6 @@ extension WalletViewController {
             floatingButton.heightAnchor.constraint(equalToConstant: 64),
             floatingButton.widthAnchor.constraint(equalToConstant: 64)
         ])
-
 
         NSLayoutConstraint.activate([
             errorView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
@@ -238,6 +240,13 @@ extension WalletViewController {
         gearButton.tapPublisher
             .sink { [weak self] _ in
                 let vc = SettingViewController(viewModel: SettingViewModel(networkService: NetworkService()))
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &cancellables)
+        
+        searchButton.tapPublisher
+            .sink { [weak self] _ in
+                let vc = SearchViewController(viewModel: SearchViewModel(networkService: NetworkService()))
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
