@@ -24,15 +24,15 @@ final class WalletViewController: UIViewController {
         return view
     }()
     
-    private let topBarTitleImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "img_logo")
-        return imageView
-    }()
-    
     private let gearButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "ico_gear"), for: .normal)
+        return button
+    }()
+    
+    private let searchButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ico_search"), for: .normal)
         return button
     }()
     
@@ -40,6 +40,13 @@ final class WalletViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "ico_folder"), for: .normal)
         return button
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 4
+        return stackView
     }()
     
     private let backgroundImageView: UIImageView = {
@@ -117,22 +124,7 @@ final class WalletViewController: UIViewController {
         setDelegate()
         setBindings()
         setErrorView()
-        
-        if let storedString = UIPasteboard.general.string {
-            guard let url = URL(string: storedString) else { return }
-            if UIApplication.shared.canOpenURL(url) {
-                let alert = UIAlertController(title: nil, message: "복사한 링크 저장하기", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "저장", style: .default) { _ in
-                    if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
-                        vc.modalPresentationStyle = .overFullScreen
-                        self.present(vc, animated: true)
-                    }
-                }
-                alert.addAction(okAction)
-                alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-                present(alert, animated: true, completion: nil)
-            }
-        }
+        checkPasteboard()
     }
 }
 
@@ -146,9 +138,10 @@ extension WalletViewController {
         view.addSubview(floatingButton)
         view.addSubview(topBar)
         view.addSubview(errorView)
-        topBar.addSubview(topBarTitleImage)
-        topBar.addSubview(gearButton)
-        topBar.addSubview(folderButton)
+        stackView.addArrangedSubview(gearButton)
+        stackView.addArrangedSubview(searchButton)
+        stackView.addArrangedSubview(folderButton)
+        topBar.addSubview(stackView)
         view.addSubview(indicator)
     }
 
@@ -173,26 +166,14 @@ extension WalletViewController {
         NSLayoutConstraint.activate([
             topBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topBar.topAnchor.constraint(equalTo: view.topAnchor),
+            topBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60)
         ])
         
-        topBarTitleImage.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            topBarTitleImage.centerXAnchor.constraint(equalTo: topBar.centerXAnchor),
-            topBarTitleImage.bottomAnchor.constraint(equalTo: topBar.bottomAnchor, constant: -18)
-        ])
-        
-        gearButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            gearButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
-            gearButton.leadingAnchor.constraint(equalTo: topBar.leadingAnchor, constant: 18)
-        ])
-        
-        folderButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            folderButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
-            folderButton.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18)
+            stackView.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
+            stackView.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18),
         ])
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -282,6 +263,19 @@ extension WalletViewController {
                 self?.indicator.stopAnimating()
             }
             .store(in: &cancellables)
+    }
+    
+    private func checkPasteboard() {
+        if let storedString = UIPasteboard.general.string {
+            guard let url = URL(string: storedString) else { return }
+            if UIApplication.shared.canOpenURL(url) {
+                UIViewController.showToast("복사된 링크가 있어요!", rightButtonLabel: "링크 저장하기")
+//                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
+//                    vc.modalPresentationStyle = .overFullScreen
+//                    self.present(vc, animated: true)
+//                }
+            }
+        }
     }
 }
 
