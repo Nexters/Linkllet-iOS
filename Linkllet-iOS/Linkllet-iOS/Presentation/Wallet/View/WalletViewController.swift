@@ -55,11 +55,24 @@ final class WalletViewController: UIViewController {
         return imageView
     }()
     
-    private let folderCollectionView:  UICollectionView = {
+    private let folderCollectionView: UICollectionView = {
         let layout = CarouselLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
         return view
+    }()
+
+    private let countImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "ico_scroll")
+        return imageView
+    }()
+    
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.text = "3 Floders"
+        label.font = .PretendardM(size: 16)
+        return label
     }()
     
     private let floatingButton: UIButton = {
@@ -134,16 +147,9 @@ extension WalletViewController {
     
     private func setUI() {
         view.backgroundColor = .white
-        view.addSubview(backgroundImageView)
-        view.addSubview(folderCollectionView)
-        view.addSubview(floatingButton)
-        view.addSubview(topBar)
-        view.addSubview(errorView)
-        buttonStackView.addArrangedSubview(gearButton)
-        buttonStackView.addArrangedSubview(searchButton)
-        buttonStackView.addArrangedSubview(folderButton)
+        [gearButton, searchButton, folderButton].forEach { buttonStackView.addArrangedSubview($0) }
         topBar.addSubview(buttonStackView)
-        view.addSubview(indicator)
+        [backgroundImageView, folderCollectionView, countImageView, countLabel, floatingButton, topBar, errorView, indicator].forEach { view.addSubview($0) }
     }
 
     private func setErrorView() {
@@ -181,19 +187,34 @@ extension WalletViewController {
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 25),
+            backgroundImageView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 15),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18)
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 290)
         ])
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor),
+            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 15),
             folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            folderCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            folderCollectionView.heightAnchor.constraint(equalToConstant: 200 + 20 * 3)
         ])
         
+        countImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countImageView.topAnchor.constraint(equalTo: folderCollectionView.bottomAnchor, constant: 15),
+            countImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            countImageView.heightAnchor.constraint(equalToConstant: 28),
+            countImageView.widthAnchor.constraint(equalToConstant: 8)
+        ])
+        
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countLabel.topAnchor.constraint(equalTo: countImageView.bottomAnchor, constant: 6),
+            countLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+    
         floatingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             floatingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
@@ -225,6 +246,7 @@ extension WalletViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] folders in
                 self?.folderCollectionView.reloadData()
+                self?.countLabel.text = "\(folders.count) Folders"
             })
             .store(in: &cancellables)
 
