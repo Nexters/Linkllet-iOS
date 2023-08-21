@@ -11,7 +11,7 @@ import Combine
 final class SettingViewController: UIViewController {
     
     // MARK: Properties
-    private var viewModel: SettingViewModel
+    private let viewModel: SettingViewModel
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: UI Component

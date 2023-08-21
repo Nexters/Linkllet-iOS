@@ -11,7 +11,7 @@ import Combine
 final class WalletViewController: UIViewController {
     
     // MARK: Properties
-    private var viewModel: WalletViewModel
+    private let viewModel: WalletViewModel
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: UI Component

@@ -9,8 +9,8 @@ import UIKit
 
 class CarouselLayout: UICollectionViewFlowLayout {
     
-    private var sideItemScale: CGFloat = 0.93
-    private var spacing: CGFloat = -180
+    private let sideItemScale: CGFloat = 0.93
+    private let spacing: CGFloat = -180
     
     private var isSetup: Bool = false
     

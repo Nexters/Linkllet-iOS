@@ -12,7 +12,7 @@ import SafariServices
 final class SearchViewController: UIViewController {
     
     // MARK: Properties
-    private var viewModel: SearchViewModel
+    private let viewModel: SearchViewModel
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: UI Component

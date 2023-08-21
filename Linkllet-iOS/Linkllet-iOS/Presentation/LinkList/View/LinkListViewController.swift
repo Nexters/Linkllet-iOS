@@ -17,7 +17,7 @@ protocol LinkListViewControllerDelegate: NSObject {
 final class LinkListViewController: UIViewController {
     
     // MARK: Properties
-    private var viewModel: LinkListViewModel
+    private let viewModel: LinkListViewModel
     private var cancellables = Set<AnyCancellable>()
     weak var delegate: LinkListViewControllerDelegate?
     

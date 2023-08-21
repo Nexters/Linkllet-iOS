@@ -12,11 +12,10 @@ extension Notification.Name {
     static let didSaveFolder = Notification.Name("didSaveFolder")
 }
 
-
 final class FolderFormViewController: UIViewController {
     
     // MARK: Properties
-    private var viewModel: FolderFormViewModel
+    private let viewModel: FolderFormViewModel
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: UI Component
