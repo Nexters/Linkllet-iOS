@@ -11,8 +11,7 @@ import Combine
 final class LinkCell: UICollectionViewCell {
     
     // MARK: Properties
-    private var cancellables = Set<AnyCancellable>()
-    var deleteLinkClosure: (() -> ())?
+    var cancellables = Set<AnyCancellable>()
     
     // MARK: UI Component
     private let backView: UIView = {
@@ -48,7 +47,7 @@ final class LinkCell: UICollectionViewCell {
         return label
     }()
     
-    private let moreButton: UIButton = {
+    let moreButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "btn_more"), for: .normal)
         button.showsMenuAsPrimaryAction = true
@@ -60,14 +59,12 @@ final class LinkCell: UICollectionViewCell {
         super.init(frame: frame)
         setUI()
         setConstraint()
-        setPublisher()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setConstraint()
-        setPublisher()
     }
 
     override func layoutSubviews() {
@@ -135,16 +132,5 @@ extension LinkCell {
         urlLabel.text = data.url?.absoluteString
         saveDateLabel.text = "저장일  ∣  \(data.createAt.split(separator: " ").first ?? "-")"
         moreButton.isHidden = isHiddenMoreButton
-    }
-    
-    private func setPublisher() {
-        moreButton.tapPublisher
-            .sink { [weak self] _ in
-                let delete = UIAction(title: "링크 삭제하기", handler: { _ in
-                    self?.deleteLinkClosure?()
-                })
-                self?.moreButton.menu = UIMenu(children: [delete])
-            }
-            .store(in: &cancellables)
     }
 }

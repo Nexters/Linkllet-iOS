@@ -298,17 +298,23 @@ extension LinkListViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LinkCell.className, for: indexPath) as? LinkCell else { return UICollectionViewCell() }
         cell.setLinkCell(viewModel.linksSubject.value[indexPath.item])
-        cell.deleteLinkClosure = {
-            let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
-                self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
-                    UIViewController.showToast("링크를 삭제했어요")
-                    self.delegate?.didDeleteLink(self)
+        cell.moreButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let delete = UIAction(title: "링크 삭제하기", handler: { _ in
+                    let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
+                        self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
+                            UIViewController.showToast("링크를 삭제했어요")
+                            self.delegate?.didDeleteLink(self)
+                        })
+                    })
+                    vc.modalPresentationStyle = .overFullScreen
+                    vc.modalTransitionStyle = .crossDissolve
+                    self.present(vc, animated: true, completion: nil)
                 })
-            })
-            vc.modalPresentationStyle = .overFullScreen
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true, completion: nil)
-        }
+                cell.moreButton.menu = UIMenu(children: [delete])
+            }
+            .store(in: &cell.cancellables)
         return cell
     }
 }
