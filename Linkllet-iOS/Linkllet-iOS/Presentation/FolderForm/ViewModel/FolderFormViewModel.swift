@@ -48,7 +48,7 @@ extension FolderFormViewModel {
             return
         }
         
-        network.request(FolderEndpoint.createFolder(name: titleSubject.value))
+        network.request(FolderEndpoint.createFolder(name: titleSubject.value.trimmingCharacters(in: .whitespaces)))
             .tryMap { (data, response) in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {
@@ -76,7 +76,7 @@ extension FolderFormViewModel {
             return
         }
         
-        network.request(FolderEndpoint.editFolder(id: folder.id, name: titleSubject.value))
+        network.request(FolderEndpoint.editFolder(id: folder.id, name: titleSubject.value.trimmingCharacters(in: .whitespaces)))
             .tryMap { (data, response) in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 204 else {
