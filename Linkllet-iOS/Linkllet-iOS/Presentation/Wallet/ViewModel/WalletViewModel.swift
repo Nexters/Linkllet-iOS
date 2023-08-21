@@ -12,6 +12,7 @@ final class WalletViewModel {
     
     // MARK: Properties
     let folderSubject = CurrentValueSubject<[Folder], Never>([])
+    let pasteboard = CurrentValueSubject<String, Never>("")
     let showIndicator = PassthroughSubject<Void, Never>()
     let hideIndicator = PassthroughSubject<Void, Never>()
     private let network: NetworkService

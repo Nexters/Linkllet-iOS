@@ -93,8 +93,32 @@ final class WalletViewController: UIViewController {
     private let errorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let toastView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.8)
+        view.layer.cornerRadius = 12
+        view.isHidden = true
+        return view
+    }()
+
+    private let toastLabel: UILabel = {
+        let label = UILabel()
+        label.text = "복사된 링크가 있어요!"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+
+    private let toastSaveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("링크 저장하기", for: .normal)
+        button.titleLabel?.font = .PretendardM(size: 12)
+        button.setTitleColor(.white, for: .normal)
+        button.setUnderline()
+        return button
     }()
     
     // MARK: Life Cycle
@@ -149,7 +173,8 @@ extension WalletViewController {
         view.backgroundColor = .white
         [gearButton, searchButton, folderButton].forEach { buttonStackView.addArrangedSubview($0) }
         topBar.addSubview(buttonStackView)
-        [backgroundImageView, folderCollectionView, countImageView, countLabel, floatingButton, topBar, errorView, indicator].forEach { view.addSubview($0) }
+        [backgroundImageView, folderCollectionView, countImageView, countLabel, floatingButton, topBar, errorView, indicator, toastView].forEach { view.addSubview($0) }
+        [toastLabel, toastSaveButton].forEach { toastView.addSubview($0) }
     }
 
     private func setErrorView() {
@@ -223,11 +248,32 @@ extension WalletViewController {
             floatingButton.widthAnchor.constraint(equalToConstant: 64)
         ])
 
+        errorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             errorView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
             errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toastView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            toastView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            toastView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            toastView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        toastLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toastLabel.leadingAnchor.constraint(equalTo: toastView.leadingAnchor, constant: 20),
+            toastLabel.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
+        ])
+        
+        toastSaveButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toastSaveButton.trailingAnchor.constraint(equalTo: toastView.trailingAnchor, constant: -20),
+            toastSaveButton.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
         ])
     }
 }
@@ -280,6 +326,15 @@ extension WalletViewController {
                 self?.present(vc, animated: true)
             }
             .store(in: &cancellables)
+        
+        toastSaveButton.tapPublisher
+            .sink { [weak self] _ in
+                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: URL(string: self?.viewModel.pasteboard.value ?? ""))) {
+                    vc.modalPresentationStyle = .overFullScreen
+                    self?.present(vc, animated: true)
+                }
+            }
+            .store(in: &cancellables)
 
         viewModel.showIndicator
             .receive(on: DispatchQueue.main)
@@ -297,14 +352,16 @@ extension WalletViewController {
     }
     
     private func checkPasteboard() {
-        if let storedString = UIPasteboard.general.string {
-            guard let url = URL(string: storedString) else { return }
-            if UIApplication.shared.canOpenURL(url) {
-                UIViewController.showToast("복사된 링크가 있어요!", rightButtonLabel: "링크 저장하기")
-//                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
-//                    vc.modalPresentationStyle = .overFullScreen
-//                    self.present(vc, animated: true)
-//                }
+        if let storedString = UIPasteboard.general.string,
+           let url = URL(string: storedString), UIApplication.shared.canOpenURL(url) {
+            viewModel.pasteboard.send(storedString)
+            self.toastView.isHidden = false
+            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.toastView.alpha = 0
+                }, completion: { _ in
+                    self.toastView.isHidden = true
+                })
             }
         }
     }

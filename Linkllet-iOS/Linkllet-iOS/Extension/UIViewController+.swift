@@ -13,7 +13,7 @@ extension UIViewController {
         return String(describing: Self.self)
     }
 
-    static func showToast(_ message : String, rightButtonLabel: String = "") {
+    static func showToast(_ message : String) {
 
         guard let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {
             return
@@ -33,20 +33,9 @@ extension UIViewController {
             label.font = UIFont.systemFont(ofSize: 12)
             return label
         }()
-        
-        let saveButton: UIButton = {
-            let button = UIButton()
-            button.setTitle(rightButtonLabel, for: .normal)
-            button.titleLabel?.font = .PretendardM(size: 12)
-            button.setTitleColor(.white, for: .normal)
-            button.setUnderline()
-            button.isHidden = rightButtonLabel.isEmpty
-            return button
-        }()
             
         keyWindow.addSubview(toastView)
         toastView.addSubview(toastLabel)
-        toastView.addSubview(saveButton)
         
         toastView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -57,24 +46,11 @@ extension UIViewController {
         ])
 
         toastLabel.translatesAutoresizingMaskIntoConstraints = false
-        if rightButtonLabel.isEmpty {
-            NSLayoutConstraint.activate([
-                toastLabel.centerXAnchor.constraint(equalTo: toastView.centerXAnchor),
-                toastLabel.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                toastLabel.leadingAnchor.constraint(equalTo: toastView.leadingAnchor, constant: 20),
-                toastLabel.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
-            ])
-        }
-        
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            saveButton.trailingAnchor.constraint(equalTo: toastView.trailingAnchor, constant: -20),
-            saveButton.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
+            toastLabel.centerXAnchor.constraint(equalTo: toastView.centerXAnchor),
+            toastLabel.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
         ])
-            
+
         UIView.animate(withDuration: 0.3, delay: 2, options: .curveEaseInOut, animations: {
             toastView.alpha = 0.0
         }, completion: {(isCompleted) in
