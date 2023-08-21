@@ -15,6 +15,7 @@ enum FolderEndpoint {
     case getArticlesInFolder(folderID: String)
     case createArticleInFolder(articleName: String, articleURL: String, folderID: String)
     case deleteArticleInFolder(articleID: Int64, folderID: Int64)
+    case searchArticles(content: String)
 }
 
 extension FolderEndpoint: Endpoint {
@@ -34,12 +35,14 @@ extension FolderEndpoint: Endpoint {
             return "folders/\(folderID)/articles"
         case .deleteArticleInFolder(let articleID, let folderID):
             return "folders/\(folderID)/articles/\(articleID)"
+        case .searchArticles(_):
+            return "folders/search"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getFolders, .getArticlesInFolder:
+        case .getFolders, .getArticlesInFolder, .searchArticles:
             return .get
         case .createFolder, .createArticleInFolder:
             return .post
@@ -58,6 +61,8 @@ extension FolderEndpoint: Endpoint {
             return .requestBody(["updateName": name])
         case .createArticleInFolder(let articleName, let articleURL, _):
             return .requestBody(["name": articleName, "url": articleURL])
+        case .searchArticles(let content):
+            return .requestQuery(["content": content])
         default:
             return .requestPlain
         }

@@ -24,15 +24,15 @@ final class WalletViewController: UIViewController {
         return view
     }()
     
-    private let topBarTitleImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "img_logo")
-        return imageView
-    }()
-    
     private let gearButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "ico_gear"), for: .normal)
+        return button
+    }()
+    
+    private let searchButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ico_search"), for: .normal)
         return button
     }()
     
@@ -42,17 +42,37 @@ final class WalletViewController: UIViewController {
         return button
     }()
     
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        stackView.spacing = 4
+        return stackView
+    }()
+    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "img_mainbg")
         return imageView
     }()
     
-    private let folderCollectionView:  UICollectionView = {
+    private let folderCollectionView: UICollectionView = {
         let layout = CarouselLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
         return view
+    }()
+
+    private let countImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "ico_scroll")
+        return imageView
+    }()
+    
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.text = "3 Floders"
+        label.font = .PretendardM(size: 16)
+        return label
     }()
     
     private let floatingButton: UIButton = {
@@ -69,6 +89,7 @@ final class WalletViewController: UIViewController {
         view.startAnimating()
         return view
     }()
+    
     private let errorView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -117,22 +138,7 @@ final class WalletViewController: UIViewController {
         setDelegate()
         setBindings()
         setErrorView()
-        
-        if let storedString = UIPasteboard.general.string {
-            guard let url = URL(string: storedString) else { return }
-            if UIApplication.shared.canOpenURL(url) {
-                let alert = UIAlertController(title: nil, message: "복사한 링크 저장하기", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "저장", style: .default) { _ in
-                    if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
-                        vc.modalPresentationStyle = .overFullScreen
-                        self.present(vc, animated: true)
-                    }
-                }
-                alert.addAction(okAction)
-                alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-                present(alert, animated: true, completion: nil)
-            }
-        }
+        checkPasteboard()
     }
 }
 
@@ -141,15 +147,9 @@ extension WalletViewController {
     
     private func setUI() {
         view.backgroundColor = .white
-        view.addSubview(backgroundImageView)
-        view.addSubview(folderCollectionView)
-        view.addSubview(floatingButton)
-        view.addSubview(topBar)
-        view.addSubview(errorView)
-        topBar.addSubview(topBarTitleImage)
-        topBar.addSubview(gearButton)
-        topBar.addSubview(folderButton)
-        view.addSubview(indicator)
+        [gearButton, searchButton, folderButton].forEach { buttonStackView.addArrangedSubview($0) }
+        topBar.addSubview(buttonStackView)
+        [backgroundImageView, folderCollectionView, countImageView, countLabel, floatingButton, topBar, errorView, indicator].forEach { view.addSubview($0) }
     }
 
     private func setErrorView() {
@@ -173,43 +173,48 @@ extension WalletViewController {
         NSLayoutConstraint.activate([
             topBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topBar.topAnchor.constraint(equalTo: view.topAnchor),
+            topBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60)
         ])
         
-        topBarTitleImage.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            topBarTitleImage.centerXAnchor.constraint(equalTo: topBar.centerXAnchor),
-            topBarTitleImage.bottomAnchor.constraint(equalTo: topBar.bottomAnchor, constant: -18)
-        ])
-        
-        gearButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            gearButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
-            gearButton.leadingAnchor.constraint(equalTo: topBar.leadingAnchor, constant: 18)
-        ])
-        
-        folderButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            folderButton.centerYAnchor.constraint(equalTo: topBarTitleImage.centerYAnchor),
-            folderButton.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18)
+            buttonStackView.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
+            buttonStackView.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18),
+            buttonStackView.widthAnchor.constraint(equalToConstant: 128),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 25),
+            backgroundImageView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: 15),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18)
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 290)
         ])
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor),
+            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 15),
             folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            folderCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            folderCollectionView.heightAnchor.constraint(equalToConstant: 200 + 20 * 3)
         ])
         
+        countImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countImageView.topAnchor.constraint(equalTo: folderCollectionView.bottomAnchor, constant: 15),
+            countImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            countImageView.heightAnchor.constraint(equalToConstant: 28),
+            countImageView.widthAnchor.constraint(equalToConstant: 8)
+        ])
+        
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countLabel.topAnchor.constraint(equalTo: countImageView.bottomAnchor, constant: 6),
+            countLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+    
         floatingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             floatingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
@@ -217,7 +222,6 @@ extension WalletViewController {
             floatingButton.heightAnchor.constraint(equalToConstant: 64),
             floatingButton.widthAnchor.constraint(equalToConstant: 64)
         ])
-
 
         NSLayoutConstraint.activate([
             errorView.topAnchor.constraint(equalTo: topBar.bottomAnchor),
@@ -242,6 +246,7 @@ extension WalletViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] folders in
                 self?.folderCollectionView.reloadData()
+                self?.countLabel.text = "\(folders.count) Folders"
             })
             .store(in: &cancellables)
 
@@ -257,6 +262,13 @@ extension WalletViewController {
         gearButton.tapPublisher
             .sink { [weak self] _ in
                 let vc = SettingViewController(viewModel: SettingViewModel(networkService: NetworkService()))
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &cancellables)
+        
+        searchButton.tapPublisher
+            .sink { [weak self] _ in
+                let vc = SearchViewController(viewModel: SearchViewModel(networkService: NetworkService()))
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
@@ -282,6 +294,19 @@ extension WalletViewController {
                 self?.indicator.stopAnimating()
             }
             .store(in: &cancellables)
+    }
+    
+    private func checkPasteboard() {
+        if let storedString = UIPasteboard.general.string {
+            guard let url = URL(string: storedString) else { return }
+            if UIApplication.shared.canOpenURL(url) {
+                UIViewController.showToast("복사된 링크가 있어요!", rightButtonLabel: "링크 저장하기")
+//                if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
+//                    vc.modalPresentationStyle = .overFullScreen
+//                    self.present(vc, animated: true)
+//                }
+            }
+        }
     }
 }
 

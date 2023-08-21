@@ -75,7 +75,7 @@ extension FolderCell {
             cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cardView.heightAnchor.constraint(equalToConstant: 180)
+            cardView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +89,7 @@ extension FolderCell {
             countView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -32),
             countView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             countView.heightAnchor.constraint(equalToConstant: 22),
-            countView.widthAnchor.constraint(equalToConstant: 30)
+            countView.widthAnchor.constraint(equalToConstant: 24)
         ])
         
         countLabel.translatesAutoresizingMaskIntoConstraints = false

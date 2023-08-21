@@ -32,6 +32,8 @@
 		84D021442A66CB03000946A8 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84D021432A66CB03000946A8 /* Pretendard-Medium.otf */; };
 		84D021462A66D064000946A8 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D021452A66D064000946A8 /* WalletViewModel.swift */; };
 		84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D0214E2A6959F8000946A8 /* PopupViewController.swift */; };
+		84EED2B42A8F339000E221BC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EED2B32A8F339000E221BC /* SearchViewController.swift */; };
+		84EED2B62A8F33F500E221BC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EED2B52A8F33F500E221BC /* SearchViewModel.swift */; };
 		B95DFF852A655155000B7947 /* LinkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF842A655155000B7947 /* LinkFormViewController.swift */; };
 		B95DFF872A6551BC000B7947 /* LinkForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B95DFF862A6551BC000B7947 /* LinkForm.storyboard */; };
 		B95DFF8A2A655270000B7947 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DFF892A655270000B7947 /* UIColor+.swift */; };
@@ -82,6 +84,8 @@
 		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		84D021452A66D064000946A8 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		84EED2B32A8F339000E221BC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		84EED2B52A8F33F500E221BC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
 		B95DFF862A6551BC000B7947 /* LinkForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LinkForm.storyboard; sourceTree = "<group>"; };
 		B95DFF892A655270000B7947 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 			children = (
 				84D0214D2A6959C9000946A8 /* Global */,
 				84D021372A66842E000946A8 /* Wallet */,
+				84EED2AE2A8F332C00E221BC /* Search */,
 				8422E4992A6A1AC80003CBF0 /* LinkList */,
 				B95DFF832A65512F000B7947 /* LinkForm */,
 				846AFECE2A65541800C0F629 /* FolderForm */,
@@ -317,6 +322,31 @@
 				84D0214E2A6959F8000946A8 /* PopupViewController.swift */,
 			);
 			path = Global;
+			sourceTree = "<group>";
+		};
+		84EED2AE2A8F332C00E221BC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				84EED2AF2A8F336600E221BC /* View */,
+				84EED2B02A8F336C00E221BC /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		84EED2AF2A8F336600E221BC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84EED2B32A8F339000E221BC /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84EED2B02A8F336C00E221BC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84EED2B52A8F33F500E221BC /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B95DFF832A65512F000B7947 /* LinkForm */ = {
@@ -457,6 +487,7 @@
 				B95DFF9E2A66CAE7000B7947 /* Folder.swift in Sources */,
 				B95DFFA02A66CAF0000B7947 /* Article.swift in Sources */,
 				B95DFFA22A66CFDC000B7947 /* MemberEndpoint.swift in Sources */,
+				84EED2B62A8F33F500E221BC /* SearchViewModel.swift in Sources */,
 				84D0214F2A6959F8000946A8 /* PopupViewController.swift in Sources */,
 				84D0213D2A66C8D4000946A8 /* UIFont+.swift in Sources */,
 				846AFEC22A654D9500C0F629 /* NetworkService.swift in Sources */,
@@ -479,6 +510,7 @@
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
 				845601FC2A70EC6E00426255 /* SettingViewModel.swift in Sources */,
+				84EED2B42A8F339000E221BC /* SearchViewController.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
 				845601FA2A70E17400426255 /* UITableViewCell+.swift in Sources */,
 				B95DFF9A2A6592FF000B7947 /* PickFolderLinkFormCell.swift in Sources */,
