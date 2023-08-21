@@ -20,7 +20,7 @@ enum FormType {
     case edit
 }
 
-final class FolderFormViewModel: ObservableObject {
+final class FolderFormViewModel {
     
     // MARK: Properties
     let folder: Folder

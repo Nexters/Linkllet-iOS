@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class LinkListViewModel: ObservableObject {
+final class LinkListViewModel {
     
     // MARK: Properties
     let folder: Folder

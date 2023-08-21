@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class WalletViewModel: ObservableObject {
+final class WalletViewModel {
     
     // MARK: Properties
     let folderSubject = CurrentValueSubject<[Folder], Never>([])
