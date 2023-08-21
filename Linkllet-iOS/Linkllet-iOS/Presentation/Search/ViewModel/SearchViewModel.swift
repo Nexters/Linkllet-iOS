@@ -37,7 +37,7 @@ final class SearchViewModel: ObservableObject {
 extension SearchViewModel {
     
     func getLinks() {
-        if (state.inputSubject.value.count < 2) {
+        guard state.inputSubject.value.count >= 2 else {
             action.showToast.send("2글자 이상 입력해주세요")
             return
         }
