@@ -61,9 +61,8 @@ final class LinkListViewController: UIViewController {
     }()
     
     private let linkCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 80, right: 0)
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.contentInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 80, right: 0)
         view.backgroundColor = .clear
         view.showsVerticalScrollIndicator = false
         return view
@@ -100,7 +99,7 @@ final class LinkListViewController: UIViewController {
 
 // MARK: - UI
 extension LinkListViewController {
-    
+
     private func setUI() {
         view.backgroundColor = .white
         view.addSubview(topBar)
@@ -110,6 +109,38 @@ extension LinkListViewController {
         view.addSubview(linkCollectionView)
         view.addSubview(floatingButton)
         view.addSubview(emptyLabel)
+
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = false
+        configuration.trailingSwipeActionsConfigurationProvider = { indexPath in
+
+            let closeAction = UIContextualAction(
+                style: .destructive,
+                title: "삭제하기",
+                handler: { [weak self] _, _, _ in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self else { return }
+
+                        let vc = PopupViewController(message: "링크를 삭제할건가요?", confirmAction: {
+                            self.viewModel.deleteLink(articleID: self.viewModel.linksSubject.value[indexPath.item].id, completion: {
+                                UIViewController.showToast("링크를 삭제했어요")
+                                self.delegate?.didDeleteLink(self)
+                            })
+                        }, cancelAction: { [weak self] in
+                            self?.linkCollectionView.reloadItems(at: [indexPath])
+                        })
+                        vc.modalPresentationStyle = .overFullScreen
+                        vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true, completion: nil)
+                    }
+
+                }
+            )
+            return UISwipeActionsConfiguration(actions: [closeAction])
+        }
+let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        linkCollectionView.setCollectionViewLayout(layout, animated: false)
     }
     
     private func setConstraint() {

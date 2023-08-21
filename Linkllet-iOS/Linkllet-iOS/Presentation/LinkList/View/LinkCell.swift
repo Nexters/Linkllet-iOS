@@ -69,6 +69,14 @@ final class LinkCell: UICollectionViewCell {
         setConstraint()
         setPublisher()
     }
+
+    override func layoutSubviews() {
+          super.layoutSubviews()
+          //set the values for top,left,bottom,right margins
+          let margins = UIEdgeInsets(top: 4, left: 18, bottom: 4, right: 18)
+          contentView.frame = contentView.frame.inset(by: margins)
+          contentView.layer.cornerRadius = 8
+    }
 }
 
 // MARK: - UI
@@ -81,6 +89,7 @@ extension LinkCell {
     
     private func setConstraint() {
         backView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         NSLayoutConstraint.activate([
             backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
