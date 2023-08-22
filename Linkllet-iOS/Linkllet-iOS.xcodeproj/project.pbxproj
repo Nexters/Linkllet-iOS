@@ -100,6 +100,7 @@
 		B95DFF9D2A66CAE7000B7947 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		B95DFF9F2A66CAF0000B7947 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndpoint.swift; sourceTree = "<group>"; };
+		B9D77C2B2A94F1D400A57842 /* Linkllet-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Linkllet-iOS.entitlements"; sourceTree = "<group>"; };
 		CE0484D12A715CF600F51CF0 /* ReachabliltyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabliltyManager.swift; sourceTree = "<group>"; };
 		CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoManager.swift; sourceTree = "<group>"; };
 		CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderDropDownCell.swift; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 		8479BE242A5804AC00A5FEDF /* Linkllet-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B9D77C2B2A94F1D400A57842 /* Linkllet-iOS.entitlements */,
 				CE3240512A66D6A100B0C90D /* Utilities */,
 				B95DFF9C2A66CACF000B7947 /* Models */,
 				846AFEBD2A654D0B00C0F629 /* Network */,
@@ -657,6 +659,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Linkllet-iOS/Linkllet-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -679,7 +682,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linkllet.Linkllet-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dochoi_linkllet;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = linklletDevelopment;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -694,6 +697,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Linkllet-iOS/Linkllet-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -716,7 +720,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linkllet.Linkllet-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dochoi_linkllet;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = linklletDevelopment;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
