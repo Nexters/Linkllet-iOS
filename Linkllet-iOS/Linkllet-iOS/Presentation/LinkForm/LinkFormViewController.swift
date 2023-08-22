@@ -145,7 +145,11 @@ extension LinkFormViewController: UICollectionViewDataSource {
             cell.updateUI(with: item)
 
             cell.textField.keyboardType = .URL
-            cell.textField.text = viewModel.pastedUrl?.absoluteString
+            if let pastedUrl = viewModel.pastedUrl?.absoluteString {
+                cell.textField.text = pastedUrl
+                cell.textFieldDidChange(pastedUrl)
+            }
+            
             cell.textFieldDidChangePublisher
                 .sink { [weak self] urlString in
                     self?.viewModel.state.articleURLString.send(urlString)
