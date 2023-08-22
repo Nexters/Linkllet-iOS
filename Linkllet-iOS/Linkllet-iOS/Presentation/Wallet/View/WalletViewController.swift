@@ -121,6 +121,12 @@ final class WalletViewController: UIViewController {
         return button
     }()
     
+    private let segmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: [UIImage(named: "ico_rotation")!, UIImage(named: "ico_list")!])
+        control.selectedSegmentIndex = 0
+        return control
+    }()
+    
     // MARK: Life Cycle
     init(viewModel: WalletViewModel) {
         self.viewModel = viewModel
@@ -163,6 +169,7 @@ final class WalletViewController: UIViewController {
         setBindings()
         setErrorView()
         checkPasteboard()
+        setSegmentedControl()
     }
 }
 
@@ -172,7 +179,7 @@ extension WalletViewController {
     private func setUI() {
         view.backgroundColor = .white
         [gearButton, searchButton, folderButton].forEach { buttonStackView.addArrangedSubview($0) }
-        topBar.addSubview(buttonStackView)
+        [buttonStackView, segmentedControl].forEach{ topBar.addSubview($0) }
         [backgroundImageView, folderCollectionView, countImageView, countLabel, floatingButton, topBar, errorView, indicator, toastView].forEach { view.addSubview($0) }
         [toastLabel, toastSaveButton].forEach { toastView.addSubview($0) }
     }
@@ -208,6 +215,14 @@ extension WalletViewController {
             buttonStackView.trailingAnchor.constraint(equalTo: topBar.trailingAnchor, constant: -18),
             buttonStackView.widthAnchor.constraint(equalToConstant: 128),
             buttonStackView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            segmentedControl.leadingAnchor.constraint(equalTo: topBar.leadingAnchor, constant: 18),
+            segmentedControl.centerYAnchor.constraint(equalTo: topBar.centerYAnchor),
+            segmentedControl.widthAnchor.constraint(equalToConstant: 70),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 40)
         ])
      
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -349,6 +364,28 @@ extension WalletViewController {
                 self?.indicator.stopAnimating()
             }
             .store(in: &cancellables)
+        
+        viewModel.selectedSegment
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] index in
+                if index == 0 {
+                    self?.segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.black), forSegmentAt: 0)
+                    self?.segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.gray_03), forSegmentAt: 1)
+                    
+                    self?.backgroundImageView.alpha = 1
+                    
+                } else {
+                    self?.segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.gray_03), forSegmentAt: 0)
+                    self?.segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.black), forSegmentAt: 1)
+                    
+                    self?.backgroundImageView.alpha = 0.1
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func setSegmentedControl() {
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
     }
     
     private func checkPasteboard() {
@@ -364,6 +401,14 @@ extension WalletViewController {
                 })
             }
         }
+    }
+}
+
+// MARK: - @objc Methods
+extension WalletViewController {
+    
+    @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        viewModel.selectedSegment.send(sender.selectedSegmentIndex)
     }
 }
 

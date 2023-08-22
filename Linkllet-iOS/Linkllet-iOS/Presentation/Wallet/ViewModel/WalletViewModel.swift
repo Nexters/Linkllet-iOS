@@ -15,6 +15,8 @@ final class WalletViewModel {
     let pasteboard = CurrentValueSubject<String, Never>("")
     let showIndicator = PassthroughSubject<Void, Never>()
     let hideIndicator = PassthroughSubject<Void, Never>()
+    var selectedSegment = CurrentValueSubject<Int, Never>(0)
+    
     private let network: NetworkService
     private var cancellables = Set<AnyCancellable>()
     
