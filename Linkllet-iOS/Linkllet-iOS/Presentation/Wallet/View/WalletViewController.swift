@@ -379,24 +379,24 @@ extension WalletViewController {
                     segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.black), forSegmentAt: 0)
                     segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.gray_03), forSegmentAt: 1)
                     
-                    backgroundImageView.alpha = 1
-                    
-                    countImageView.isHidden = false
-                    countLabel.isHidden = false
-                    
                     collectionViewBottomConstraint.constant = -117
                     collectionViewTopConstraint.constant = backgroundImageView.frame.height + 40
                     
                     let layout = CarouselLayout()
                     folderCollectionView.collectionViewLayout = layout
+
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.countImageView.alpha = 1
+                        self.countLabel.alpha = 1
+                        self.backgroundImageView.alpha = 1
+                        self.folderCollectionView.layoutIfNeeded()
+                    }, completion: { _ in
+                        self.countImageView.isHidden = false
+                        self.countLabel.isHidden = false
+                    })
                 } else {
                     segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.gray_03), forSegmentAt: 0)
                     segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.black), forSegmentAt: 1)
-                    
-                    backgroundImageView.alpha = 0.1
-                    
-                    countImageView.isHidden = true
-                    countLabel.isHidden = true
                     
                     collectionViewBottomConstraint.constant = -50
                     collectionViewTopConstraint.constant = 0
@@ -407,6 +407,16 @@ extension WalletViewController {
                     layout.itemSize = CGSize(width: folderCollectionView.frame.width, height: 75)
                     layout.minimumLineSpacing = 0
                     folderCollectionView.collectionViewLayout = layout
+                    
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.countImageView.alpha = 0
+                        self.countLabel.alpha = 0
+                        self.backgroundImageView.alpha = 0.1
+                        self.folderCollectionView.layoutIfNeeded()
+                    }, completion: { _ in
+                        self.countImageView.isHidden = true
+                        self.countLabel.isHidden = true
+                    })
                 }
             }
             .store(in: &cancellables)
