@@ -13,6 +13,8 @@ final class WalletViewController: UIViewController {
     // MARK: Properties
     private let viewModel: WalletViewModel
     private var cancellables = Set<AnyCancellable>()
+    private var collectionViewBottomConstraint: NSLayoutConstraint!
+    private var collectionViewTopConstraint: NSLayoutConstraint!
 
     // MARK: UI Component
     private let topBar: UIView = {
@@ -58,6 +60,7 @@ final class WalletViewController: UIViewController {
     private let folderCollectionView: UICollectionView = {
         let layout = CarouselLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
         view.showsVerticalScrollIndicator = false
         return view
     }()
@@ -234,11 +237,13 @@ extension WalletViewController {
         ])
         
         folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionViewTopConstraint = folderCollectionView.topAnchor.constraint(equalTo: topBar.bottomAnchor, constant: backgroundImageView.frame.height + 40)
+        collectionViewBottomConstraint = folderCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
         NSLayoutConstraint.activate([
-            folderCollectionView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 15),
-            folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            folderCollectionView.heightAnchor.constraint(equalToConstant: 200 + 20 * 3)
+            collectionViewTopConstraint,
+            collectionViewBottomConstraint,
+            folderCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            folderCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
         ])
         
         countImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -248,7 +253,7 @@ extension WalletViewController {
             countImageView.heightAnchor.constraint(equalToConstant: 28),
             countImageView.widthAnchor.constraint(equalToConstant: 8)
         ])
-        
+
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             countLabel.topAnchor.constraint(equalTo: countImageView.bottomAnchor, constant: 6),
@@ -368,17 +373,40 @@ extension WalletViewController {
         viewModel.selectedSegment
             .receive(on: DispatchQueue.main)
             .sink { [weak self] index in
+                guard let self = self else { return }
+                
                 if index == 0 {
-                    self?.segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.black), forSegmentAt: 0)
-                    self?.segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.gray_03), forSegmentAt: 1)
+                    segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.black), forSegmentAt: 0)
+                    segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.gray_03), forSegmentAt: 1)
                     
-                    self?.backgroundImageView.alpha = 1
+                    backgroundImageView.alpha = 1
                     
+                    countImageView.isHidden = false
+                    countLabel.isHidden = false
+                    
+                    collectionViewBottomConstraint.constant = -117
+                    collectionViewTopConstraint.constant = backgroundImageView.frame.height + 40
+                    
+                    let layout = CarouselLayout()
+                    folderCollectionView.collectionViewLayout = layout
                 } else {
-                    self?.segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.gray_03), forSegmentAt: 0)
-                    self?.segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.black), forSegmentAt: 1)
+                    segmentedControl.setImage(UIImage(named: "ico_rotation")?.withTintColor(.gray_03), forSegmentAt: 0)
+                    segmentedControl.setImage(UIImage(named: "ico_list")?.withTintColor(.black), forSegmentAt: 1)
                     
-                    self?.backgroundImageView.alpha = 0.1
+                    backgroundImageView.alpha = 0.1
+                    
+                    countImageView.isHidden = true
+                    countLabel.isHidden = true
+                    
+                    collectionViewBottomConstraint.constant = -50
+                    collectionViewTopConstraint.constant = 0
+                    
+                    let layout = UICollectionViewFlowLayout()
+                    let topInset = view.safeAreaLayoutGuide.layoutFrame.height - topBar.frame.height - CGFloat(200 + 75 * (viewModel.folderSubject.value.count - 1) + 50)
+                    layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 200 - 75, right: 0)
+                    layout.itemSize = CGSize(width: folderCollectionView.frame.width, height: 75)
+                    layout.minimumLineSpacing = 0
+                    folderCollectionView.collectionViewLayout = layout
                 }
             }
             .store(in: &cancellables)
