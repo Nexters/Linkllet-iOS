@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import KakaoSDKUser
 
 final class LoginViewController: UIViewController {
     
@@ -60,7 +61,7 @@ final class LoginViewController: UIViewController {
         button.layer.cornerRadius = 14
         return button
     }()
-    
+
     // MARK: Life Cycle
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
@@ -77,6 +78,7 @@ final class LoginViewController: UIViewController {
 
         setUI()
         setConstraints()
+        setPublisher()
     }
 }
 
@@ -114,5 +116,56 @@ extension LoginViewController {
             skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             skipButton.widthAnchor.constraint(equalToConstant: CGFloat(skipButton.titleLabel!.text!.count * 12))
         ])
+    }
+}
+
+// MARK: - Custom Methods
+extension LoginViewController {
+    
+    private func setPublisher() {
+        
+        kakaoButton.tapPublisher
+            .sink { [weak self] _ in
+                if (UserApi.isKakaoTalkLoginAvailable()) {
+                    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            self?.getUserInfo()
+                        }
+                    }
+                }
+                else {
+                    UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            self?.getUserInfo()
+                        }
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - Custom Methods
+extension LoginViewController {
+    
+    private func getUserInfo() {
+        UserApi.shared.me() {(user, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                if let uuid = user?.id {
+                    MemberInfoManager.default.registerMember(String(uuid))
+                    self.dismiss(animated: true)
+                } else {
+                    UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
+                }
+            }
+        }
     }
 }

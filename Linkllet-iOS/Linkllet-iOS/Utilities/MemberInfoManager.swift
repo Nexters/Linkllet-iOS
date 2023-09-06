@@ -11,12 +11,12 @@ import UIKit
 
 final class MemberInfoManager {
 
-    static private let userDefaultsKey = "deviceId"
+    static private let userDefaultsKey = "uuid"
 
     private var cancellables = Set<AnyCancellable>()
     private let useCase: MemberInfoUsecase
 
-    private(set) var deviceIdPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
+    private(set) var uuidPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
 
     static let `default` = MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))
 
@@ -24,14 +24,13 @@ final class MemberInfoManager {
         self.useCase = useCase
     }
 
-    func registerMember() {
-        guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else { return }
-        useCase.reigster(deviceId)
+    func registerMember(_ uuid: String) {
+        useCase.reigster(uuid)
             .retry(3)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                UserDefaults.standard.set(deviceId, forKey: Self.userDefaultsKey)
-                self?.deviceIdPublisher.send(deviceId)
+                UserDefaults.standard.set(uuid, forKey: Self.userDefaultsKey)
+                self?.uuidPublisher.send(uuid)
             }
             .store(in: &cancellables)
     }
@@ -45,8 +44,8 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
         self.network = network
     }
 
-    func reigster(_ deviceId: String) -> AnyPublisher<Bool, Never> {
-        return network.request(MemberEndpoint.register(deviceId: deviceId))
+    func reigster(_ uuid: String) -> AnyPublisher<Bool, Never> {
+        return network.request(MemberEndpoint.register(uuid: uuid))
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {

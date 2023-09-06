@@ -5,22 +5,17 @@
 //  Created by Juhyeon Byun on 2023/07/07.
 //
 
-import Combine
 import UIKit
+import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    private var cancellables = Set<AnyCancellable>()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        ReachabliltyManager.shared.isConnectedPublisher
-            .sink { isConnected in
-                guard isConnected else { return }
-                if MemberInfoManager.default.deviceIdPublisher.value.isEmpty {
-                    MemberInfoManager.default.registerMember()
-                }
-            }
-            .store(in: &cancellables)
+        
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String {
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
 
         return true
     }

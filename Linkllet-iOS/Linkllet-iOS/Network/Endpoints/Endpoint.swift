@@ -17,7 +17,7 @@ protocol Endpoint {
 
 extension Endpoint {
     var baseURL: URL {
-        return URL(string: "http://52.78.166.82:8080/api/v1/")!
+        return URL(string: "http://43.202.122.225:8080/api/v1/")!
     }
     
     var urlRequest: URLRequest? {
@@ -40,7 +40,7 @@ extension Endpoint {
             request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
 
         case .auth:
-            request.setValue(MemberInfoManager.default.deviceIdPublisher.value, forHTTPHeaderField: HTTPHeaderField.deviceID.rawValue)
+            request.setValue(MemberInfoManager.default.uuidPublisher.value, forHTTPHeaderField: HTTPHeaderField.deviceID.rawValue)
             request.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         }
 
