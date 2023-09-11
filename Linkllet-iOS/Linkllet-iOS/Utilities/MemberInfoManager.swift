@@ -25,7 +25,7 @@ final class MemberInfoManager {
     }
 
     func registerMember(_ uuid: String) {
-        useCase.reigster(uuid)
+        useCase.register(uuid)
             .retry(3)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -44,7 +44,7 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
         self.network = network
     }
 
-    func reigster(_ uuid: String) -> AnyPublisher<Bool, Never> {
+    func register(_ uuid: String) -> AnyPublisher<Bool, Never> {
         return network.request(MemberEndpoint.register(uuid: uuid))
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
@@ -61,5 +61,5 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
 }
 
 protocol MemberInfoUsecase {
-    func reigster(_ deviceId: String) -> AnyPublisher<Bool, Never>
+    func register(_ deviceId: String) -> AnyPublisher<Bool, Never>
 }

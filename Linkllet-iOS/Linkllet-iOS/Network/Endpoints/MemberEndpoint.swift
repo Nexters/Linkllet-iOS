@@ -32,8 +32,7 @@ extension MemberEndpoint: Endpoint {
     var parameters: RequestParams {
         switch self {
         case .register(let uuid):
-            // TODO: - requestbody 체크 필요
-            return .requestBody(["email": uuid])
+            return .requestBody(["deviceId": uuid])
         case .createFeedback(let feedback):
             return .requestBody(["feedback": feedback])
         }
