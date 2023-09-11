@@ -123,7 +123,7 @@ final class WalletViewController: UIViewController {
             .store(in: &cancellables)
 
         MemberInfoManager.default.uuidPublisher
-            .prefix(1)
+            .prefix(2)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uuid in
                 if uuid.isEmpty {
