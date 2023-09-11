@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import KakaoSDKUser
+import AuthenticationServices
 
 final class LoginViewController: UIViewController {
     
@@ -132,7 +133,7 @@ extension LoginViewController {
                             print(error)
                         }
                         else {
-                            self?.getUserInfo()
+                            self?.getKakaoUserInfo()
                         }
                     }
                 }
@@ -141,10 +142,22 @@ extension LoginViewController {
                         if let error = error {
                             print(error)
                         } else {
-                            self?.getUserInfo()
+                            self?.getKakaoUserInfo()
                         }
                     }
                 }
+            }
+            .store(in: &cancellables)
+        
+        appleButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                let request = ASAuthorizationAppleIDProvider().createRequest()
+                
+                let controller = ASAuthorizationController(authorizationRequests: [request])
+                controller.delegate = self
+                controller.presentationContextProvider = self
+                controller.performRequests()
             }
             .store(in: &cancellables)
     }
@@ -153,7 +166,7 @@ extension LoginViewController {
 // MARK: - Custom Methods
 extension LoginViewController {
     
-    private func getUserInfo() {
+    private func getKakaoUserInfo() {
         UserApi.shared.me() {(user, error) in
             if let error = error {
                 print(error)
@@ -167,5 +180,30 @@ extension LoginViewController {
                 }
             }
         }
+    }
+}
+
+// MARK: - ASAuthorizationControllerDelegate
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
+            return
+        }
+        MemberInfoManager.default.registerMember(credential.user)
+        self.dismiss(animated: true)
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        guard error is ASAuthorizationError else {return}
+        UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
+     }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
