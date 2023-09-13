@@ -34,6 +34,11 @@ final class MemberInfoManager {
             }
             .store(in: &cancellables)
     }
+    
+    func logout() {
+        UserDefaults.standard.set(nil, forKey: Self.userDefaultsKey)
+        uuidPublisher.send("")
+    }
 }
 
 struct RealMemberInfoUsecase: MemberInfoUsecase {

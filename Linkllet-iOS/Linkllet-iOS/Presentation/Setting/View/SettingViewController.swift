@@ -157,10 +157,14 @@ extension SettingViewController: UITableViewDelegate {
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             present(alert, animated: true, completion: nil)
         } else {
-            let vc = PopupViewController(message: "해당 기능은 준비중입니다 :)")
-            vc.modalPresentationStyle = .overFullScreen
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true, completion: nil)
+            let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                MemberInfoManager.default.logout()
+                self.navigationController?.popViewController(animated: true)
+            }
+            alert.addAction(okAction)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            present(alert, animated: true, completion: nil)
         }
     }
 }

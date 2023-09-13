@@ -123,13 +123,12 @@ final class WalletViewController: UIViewController {
             .store(in: &cancellables)
 
         MemberInfoManager.default.uuidPublisher
-            .prefix(2)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uuid in
                 if uuid.isEmpty {
                     let vc = LoginViewController(viewModel: LoginViewModel(networkService: NetworkService()))
                     vc.modalPresentationStyle = .overFullScreen
-                    self?.present(vc, animated: false)
+                    self?.present(vc, animated: true)
                 }else {
                     self?.indicator.stopAnimating()
                     self?.viewModel.getFolders()
