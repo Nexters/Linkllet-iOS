@@ -159,6 +159,13 @@ extension LoginViewController {
                 controller.performRequests()
             }
             .store(in: &cancellables)
+        
+        skipButton.tapPublisher
+            .sink { [weak self] _ in
+                guard let uuid = UIDevice.current.identifierForVendor?.uuidString else { return }
+                MemberInfoManager.default.registerMember(uuid)
+                self?.dismiss(animated: true)
+            }.store(in: &cancellables)
     }
 }
 
