@@ -129,18 +129,17 @@ extension LoginViewController {
             .sink { [weak self] _ in
                 if (UserApi.isKakaoTalkLoginAvailable()) {
                     UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                        if let error = error {
-                            print(error)
-                        }
-                        else {
+                        if error != nil {
+                            UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
+                        } else {
                             self?.getKakaoUserInfo()
                         }
                     }
                 }
                 else {
                     UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                        if let error = error {
-                            print(error)
+                        if error != nil {
+                            UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
                         } else {
                             self?.getKakaoUserInfo()
                         }
@@ -168,17 +167,12 @@ extension LoginViewController {
     
     private func getKakaoUserInfo() {
         UserApi.shared.me() {(user, error) in
-            if let error = error {
-                print(error)
+            guard let uuid = user?.id else {
+                UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
+                return
             }
-            else {
-                if let uuid = user?.id {
-                    MemberInfoManager.default.registerMember(String(uuid))
-                    self.dismiss(animated: true)
-                } else {
-                    UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
-                }
-            }
+            MemberInfoManager.default.registerMember(String(uuid))
+            self.dismiss(animated: true)
         }
     }
 }
@@ -195,7 +189,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        guard error is ASAuthorizationError else {return}
+        guard error is ASAuthorizationError else { return }
         UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
      }
 }
