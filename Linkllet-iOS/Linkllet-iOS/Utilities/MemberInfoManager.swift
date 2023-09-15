@@ -11,17 +11,18 @@ import UIKit
 
 final class MemberInfoManager {
 
-    static private let userDefaultsKey = "uuid"
+    static private let userDefaultsKey = "userIdentifier"
 
     private var cancellables = Set<AnyCancellable>()
     private let useCase: MemberInfoUsecase
 
-    private(set) var uuidPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
+    private(set) var userIdentifierPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
 
     static let `default` = MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))
 
     init(useCase: MemberInfoUsecase) {
         self.useCase = useCase
+        UserDefaults.standard.set(UUID().uuidString, forKey: "uuid")
     }
 
     func registerMember(_ uuid: String) {
@@ -30,14 +31,14 @@ final class MemberInfoManager {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 UserDefaults.standard.set(uuid, forKey: Self.userDefaultsKey)
-                self?.uuidPublisher.send(uuid)
+                self?.userIdentifierPublisher.send(uuid)
             }
             .store(in: &cancellables)
     }
     
     func logout() {
         UserDefaults.standard.set(nil, forKey: Self.userDefaultsKey)
-        uuidPublisher.send("")
+        userIdentifierPublisher.send("")
     }
 }
 
@@ -50,7 +51,7 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
     }
 
     func register(_ uuid: String) -> AnyPublisher<Bool, Never> {
-        return network.request(MemberEndpoint.register(uuid: uuid))
+        return network.request(MemberEndpoint.register(userIdentifier: uuid))
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {
@@ -66,5 +67,5 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
 }
 
 protocol MemberInfoUsecase {
-    func register(_ deviceId: String) -> AnyPublisher<Bool, Never>
+    func register(_ uuid: String) -> AnyPublisher<Bool, Never>
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 enum MemberEndpoint {
-    case register(uuid: String)
+    case register(userIdentifier: String)
     case createFeedback(feedback: String)
 }
 
@@ -31,8 +31,8 @@ extension MemberEndpoint: Endpoint {
 
     var parameters: RequestParams {
         switch self {
-        case .register(let uuid):
-            return .requestBody(["deviceId": uuid])
+        case .register(let userIdentifier):
+            return .requestBody(["deviceId": userIdentifier])
         case .createFeedback(let feedback):
             return .requestBody(["feedback": feedback])
         }

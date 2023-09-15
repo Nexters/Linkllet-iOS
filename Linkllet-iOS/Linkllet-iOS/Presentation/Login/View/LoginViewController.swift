@@ -129,20 +129,20 @@ extension LoginViewController {
             .sink { [weak self] _ in
                 if (UserApi.isKakaoTalkLoginAvailable()) {
                     UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                        if error != nil {
+                        guard error == nil else {
                             UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
-                        } else {
-                            self?.getKakaoUserInfo()
+                            return
                         }
+                        self?.getKakaoUserInfo()
                     }
                 }
                 else {
                     UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                        if error != nil {
+                        guard error == nil else {
                             UIViewController.showToast("문제가 발생하였습니다. 다시 시도해주세요.")
-                        } else {
-                            self?.getKakaoUserInfo()
+                            return
                         }
+                        self?.getKakaoUserInfo()
                     }
                 }
             }
@@ -162,7 +162,7 @@ extension LoginViewController {
         
         skipButton.tapPublisher
             .sink { [weak self] _ in
-                guard let uuid = UIDevice.current.identifierForVendor?.uuidString else { return }
+                guard let uuid = UserDefaults.standard.string(forKey: "uuid") else { return }
                 MemberInfoManager.default.registerMember(uuid)
                 self?.dismiss(animated: true)
             }.store(in: &cancellables)

@@ -117,15 +117,15 @@ final class WalletViewController: UIViewController {
             .sink { [weak self] isConnected in
                 guard let self else { return }
                 self.errorView.isHidden = isConnected
-                guard isConnected, !MemberInfoManager.default.uuidPublisher.value.isEmpty else { return }
+                guard isConnected, !MemberInfoManager.default.userIdentifierPublisher.value.isEmpty else { return }
                 self.viewModel.getFolders()
             }
             .store(in: &cancellables)
 
-        MemberInfoManager.default.uuidPublisher
+        MemberInfoManager.default.userIdentifierPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] uuid in
-                if uuid.isEmpty {
+            .sink { [weak self] userIdentifier in
+                if userIdentifier.isEmpty {
                     let vc = LoginViewController(viewModel: LoginViewModel(networkService: NetworkService()))
                     vc.modalPresentationStyle = .overFullScreen
                     self?.present(vc, animated: true)
