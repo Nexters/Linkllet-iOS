@@ -11,29 +11,34 @@ import UIKit
 
 final class MemberInfoManager {
 
-    static private let userDefaultsKey = "deviceId"
+    static private let userDefaultsKey = "userIdentifier"
 
     private var cancellables = Set<AnyCancellable>()
     private let useCase: MemberInfoUsecase
 
-    private(set) var deviceIdPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
+    private(set) var userIdentifierPublisher = CurrentValueSubject<String, Never>(UserDefaults.standard.string(forKey: MemberInfoManager.userDefaultsKey) ?? "")
 
     static let `default` = MemberInfoManager(useCase: RealMemberInfoUsecase(network: NetworkService()))
 
     init(useCase: MemberInfoUsecase) {
         self.useCase = useCase
+        UserDefaults.standard.set(UUID().uuidString, forKey: "uuid")
     }
 
-    func registerMember() {
-        guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else { return }
-        useCase.reigster(deviceId)
+    func registerMember(_ uuid: String) {
+        useCase.register(uuid)
             .retry(3)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                UserDefaults.standard.set(deviceId, forKey: Self.userDefaultsKey)
-                self?.deviceIdPublisher.send(deviceId)
+                UserDefaults.standard.set(uuid, forKey: Self.userDefaultsKey)
+                self?.userIdentifierPublisher.send(uuid)
             }
             .store(in: &cancellables)
+    }
+    
+    func logout() {
+        UserDefaults.standard.set(nil, forKey: Self.userDefaultsKey)
+        userIdentifierPublisher.send("")
     }
 }
 
@@ -45,8 +50,8 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
         self.network = network
     }
 
-    func reigster(_ deviceId: String) -> AnyPublisher<Bool, Never> {
-        return network.request(MemberEndpoint.register(deviceId: deviceId))
+    func register(_ uuid: String) -> AnyPublisher<Bool, Never> {
+        return network.request(MemberEndpoint.register(userIdentifier: uuid))
             .tryMap { data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {
@@ -62,5 +67,5 @@ struct RealMemberInfoUsecase: MemberInfoUsecase {
 }
 
 protocol MemberInfoUsecase {
-    func reigster(_ deviceId: String) -> AnyPublisher<Bool, Never>
+    func register(_ uuid: String) -> AnyPublisher<Bool, Never>
 }

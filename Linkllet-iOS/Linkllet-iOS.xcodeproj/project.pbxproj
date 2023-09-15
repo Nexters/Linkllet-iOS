@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841123B62AA0887000508ECD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841123B52AA0887000508ECD /* LoginViewController.swift */; };
+		841123B82AA0887800508ECD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841123B72AA0887800508ECD /* LoginViewModel.swift */; };
 		8422E49D2A6A1B1F0003CBF0 /* LinkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */; };
 		8422E49F2A6A1B2F0003CBF0 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */; };
 		8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */; };
+		84426DF72AA59B5A00014A4F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84426DF62AA59B5A00014A4F /* KakaoSDKAuth */; };
+		84426DF92AA59B5A00014A4F /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 84426DF82AA59B5A00014A4F /* KakaoSDKCommon */; };
+		84426DFB2AA59B5A00014A4F /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 84426DFA2AA59B5A00014A4F /* KakaoSDKUser */; };
 		845601F42A70D98600426255 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601F32A70D98600426255 /* SettingViewController.swift */; };
 		845601F82A70DED700426255 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601F72A70DED700426255 /* MenuCell.swift */; };
 		845601FA2A70E17400426255 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845601F92A70E17400426255 /* UITableViewCell+.swift */; };
@@ -57,6 +62,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841123B52AA0887000508ECD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		841123B72AA0887800508ECD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8422E49C2A6A1B1F0003CBF0 /* LinkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListViewController.swift; sourceTree = "<group>"; };
 		8422E49E2A6A1B2F0003CBF0 /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
 		8422E4A02A6A1B510003CBF0 /* LinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListViewModel.swift; sourceTree = "<group>"; };
@@ -84,6 +91,7 @@
 		84D021432A66CB03000946A8 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		84D021452A66D064000946A8 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		84D0214E2A6959F8000946A8 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		84D92E2E2AA8952500BC8ECF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		84EED2B32A8F339000E221BC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		84EED2B52A8F33F500E221BC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		B95DFF842A655155000B7947 /* LinkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkFormViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +108,7 @@
 		B95DFF9D2A66CAE7000B7947 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		B95DFF9F2A66CAF0000B7947 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		B95DFFA12A66CFDC000B7947 /* MemberEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEndpoint.swift; sourceTree = "<group>"; };
+		B9D77C2B2A94F1D400A57842 /* Linkllet-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Linkllet-iOS.entitlements"; sourceTree = "<group>"; };
 		CE0484D12A715CF600F51CF0 /* ReachabliltyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabliltyManager.swift; sourceTree = "<group>"; };
 		CE3240522A66D6E400B0C90D /* MemberInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoManager.swift; sourceTree = "<group>"; };
 		CEAA35862A682B6600261EBC /* PickFolderDropDownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickFolderDropDownCell.swift; sourceTree = "<group>"; };
@@ -113,12 +122,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84426DF92AA59B5A00014A4F /* KakaoSDKCommon in Frameworks */,
+				84426DF72AA59B5A00014A4F /* KakaoSDKAuth in Frameworks */,
+				84426DFB2AA59B5A00014A4F /* KakaoSDKUser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841123B22AA087EB00508ECD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				841123B32AA0880800508ECD /* View */,
+				841123B42AA0880D00508ECD /* ViewModel */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		841123B32AA0880800508ECD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				841123B52AA0887000508ECD /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		841123B42AA0880D00508ECD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				841123B72AA0887800508ECD /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8422E4992A6A1AC80003CBF0 /* LinkList */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +264,7 @@
 		8479BE242A5804AC00A5FEDF /* Linkllet-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B9D77C2B2A94F1D400A57842 /* Linkllet-iOS.entitlements */,
 				CE3240512A66D6A100B0C90D /* Utilities */,
 				B95DFF9C2A66CACF000B7947 /* Models */,
 				846AFEBD2A654D0B00C0F629 /* Network */,
@@ -246,6 +284,7 @@
 				8479BE272A5804AC00A5FEDF /* SceneDelegate.swift */,
 				8479BE2E2A5804AD00A5FEDF /* Assets.xcassets */,
 				8479BE302A5804AD00A5FEDF /* LaunchScreen.storyboard */,
+				84D92E2E2AA8952500BC8ECF /* Config.xcconfig */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -254,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				84D0214D2A6959C9000946A8 /* Global */,
+				841123B22AA087EB00508ECD /* Login */,
 				84D021372A66842E000946A8 /* Wallet */,
 				84EED2AE2A8F332C00E221BC /* Search */,
 				8422E4992A6A1AC80003CBF0 /* LinkList */,
@@ -422,6 +462,11 @@
 			dependencies = (
 			);
 			name = "Linkllet-iOS";
+			packageProductDependencies = (
+				84426DF62AA59B5A00014A4F /* KakaoSDKAuth */,
+				84426DF82AA59B5A00014A4F /* KakaoSDKCommon */,
+				84426DFA2AA59B5A00014A4F /* KakaoSDKUser */,
+			);
 			productName = "Linkllet-iOS";
 			productReference = 8479BE222A5804AC00A5FEDF /* Linkllet-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -450,6 +495,9 @@
 				Base,
 			);
 			mainGroup = 8479BE192A5804AC00A5FEDF;
+			packageReferences = (
+				84426DF52AA59B5A00014A4F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			productRefGroup = 8479BE232A5804AC00A5FEDF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -507,9 +555,11 @@
 				8479BE262A5804AC00A5FEDF /* AppDelegate.swift in Sources */,
 				846AFED02A65543100C0F629 /* FolderFormViewController.swift in Sources */,
 				8422E4A12A6A1B510003CBF0 /* LinkListViewModel.swift in Sources */,
+				841123B62AA0887000508ECD /* LoginViewController.swift in Sources */,
 				846AFEC52A654DBB00C0F629 /* Endpoint.swift in Sources */,
 				8479BE282A5804AC00A5FEDF /* SceneDelegate.swift in Sources */,
 				845601FC2A70EC6E00426255 /* SettingViewModel.swift in Sources */,
+				841123B82AA0887800508ECD /* LoginViewModel.swift in Sources */,
 				84EED2B42A8F339000E221BC /* SearchViewController.swift in Sources */,
 				B95DFF8E2A655AC4000B7947 /* UIControl+Combine.swift in Sources */,
 				845601FA2A70E17400426255 /* UITableViewCell+.swift in Sources */,
@@ -654,9 +704,11 @@
 		};
 		8479BE372A5804AD00A5FEDF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84D92E2E2AA8952500BC8ECF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Linkllet-iOS/Linkllet-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -679,7 +731,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linkllet.Linkllet-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dochoi_linkllet;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = linklletDevelopment;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -691,9 +743,11 @@
 		};
 		8479BE382A5804AD00A5FEDF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84D92E2E2AA8952500BC8ECF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Linkllet-iOS/Linkllet-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -716,7 +770,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.linkllet.Linkllet-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dochoi_linkllet;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = linklletDevelopment;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -748,6 +802,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84426DF52AA59B5A00014A4F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84426DF62AA59B5A00014A4F /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84426DF52AA59B5A00014A4F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		84426DF82AA59B5A00014A4F /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84426DF52AA59B5A00014A4F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		84426DFA2AA59B5A00014A4F /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84426DF52AA59B5A00014A4F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8479BE1A2A5804AC00A5FEDF /* Project object */;
 }
