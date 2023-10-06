@@ -139,7 +139,7 @@ extension LinkListViewController {
             )
             return UISwipeActionsConfiguration(actions: [closeAction])
         }
-let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         linkCollectionView.setCollectionViewLayout(layout, animated: false)
     }
     
@@ -315,7 +315,7 @@ extension LinkListViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension LinkListViewController: UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

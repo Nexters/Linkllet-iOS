@@ -303,11 +303,12 @@ extension WalletViewController {
         .debounce(for: 0.5, scheduler: DispatchQueue.main)
         .sink { (_, storedString) in
             guard let url = URL(string: storedString ?? "") else { return }
-            if UIApplication.shared.canOpenURL(url) {
+            if UIApplication.shared.canOpenURL(url), !MemberInfoManager.default.userIdentifierPublisher.value.isEmpty {
                 UIViewController.showToast("복사된 링크가 있어요!", buttonTitleString: "링크 저장하기") {
                     if let vc = LinkFormViewController.create(viewModel: LinkFormViewModel(pastedUrl: url)) {
                         vc.modalPresentationStyle = .overFullScreen
                         self.present(vc, animated: true)
+                        UIPasteboard.general.string = ""
                     }
                 }
             }

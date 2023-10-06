@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import CoreData
 
 final class LinkFormViewController: UIViewController {
 
@@ -31,6 +32,20 @@ final class LinkFormViewController: UIViewController {
 
         setView()
         setPublisher()
+
+//        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//            let fetchRequestForTest: NSFetchRequest<CDFolder> = CDFolder.fetchRequest()
+//            do {
+//                if let result = try? appDelegate.persistentContainer.viewContext.fetch(fetchRequestForTest) {
+//                    for data in result  {
+//                        print(data)
+//                    }
+//                }
+//            } catch {
+//                print("Fetching data Failed")
+//            }
+//        }
+
     }
 
 }
@@ -347,6 +362,7 @@ final class LinkFormViewModel {
     }
 
     func setPublisher() {
+
         action.completionAction
             .handleEvents(receiveOutput: { [weak self] _ in
                 guard let self else { return }
@@ -380,9 +396,46 @@ final class LinkFormViewModel {
             .switchToLatest()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isSuccess in
-                guard isSuccess else { return }
-                NotificationCenter.default.post(name: .didCreateLink, object: nil, userInfo: ["folderID": (self?.state.selectedFolder.value?.id ?? -1)])
-                self?.action.close.send(())
+                guard let self,
+                      isSuccess else { return }
+
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                   let folderName = self.state.selectedFolder.value?.name {
+                    let mainContext = appDelegate.persistentContainer.viewContext
+                    let fetchRequest: NSFetchRequest<CDFolder> = CDFolder.fetchRequest()
+                    let predicate = NSPredicate(format: "name = %@", folderName)
+                    fetchRequest.predicate = predicate
+                    appDelegate.persistentContainer.performBackgroundTask { _ in
+                        do {
+                            let result = try mainContext.fetch(fetchRequest)
+                            guard let folder = result.first else {
+                                let folder = CDFolder(context: mainContext)
+                                folder.id = UUID().uuidString
+                                folder.name = folderName
+                                let article = CDArticle(context: mainContext)
+                                article.id = UUID().uuidString
+                                article.name = folderName
+                                article.createAt = Date()
+                                article.url = URL(string: self.state.articleURLString.value)
+                                folder.addToArticles(article)
+                                appDelegate.saveContext()
+                                return
+                            }
+                            let article = CDArticle(context: mainContext)
+                            article.id = UUID().uuidString
+                            article.name = folderName
+                            article.createAt = Date()
+                            article.url = URL(string: self.state.articleURLString.value)
+                            folder.addToArticles(article)
+                            appDelegate.saveContext()
+                        } catch {
+                            print("Fetching data Failed")
+                        }
+                    }
+                }
+
+                NotificationCenter.default.post(name: .didCreateLink, object: nil, userInfo: ["folderID": (self.state.selectedFolder.value?.id ?? -1)])
+                self.action.close.send(())
             }
             .store(in: &cancellables)
 

@@ -25,7 +25,7 @@ extension UIViewController {
             view.layer.cornerRadius = 12
             return view
         }()
-    
+
         let toastLabel: UILabel = {
             let label = UILabel()
             label.text = message
@@ -79,18 +79,44 @@ extension UIViewController {
             actionButton.trailingAnchor.constraint(equalTo: toastView.trailingAnchor, constant: -20),
             actionButton.centerYAnchor.constraint(equalTo: toastView.centerYAnchor)
         ])
-       let action =  UIAction { _ in
-           buttonAction?()
-           let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
-               toastView.alpha = 0.0
-           }
+        let action =  UIAction { _ in
+            buttonAction?()
+            let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+                toastView.alpha = 0.0
+            }
 
-           animator.addCompletion { _ in
-               toastView.removeFromSuperview()
-           }
-           animator.startAnimation()
+            animator.addCompletion { _ in
+                toastView.removeFromSuperview()
+            }
+            animator.startAnimation()
         }
         actionButton.addAction(action, for: .touchUpInside)
+        let gestureRecognizer = BindableGestureRecognizer { recognizer in
+            let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+                toastView.alpha = 0.0
+            }
 
+            animator.addCompletion { _ in
+                toastView.removeFromSuperview()
+                keyWindow.removeGestureRecognizer(recognizer)
+            }
+            animator.startAnimation()
+        }
+        gestureRecognizer.cancelsTouchesInView = false
+        keyWindow.addGestureRecognizer(gestureRecognizer)
+    }
+}
+
+private final class BindableGestureRecognizer: UITapGestureRecognizer {
+    private let action: (BindableGestureRecognizer) -> Void
+
+    init(action: @escaping (BindableGestureRecognizer) -> Void) {
+        self.action = action
+        super.init(target: nil, action: nil)
+        self.addTarget(self, action: #selector(execute))
+    }
+
+    @objc private func execute() {
+        action(self)
     }
 }

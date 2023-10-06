@@ -89,7 +89,10 @@ extension LinkCell {
     
     private func setConstraint() {
         backView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        contentView.translatesAutoresizingMaskIntoConstraints = false
+        let constraint = backView.heightAnchor.constraint(equalToConstant: 100)
+        constraint.priority = .init(999)
+        constraint.isActive = true
         NSLayoutConstraint.activate([
             backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -124,6 +127,7 @@ extension LinkCell {
             moreButton.heightAnchor.constraint(equalToConstant: 28),
             moreButton.widthAnchor.constraint(equalToConstant: 28),
         ])
+        layoutIfNeeded()
     }
 }
 

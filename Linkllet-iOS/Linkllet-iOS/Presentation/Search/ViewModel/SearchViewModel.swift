@@ -41,7 +41,8 @@ extension SearchViewModel {
             action.showToast.send("2글자 이상 입력해주세요")
             return
         }
-        
+
+        // TODO 추후 클라에서 처리
         network.request(FolderEndpoint.searchArticles(content: state.inputSubject.value))
             .tryMap { (data, _) -> [Article] in
                 let decoder = JSONDecoder()
